@@ -16,7 +16,7 @@ s.sampleRate
 e.query
 
 ////////////buffer from recording from granulator file
-~e = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/composition/#3/sc/ synth/audio files/gran wind modfreq2.wav")
+~e = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/2/wind s.wav")
 );
 
 //////////individual Synth Definitions which apply band pass filters in 30 individual tones to the noise recording from Granulator file, in stereo)
@@ -330,6 +330,38 @@ Synth.new(\wind13_9);1.999.rand.wait;
 Synth.new(\wind14_10);1.999.rand.wait;
 Synth.new(\wind15_11);1.999.rand.wait;
 Synth.new(\wind16_12);1.999.rand.wait;
+Synth.new(\windb1_1);1.999.rand.wait;
+Synth.new(\windb2_1);1.999.rand.wait;
+Synth.new(\windb3_2);1.999.rand.wait;
+Synth.new(\windb4_3);1.999.rand.wait;
+Synth.new(\windb3_1);1.999.rand.wait;
+Synth.new(\windb4_2);1.999.rand.wait;
+Synth.new(\windb5_3);1.999.rand.wait;
+Synth.new(\windb6_4);1.999.rand.wait;
+Synth.new(\windb7_5);1.999.rand.wait;
+Synth.new(\windb8_6);1.999.rand.wait;
+Synth.new(\windb4_1);1.999.rand.wait;
+Synth.new(\windb5_2);1.999.rand.wait;
+Synth.new(\windb6_3);1.999.rand.wait;
+Synth.new(\windb7_4);1.999.rand.wait;
+Synth.new(\windb8_5);1.999.rand.wait;
+Synth.new(\windb9_6);1.999.rand.wait;
+Synth.new(\windb10_7);1.999.rand.wait;
+Synth.new(\windb11_8);1.999.rand.wait;
+Synth.new(\windb12_9);1.999.rand.wait;
+Synth.new(\windb5_1);1.999.rand.wait;
+Synth.new(\windb6_2);1.999.rand.wait;
+Synth.new(\windb7_3);1.999.rand.wait;
+Synth.new(\windb8_4);1.999.rand.wait;
+Synth.new(\windb9_5);1.999.rand.wait;
+Synth.new(\windb10_6);1.999.rand.wait;
+Synth.new(\windb11_7);1.999.rand.wait;
+Synth.new(\windb12_8);1.999.rand.wait;
+Synth.new(\windb13_9);1.999.rand.wait;
+Synth.new(\windb14_10);1.999.rand.wait;
+Synth.new(\windb15_11);1.999.rand.wait;
+Synth.new(\windb16_12);1.999.rand.wait;
+
 }
 )})
 )
