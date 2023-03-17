@@ -11,8 +11,8 @@ s.sampleRate
 e.query
 
 ////////////////Buffers left and right mono channels/recordings from carrier_so files
-e = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/composition/#3/sc/ synth/audio files/left carrier modfreq2.wav");
-k = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/composition/#3/sc/ synth/audio files/right carrier modfreq2.wav");
+e = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/3/l correct carrier.wav");
+k = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/3/r correct carrier.wav");
 
 
 

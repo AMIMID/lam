@@ -44,7 +44,7 @@ SynthDef.new(\oa, {
 	detune=1;
 	modamp=1;
 	freq =(((4*2)-1)*((4*2)/2))*frequency;
-	modfreq=0.00025;
+	modfreq=0.0001;
 
  fundamental=((4*cf)-1)*((4*cf)/2);
 
@@ -75,13 +75,13 @@ osc_1 = (Pan4.ar((SinOsc.ar(freq:((note1*f2)*over1)+detune.real,mul:((cf*note1)*
 ,xpos:SinOsc.ar(detune.real*rotation,phase:detune.theta+0.degrad),ypos:SinOsc.ar(detune.imag*rotation,phase:detune.theta+0.degrad)));
 
 
-osc_2 = (Pan4.ar((SinOsc.ar(freq:((note2*f2)*over1)+detune.real,mul:((cf*note2)*over1).reciprocal,phase:(angle).degrad)
+osc_2 = (Pan4.ar((SinOsc.ar(freq:((note2*f2)*over1)+detune.imag,mul:((cf*note2)*over1).reciprocal,phase:(angle).degrad)
 		*
-		SinOsc.ar(freq:((note2*f2)*over2)+detune.real,mul:((cf*note2)*over2).reciprocal,phase:(angle).degrad))
+		SinOsc.ar(freq:((note2*f2)*over2)+detune.imag,mul:((cf*note2)*over2).reciprocal,phase:(angle).degrad))
 		+
-		(SinOsc.ar(freq:((note2*freq)*over1)+detune.real,mul:((cf*note2)*over1).reciprocal*modamp,phase:(angle).degrad)
+		(SinOsc.ar(freq:((note2*freq)*over1)+detune.imag,mul:((cf*note2)*over1).reciprocal*modamp,phase:(angle).degrad)
 		*
-		SinOsc.ar(freq:((note2*freq)*over2)+detune.real,mul:((cf*note2)*over2).reciprocal*modamp,phase:(angle).degrad))
+		SinOsc.ar(freq:((note2*freq)*over2)+detune.imag,mul:((cf*note2)*over2).reciprocal*modamp,phase:(angle).degrad))
 
 ,xpos:SinOsc.ar(detune.real*rotation,phase:detune.theta+45.degrad),ypos:SinOsc.ar(detune.imag*rotation,phase:detune.theta+45.degrad)));
 
