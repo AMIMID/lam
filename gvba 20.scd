@@ -5,22 +5,22 @@ s.options.numWireBufs=64*1;
 s.options.numInputBusChannels=0;å
 s.options.outputStreamsEnabled.postln
 s.options.device_("USB Sound Device");
-s.record(numChannels:6) ;
+s.record(numChannels:10) ;
 
 ({Out.ar(2,SoundIn.ar(0))}.play;
 s.record(numChannels:10)
 
 s.options.numWireBufs = 1024*4;
 ServerOptions.devices
-s.options.numOutputBusChannels=101;/////////////40tet1 +40tet2 +
+s.options.numOutputBusChannels=102;/////////////40tet1 +40tet2 +
 TempoClock.default.tempo_(120/120);
 s.options.memSize = 8192*16;
 s.waitForBoot
 s.maxNodes
 s.reboot;
 
-~p1 = Buffer.read(s,"/Users/petrostatsiopoulos/Desktop/l.wav")
-~p2 = Buffer.read(s,"/Users/petrostatsiopoulos/Desktop/r.wav")
+~p1 = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/2/l lmd.wav")
+~p2 = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/2/r lmd.wav")
 
 
 (
@@ -55,67 +55,67 @@ SynthDef.new(\t, {
 	azimuth2 = Out.ar(11,LeakDC.ar(PlayBuf.ar(1,1,BufRateScale.kr(0),inf),mul:env));
 	/////////////////////////////////////////////////////////
 
-	face1 = Out.ar(12,PanAz.ar(3,LeakDC.ar(InFeedback.ar(10)),SinOsc.ar(3/4),env,width:2));
+	face1 = Out.ar(12,PanAz.ar(3,LeakDC.ar(InFeedback.ar(10)),LFNoise1.ar(3/4),env,width:2));
 
-	face2 = Out.ar(15,PanAz.ar(3,LeakDC.ar(InFeedback.ar(11)),SinOsc.ar(3/4),env,width:2));
+	face2 = Out.ar(15,PanAz.ar(3,LeakDC.ar(InFeedback.ar(11)),LFNoise1.ar(3/4),env,width:2));
 
-	face3 = Out.ar(18,PanAz.ar(3,LeakDC.ar(InFeedback.ar(10)),SinOsc.ar(3/4),env,width:2));
+	face3 = Out.ar(18,PanAz.ar(3,LeakDC.ar(InFeedback.ar(10)),LFNoise1.ar(3/4),env,width:2));
 
-	face4 = Out.ar(21,PanAz.ar(3,LeakDC.ar(InFeedback.ar(11)),SinOsc.ar(3/4),env,width:2));
+	face4 = Out.ar(21,PanAz.ar(3,LeakDC.ar(InFeedback.ar(11)),LFNoise1.ar(3/4),env,width:2));
 
-	face5 = Out.ar(24,PanAz.ar(3,LeakDC.ar(InFeedback.ar(10)),SinOsc.ar(3/4),env,width:2));
+	face5 = Out.ar(24,PanAz.ar(3,LeakDC.ar(InFeedback.ar(10)),LFNoise1.ar(3/4),env,width:2));
 
-	face6 = Out.ar(27,PanAz.ar(3,LeakDC.ar(InFeedback.ar(11)),SinOsc.ar(3/4),env,width:2));
+	face6 = Out.ar(27,PanAz.ar(3,LeakDC.ar(InFeedback.ar(11)),LFNoise1.ar(3/4),env,width:2));
 
-	face7 = Out.ar(30,PanAz.ar(3,LeakDC.ar(InFeedback.ar(10)),SinOsc.ar(3/4),env,width:2));
+	face7 = Out.ar(30,PanAz.ar(3,LeakDC.ar(InFeedback.ar(10)),LFNoise1.ar(3/4),env,width:2));
 
-	face8 = Out.ar(33,PanAz.ar(3,LeakDC.ar(InFeedback.ar(11)),SinOsc.ar(3/4),env,width:2));
+	face8 = Out.ar(33,PanAz.ar(3,LeakDC.ar(InFeedback.ar(11)),LFNoise1.ar(3/4),env,width:2));
 
-	face9 = Out.ar(36,PanAz.ar(3,LeakDC.ar(InFeedback.ar(10)),SinOsc.ar(3/4),env,width:2));
+	face9 = Out.ar(36,PanAz.ar(3,LeakDC.ar(InFeedback.ar(10)),LFNoise1.ar(3/4),env,width:2));
 
-	face10 = Out.ar(39,PanAz.ar(3,LeakDC.ar(InFeedback.ar(11)),SinOsc.ar(3/4),env,width:2));
+	face10 = Out.ar(39,PanAz.ar(3,LeakDC.ar(InFeedback.ar(11)),LFNoise1.ar(3/4),env,width:2));
 
 ///////////////////////////////////////////////////////////////////////////////
 
-	edge1a = Out.ar(42,Pan2.ar(InFeedback.ar(24),SinOsc.ar(3/4),env));
-	edge1b = Out.ar(44,Pan2.ar(InFeedback.ar(25),SinOsc.ar(3/4),env));
-	edge1c = Out.ar(46,Pan2.ar(InFeedback.ar(26),SinOsc.ar(3/4),env));
+	edge1a = Out.ar(42,Pan2.ar(InFeedback.ar(24),LFNoise1.ar(3/4),env));
+	edge1b = Out.ar(44,Pan2.ar(InFeedback.ar(25),LFNoise1.ar(3/4),env));
+	edge1c = Out.ar(46,Pan2.ar(InFeedback.ar(26),LFNoise1.ar(3/4),env));
 
-	edge2a = Out.ar(48,Pan2.ar(InFeedback.ar(27),SinOsc.ar(3/4),env));
-	edge2b = Out.ar(50,Pan2.ar(InFeedback.ar(28),SinOsc.ar(3/4),env));
-	edge2c = Out.ar(52,Pan2.ar(InFeedback.ar(29),SinOsc.ar(3/4),env));
+	edge2a = Out.ar(48,Pan2.ar(InFeedback.ar(27),LFNoise1.ar(3/4),env));
+	edge2b = Out.ar(50,Pan2.ar(InFeedback.ar(28),LFNoise1.ar(3/4),env));
+	edge2c = Out.ar(52,Pan2.ar(InFeedback.ar(29),LFNoise1.ar(3/4),env));
 
-	edge3a = Out.ar(54,Pan2.ar(InFeedback.ar(30),SinOsc.ar(3/4),env));
-	edge3b = Out.ar(56,Pan2.ar(InFeedback.ar(31),SinOsc.ar(3/4),env));
-	edge3c = Out.ar(58,Pan2.ar(InFeedback.ar(32),SinOsc.ar(3/4),env));
+	edge3a = Out.ar(54,Pan2.ar(InFeedback.ar(30),LFNoise1.ar(3/4),env));
+	edge3b = Out.ar(56,Pan2.ar(InFeedback.ar(31),LFNoise1.ar(3/4),env));
+	edge3c = Out.ar(58,Pan2.ar(InFeedback.ar(32),LFNoise1.ar(3/4),env));
 
-	edge4a = Out.ar(60,Pan2.ar(InFeedback.ar(33),SinOsc.ar(3/4),env));
-	edge4b = Out.ar(62,Pan2.ar(InFeedback.ar(34),SinOsc.ar(3/4),env));
-	edge4c = Out.ar(64,Pan2.ar(InFeedback.ar(35),SinOsc.ar(3/4),env));
+	edge4a = Out.ar(60,Pan2.ar(InFeedback.ar(33),LFNoise1.ar(3/4),env));
+	edge4b = Out.ar(62,Pan2.ar(InFeedback.ar(34),LFNoise1.ar(3/4),env));
+	edge4c = Out.ar(64,Pan2.ar(InFeedback.ar(35),LFNoise1.ar(3/4),env));
 
-	edge5a = Out.ar(66,Pan2.ar(InFeedback.ar(36),SinOsc.ar(3/4),env));
-	edge5b = Out.ar(68,Pan2.ar(InFeedback.ar(37),SinOsc.ar(3/4),env));
-	edge5c = Out.ar(70,Pan2.ar(InFeedback.ar(38),SinOsc.ar(3/4),env));
+	edge5a = Out.ar(66,Pan2.ar(InFeedback.ar(36),LFNoise1.ar(3/4),env));
+	edge5b = Out.ar(68,Pan2.ar(InFeedback.ar(37),LFNoise1.ar(3/4),env));
+	edge5c = Out.ar(70,Pan2.ar(InFeedback.ar(38),LFNoise1.ar(3/4),env));
 
-	edge6a = Out.ar(72,Pan2.ar(InFeedback.ar(39),SinOsc.ar(3/4),env));
-	edge6b = Out.ar(74,Pan2.ar(InFeedback.ar(40),SinOsc.ar(3/4),env));
-	edge6c = Out.ar(76,Pan2.ar(InFeedback.ar(41),SinOsc.ar(3/4),env));
+	edge6a = Out.ar(72,Pan2.ar(InFeedback.ar(39),LFNoise1.ar(3/4),env));
+	edge6b = Out.ar(74,Pan2.ar(InFeedback.ar(40),LFNoise1.ar(3/4),env));
+	edge6c = Out.ar(76,Pan2.ar(InFeedback.ar(41),LFNoise1.ar(3/4),env));
 
-	edge7a = Out.ar(78,Pan2.ar(InFeedback.ar(42),SinOsc.ar(3/4),env));
-	edge7b = Out.ar(80,Pan2.ar(InFeedback.ar(43),SinOsc.ar(3/4),env));
-	edge7c = Out.ar(82,Pan2.ar(InFeedback.ar(44),SinOsc.ar(3/4),env));
+	edge7a = Out.ar(78,Pan2.ar(InFeedback.ar(42),LFNoise1.ar(3/4),env));
+	edge7b = Out.ar(80,Pan2.ar(InFeedback.ar(43),LFNoise1.ar(3/4),env));
+	edge7c = Out.ar(82,Pan2.ar(InFeedback.ar(44),LFNoise1.ar(3/4),env));
 
-	edge8a = Out.ar(84,Pan2.ar(InFeedback.ar(45),SinOsc.ar(3/4),env));
-	edge8b = Out.ar(86,Pan2.ar(InFeedback.ar(46),SinOsc.ar(3/4),env));
-	edge8c = Out.ar(88,Pan2.ar(InFeedback.ar(47),SinOsc.ar(3/4),env));
+	edge8a = Out.ar(84,Pan2.ar(InFeedback.ar(45),LFNoise1.ar(3/4),env));
+	edge8b = Out.ar(86,Pan2.ar(InFeedback.ar(46),LFNoise1.ar(3/4),env));
+	edge8c = Out.ar(88,Pan2.ar(InFeedback.ar(47),LFNoise1.ar(3/4),env));
 
-	edge9a = Out.ar(90,Pan2.ar(InFeedback.ar(48),SinOsc.ar(3/4),env));
-	edge9b = Out.ar(92,Pan2.ar(InFeedback.ar(49),SinOsc.ar(3/4),env));
-	edge9c = Out.ar(94,Pan2.ar(InFeedback.ar(50),SinOsc.ar(3/4),env));
+	edge9a = Out.ar(90,Pan2.ar(InFeedback.ar(48),LFNoise1.ar(3/4),env));
+	edge9b = Out.ar(92,Pan2.ar(InFeedback.ar(49),LFNoise1.ar(3/4),env));
+	edge9c = Out.ar(94,Pan2.ar(InFeedback.ar(50),LFNoise1.ar(3/4),env));
 
-	edge10a = Out.ar(96,Pan2.ar(InFeedback.ar(51),SinOsc.ar(3/4),env));
-	edge10b = Out.ar(98,Pan2.ar(InFeedback.ar(52),SinOsc.ar(3/4),env));
-	edge10c = Out.ar(100,Pan2.ar(InFeedback.ar(53),SinOsc.ar(3/4),env));
+	edge10a = Out.ar(96,Pan2.ar(InFeedback.ar(51),LFNoise1.ar(3/4),env));
+	edge10b = Out.ar(98,Pan2.ar(InFeedback.ar(52),LFNoise1.ar(3/4),env));
+	edge10c = Out.ar(100,Pan2.ar(InFeedback.ar(53),LFNoise1.ar(3/4),env));
 
 
 
