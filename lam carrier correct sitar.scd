@@ -46,7 +46,7 @@ SynthDef.new(\oa, {
 	detune=1;
 	modamp=1;
 	freq =(((4*2)-1)*((4*2)/2))*frequency;
-	modfreq=6666;
+	modfreq=0.00015;
 
  fundamental=((4*cf)-1)*((4*cf)/2);
 
@@ -58,7 +58,7 @@ SynthDef.new(\oa, {
 	envelope= EnvGen.ar(Env.sine(6,1), doneAction: 2);
 
 	l1=(v/freq);
-	l2=l1/modfreq;
+	l2=l1*modfreq;
 	f2=(v/l2);
 
 	bank.do{
