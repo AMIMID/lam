@@ -51,9 +51,9 @@ SynthDef.new(\oa, {
 	note2 = 2.pow(n2/(fundamental*2));
 	note3 = 2.pow(n3/(fundamental*2));
 
-	modfreq1=0.00025/note1;
-	modfreq2=0.00025/note2;
-	modfreq3=0.00025/note3;
+	modfreq1=0.0001/note1;
+	modfreq2=0.0001/note2;
+	modfreq3=0.0001/note3;
 
 	//envelope=  EnvGen.ar(Env.perc(0.02,8,1), doneAction: 2);
 	envelope= EnvGen.ar(Env.sine(6,8), doneAction: 2);
@@ -130,7 +130,7 @@ Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(6,6,28*2),
 	\n1,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
    \n2,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
   	\n3,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
-	\rotation,Pexprand(1,1,28*2,);
+	\rotation,Pexprand(1,6,28*2,);
 )).play(quant:1);
 )
 
