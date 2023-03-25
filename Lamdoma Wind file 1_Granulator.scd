@@ -11,8 +11,8 @@ s.sampleRate
 e.query
 
 ////////////////Buffers left and right mono channels/recordings from carrier_so files
-e = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/3/l correct carrier.wav");
-k = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/3/r correct carrier.wav");
+e = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/correct sitar r6 l.wav");
+k = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/correct sitar r6 r.wav");
 
 
 

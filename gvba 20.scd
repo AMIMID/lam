@@ -19,8 +19,8 @@ s.waitForBoot
 s.maxNodes
 s.reboot;
 
-~p1 = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/2/l lmd.wav")
-~p2 = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/2/r lmd.wav")
+~p1 = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/laml.wav")
+~p2 = Buffer.read(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/lamr.wav")
 
 
 (
@@ -45,10 +45,10 @@ SynthDef.new(\t, {
 	var v10a,v10b,v10c,v10d,v10e,v10f;
 	var azimuth1, azimuth2;
 
-	duration=340;
+	duration=10000;
 	gain=1;
 
-	env = EnvGen.ar(Env.new([0,1,1,0],[1,340,1],gain), doneAction: 2);
+	env = EnvGen.ar(Env.new([0,1,1,0],[1,duration,1],gain), doneAction: 2);
 ////////////////////////////////////////////////////////////////////////////	////////
 	azimuth1 = Out.ar(10,LeakDC.ar(PlayBuf.ar(1,0,BufRateScale.kr(0),inf),mul:env));
 
@@ -196,5 +196,5 @@ SynthDef.new(\t, {
 )
 
 Synth.new(\t);
-
+s.record(numChannels:10)
 //blrfud
