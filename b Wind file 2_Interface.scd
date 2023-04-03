@@ -193,7 +193,7 @@ Synth.new(\wind5_2);
 
 MIDIClient.init;
 MIDIIn.connectAll;
-~note=Array.newClear(1880);
+~note=Array.newClear(128);
 ~bend=8192;
 ~data=127;
 ~modul=127;
@@ -201,8 +201,8 @@ MIDIIn.connectAll;
 /////
 (
 MIDIdef.noteOn(\synhtone,{|val,num,chan,src|[val,num,chan,src].postln;
-	if( num==38,{Synth.new(\1)});
-	if( num==39,{Synth.new(\2)});
+	if( num==48,{Synth.new(\1)});
+	if( num==49,{Synth.new(\2)});
 	if( num==50,{Synth.new(\3)});
 	if( num==51,{Synth.new(\4)});
 	if( num==52,{Synth.new(\5)});
@@ -217,13 +217,13 @@ MIDIdef.noteOn(\synhtone,{|val,num,chan,src|[val,num,chan,src].postln;
 	if( num==61,{Synth.new(\14)});
 	if( num==62,{Synth.new(\15)});
 	if( num==63,{Synth.new(\16)});
-	if( num==63,{Synth.new(\17)});
+	if( num==64,{Synth.new(\17)});
 	if( num==65,{Synth.new(\18)});
-	if( num==52,{Synth.new(\19)});
-	if( num==53,{Synth.new(\20)});
-	if( num==53,{Synth.new(\21)});
-	if( num==55,{Synth.new(\22)});
-	if( num==56,{Synth.new(\23)});
-	if( num==57,{Synth.new(\24)});
+	if( num==66,{Synth.new(\19)});
+	if( num==67,{Synth.new(\20)});
+	if( num==68,{Synth.new(\21)});
+	if( num==69,{Synth.new(\22)});
+	if( num==70,{Synth.new(\23)});
+	if( num==71,{Synth.new(\24)});
 })
 )
