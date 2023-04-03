@@ -19,7 +19,7 @@ s.waitForBoot
 (
 (
 SynthDef.new(\oa, {
-	arg n1=1, n2=1, n3=1,rotation1=0.01,rotation2=0.01,rotation3=0.01, cf=8;
+	arg n1=1, n2=1, n3=1,rotation1=0.01,rotation2=0.01,rotation3=0.01, cf=8, theta=45;
 	var frequency, note1, note2, note3, detune1,detune2, detune3,detune4, detune5,detune6;
 	var envelope,envelopneg;
 	var osc_1, osc_2, osc_3,osc_1neg, osc_2neg, osc_3neg;
@@ -53,7 +53,7 @@ SynthDef.new(\oa, {
 	note3 = 2.pow(n3/(fundamental*2));
 
 	modulator_length=v/freq;
-	carrier_length=modulator_length/1000;
+	carrier_length=modulator_length/100;
 	carrier_freq=v/carrier_length;
 
 	envelope= EnvGen.ar(Env.new([0,1,0],[4,4],[-4,4]), doneAction: 2);
@@ -100,7 +100,7 @@ osc_3 = (Pan4.ar(
 		*
 		SinOsc.ar(freq:((note3*carrier_freq)*over1)*detune3.imag+SinOsc.ar(((note3*freq)*over1)*detune1.imag,mul:over1),mul:((cf*note3)*over1).reciprocal*detune3.imag,phase:detune3.theta+90.degrad)
 
-,xpos:SinOsc.ar(rotation3,phase:detune3.theta+45.degrad,mul:detune3.real),ypos:SinOsc.ar(rotation3,phase:detune3.theta+135.degrad,mul:detune3.imag)));
+			,xpos:SinOsc.ar(rotation3,phase:detune3.theta+theta.degrad,mul:detune3.real),ypos:SinOsc.ar(rotation3,phase:detune3.theta+(theta+90).degrad,mul:detune3.imag)));
 
 
 osc_1neg = (Pan4.ar(
@@ -125,7 +125,7 @@ osc_3neg = (Pan4.ar(
 		*
 		SinOsc.ar(freq:((note3*carrier_freq)*over1)*detune6.imag+SinOsc.ar(((note3*freq)*over1)*detune1.imag,mul:over1),mul:((cf*note3)*over1).reciprocal*detune6.imag,phase:detune6.theta+90.neg.degrad)
 
-,xpos:SinOsc.ar(rotation3,phase:detune6.theta+45.neg.degrad,mul:detune6.real),ypos:SinOsc.ar(rotation3,phase:detune6.theta+135.neg.degrad,mul:detune6.imag)));
+,xpos:SinOsc.ar(rotation3,phase:detune6.theta+theta.neg.degrad,mul:detune6.real),ypos:SinOsc.ar(rotation3,phase:detune6.theta+(theta+90).neg.degrad,mul:detune6.imag)));
 
 	    osc_1=osc_1*envelope;
 		osc_2=osc_2*envelope;
@@ -164,7 +164,8 @@ Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(2,2,28*2),
   	\n3,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
 	\rotation1,Prand([1,3/2,4/3,2],inf),
 	\rotation2,Prand([1,3/2,4/3,2],inf),
-	\rotation3,Prand([1,3/2,4/3,2],inf);
+	\rotation3,Prand([1,3/2,4/3,2],inf),
+	\theta,Pexprand(0,90,inf);
 )).play(quant:1);
 );
 )
