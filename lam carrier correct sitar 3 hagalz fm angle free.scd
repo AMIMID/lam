@@ -157,7 +157,7 @@ osc_3neg = (Pan4.ar(
 /////////////////////////////////Synth Patterns(generators)
 (
 (
-Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(4,4,28*2),
+Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(2,2,28*2),
 	\cf,Prand([2],28*2,),
 	\n1,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
    \n2,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
