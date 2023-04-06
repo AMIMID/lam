@@ -53,7 +53,7 @@ SynthDef.new(\oa, {
 	note3 = 2.pow(n3/(fundamental*2));
 
 	modulator_length=v/freq;
-	carrier_length=modulator_length/4;
+	carrier_length=modulator_length/2;
 	carrier_freq=v/carrier_length;
 
 	envelope= EnvGen.ar(Env.new([0,1,0],[4,4],[-4,4]), doneAction: 2);
@@ -165,7 +165,7 @@ Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(2,2,28*2),
 	\rotation1,Prand([1,3/2,4/3,2],inf),
 	\rotation2,Prand([1,3/2,4/3,2],inf),
 	\rotation3,Prand([1,3/2,4/3,2],inf),
-	\theta,Pexprand(0,90,inf);
+	\theta,Pexprand(22.5,67.5,inf);
 )).play(quant:1);
 );
 )
