@@ -162,9 +162,9 @@ Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(2,2,28*2),
 	\n1,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
    \n2,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
   	\n3,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
-	\rotation1,Prand([1,3/2,4/3,2],inf),
-	\rotation2,Prand([1,3/2,4/3,2],inf),
-	\rotation3,Prand([1,3/2,4/3,2],inf),
+	\rotation1,Prand([1,2/3,3/4,1/2],inf),
+	\rotation2,Prand([1,2/3,3/4,1/2],inf),
+	\rotation3,Prand([1,2/3,3/4,1/2],inf),
 	\theta,Pexprand(22.5,67.5,inf);
 )).play(quant:1);
 );
