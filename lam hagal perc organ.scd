@@ -19,7 +19,7 @@ s.waitForBoot
 (
 (
 SynthDef.new(\oa, {
-	arg n1=1, n2=1, n3=1,rotation1=0.01,rotation2=0.01,rotation3=0.01, cf=8, theta=45;
+	arg n1=1, n2=1, n3=1,rotation1=0.1,rotation2=0.1,rotation3=0.1, cf=1, theta=45;
 	var frequency, note1, note2, note3, detune1,detune2, detune3,detune4, detune5,detune6;
 	var envelope,envelopneg;
 	var osc_1, osc_2, osc_3,osc_1neg, osc_2neg, osc_3neg;
@@ -56,8 +56,8 @@ SynthDef.new(\oa, {
 	carrier_length=modulator_length/2;
 	carrier_freq=v/carrier_length;
 
-	envelope= EnvGen.ar(Env.new([0,1,0],[4,4],[-4,4]), doneAction: 0);
-	envelopneg= EnvGen.ar(Env.new([0,0,1,0],[0.1,4,4],[0,-4,4]), doneAction: 2);
+	envelope= EnvGen.ar(Env.perc(0.01,4), doneAction: 0);
+	envelopneg= EnvGen.ar(Env.perc(0.11,4), doneAction: 2);
 
 	bank.do{
 
@@ -157,11 +157,11 @@ osc_3neg = (Pan4.ar(
 /////////////////////////////////Synth Patterns(generators)
 (
 (
-Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(4,4,12*2),
-	\cf,Prand([1],12*2,),
-	\n1,Pseq(Array.fill(12*2, { arg i; i + 1 }),1),
-   \n2,Pseq(Array.fill(12*2, { arg i; i + 1 }),1),
-  	\n3,Pseq(Array.fill(12*2, { arg i; i + 1 }),1),
+Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(4,4,28*2),
+	\cf,Prand([2],28*2,),
+	\n1,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
+   \n2,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
+  	\n3,Pseq(Array.fill(28*2, { arg i; i + 1 }),1),
 	\rotation1,Pexprand(0.1,1,inf),
 	\rotation2,Pexprand(0.1,1,inf),
 	\rotation3,Pexprand(0.1,1,inf),
@@ -171,6 +171,44 @@ Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(4,4,12*2),
 s.record(numChannels:4) ;
 )
 
+
+MIDIClient.init;
+MIDIIn.connectAll;
+~note=Array.newClear(128);
+~bend=8192;
+~data=127;
+~modul=127;
+
+/////
+(
+
+MIDIdef.noteOn(\synhtone,{|val,num,chan,src|[val,num,chan,src].postln;
+	if( num==49,{Synth.new(\oa,[\n1,1,\n2,1,\n3,1])});
+	if( num==50,{Synth.new(\oa,[\n1,2,\n2,2,\n3,2])});
+	if( num==51,{Synth.new(\oa,[\n1,3,\n2,3,\n3,3])});
+	if( num==52,{Synth.new(\oa,[\n1,4,\n2,4,\n3,4])});
+	if( num==53,{Synth.new(\oa,[\n1,5,\n2,5,\n3,5])});
+	if( num==54,{Synth.new(\oa,[\n1,6,\n2,6,\n3,6])});
+	if( num==55,{Synth.new(\oa,[\n1,7,\n2,7,\n3,7])});
+	if( num==56,{Synth.new(\oa,[\n1,8,\n2,8,\n3,8])});
+	if( num==57,{Synth.new(\oa,[\n1,9,\n2,9,\n3,9])});
+	if( num==58,{Synth.new(\oa,[\n1,10,\n2,10,\n3,10])});
+	if( num==59,{Synth.new(\oa,[\n1,11,\n2,11,\n3,11])});
+	if( num==60,{Synth.new(\oa,[\n1,12,\n2,12,\n3,12])});
+	if( num==61,{Synth.new(\oa,[\n1,13,\n2,13,\n3,13])});
+	if( num==62,{Synth.new(\oa,[\n1,14,\n2,14,\n3,14])});
+	if( num==63,{Synth.new(\oa,[\n1,15,\n2,15,\n3,15])});
+	if( num==64,{Synth.new(\oa,[\n1,16,\n2,16,\n3,16])});
+	if( num==65,{Synth.new(\oa,[\n1,17,\n2,17,\n3,17])});
+	if( num==66,{Synth.new(\oa,[\n1,18,\n2,18,\n3,18])});
+	if( num==67,{Synth.new(\oa,[\n1,19,\n2,19,\n3,19])});
+	if( num==68,{Synth.new(\oa,[\n1,20,\n2,20,\n3,20])});
+	if( num==69,{Synth.new(\oa,[\n1,21,\n2,21,\n3,21])});
+	if( num==70,{Synth.new(\oa,[\n1,22,\n2,22,\n3,22])});
+	if( num==71,{Synth.new(\oa,[\n1,23,\n2,23,\n3,23])});
+	if( num==72,{Synth.new(\oa,[\n1,24,\n2,24,\n3,24])});
+})
+)
 
 ////record in 6 channels beggining to end of pattern definition duration
 
