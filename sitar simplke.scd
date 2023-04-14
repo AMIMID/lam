@@ -6,3 +6,6 @@
 {Pan4.ar(SinOsc.ar(440),SinOsc.ar(6,phase:45.degrad),SinOsc.ar(6,phase:135.degrad))}.play;
 {Pan4.ar(SinOsc.ar(440),SinOsc.ar(6,phase:135.degrad),SinOsc.ar(6,phase:45.degrad))}.play;
 )
+
+
+{(SinOsc.ar((10)+SinOsc.ar(440,mul:440)))}.play

@@ -51,8 +51,8 @@ SynthDef.new(\oa, {
 	note2 = 2.pow(n2/(fundamental*2));
 	note3 = 2.pow(n3/(fundamental*2));
 
-	envelope= EnvGen.ar(Env.perc(0.01,8), doneAction: 2);
-	envelopneg= EnvGen.ar(Env.perc(0.11,2), doneAction: 2);
+	envelope= EnvGen.ar(Env.new([0,1,0],[4,4],[-4,4]), doneAction: 2);
+	envelopneg= EnvGen.ar(Env.new([0,0,1,0],[0.1,4,4],[0,-4,4]), doneAction: 2);
 
 	bank.do{
 

@@ -18,8 +18,10 @@ s.options.memSize = 8192*8;
 s.waitForBoot
 s.reboot;
 
-~p1 = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/lamkeysl.wav")
-~p2 = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/lamkeysr.wav")
+~e1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/SC_230414_203035.wav",channels:0);
+~e2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/SC_230414_203035.wav",channels:1);
+~e3 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/SC_230414_203035.wav",channels:2);
+~e4 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/SC_230414_203035.wav",channels:3);
 
 
 (
@@ -39,18 +41,18 @@ SynthDef.new(\t, {
 
 	env = EnvGen.ar(Env.new([0,1,1,0],[1,340,1],gain), doneAction: 2);
 ////////////////////////////////////////////////////////////////////////////	////////
-	azimuth1 = Out.ar(3,Pan2.ar(LeakDC.ar(PlayBuf.ar(1,0,BufRateScale.kr(0),inf),mul:env),pos:MouseX.kr(-1,1)));
+	//azimuth1 = Out.ar(3,Pan2.ar(LeakDC.ar(PlayBuf.ar(1,0,BufRateScale.kr(0),inf),mul:env),pos:MouseX.kr(-1,1)));
 
-	azimuth2 = Out.ar(5,Pan2.ar(LeakDC.ar(PlayBuf.ar(1,1,BufRateScale.kr(0),inf),mul:env),pos:MouseY.kr(-1,1)));
+	//azimuth2 = Out.ar(5,Pan2.ar(LeakDC.ar(PlayBuf.ar(1,1,BufRateScale.kr(0),inf),mul:env),pos:MouseY.kr(-1,1)));
 	/////////////////////////////////////////////////////////
 
-	face1 = Out.ar(7,PanAz.ar(3,LeakDC.ar(InFeedback.ar(3)),SinOsc.ar(3/4),env,width:2));
+	face1 = Out.ar(7,PanAz.ar(3,LeakDC.ar(PlayBuf.ar(1,0,BufRateScale.kr(0),inf),mul:env),SinOsc.ar(3/4),env,width:2));
 
-	face2 = Out.ar(10,PanAz.ar(3,LeakDC.ar(InFeedback.ar(4)),SinOsc.ar(3/4),env,width:2));
+	face2 = Out.ar(10,PanAz.ar(3,LeakDC.ar(PlayBuf.ar(1,1,BufRateScale.kr(0),inf),mul:env),SinOsc.ar(3/4),env,width:2));
 
-	face3 = Out.ar(14,PanAz.ar(3,LeakDC.ar(InFeedback.ar(5)),SinOsc.ar(3/4),env,width:2));
+	face3 = Out.ar(14,PanAz.ar(3,LeakDC.ar(PlayBuf.ar(1,2,BufRateScale.kr(0),inf),mul:env),SinOsc.ar(3/4),env,width:2));
 
-	face4 = Out.ar(17,PanAz.ar(3,LeakDC.ar(InFeedback.ar(6)),SinOsc.ar(3/4),env,width:2));
+	face4 = Out.ar(17,PanAz.ar(3,LeakDC.ar(PlayBuf.ar(1,3,BufRateScale.kr(0),inf),mul:env),SinOsc.ar(3/4),env,width:2));
 ///////////////////////////////////////////////////////////////////////////////
 
 	edge1a = Out.ar(19,Pan2.ar(InFeedback.ar(7),SinOsc.ar(3/4),env));

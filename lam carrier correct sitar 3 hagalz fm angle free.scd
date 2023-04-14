@@ -56,8 +56,8 @@ SynthDef.new(\oa, {
 	carrier_length=modulator_length/2;
 	carrier_freq=v/carrier_length;
 
-	envelope= EnvGen.ar(Env.new([0,1,0],[4,4],[-4,4]), doneAction: 0);
-	envelopneg= EnvGen.ar(Env.new([0,0,1,0],[0.1,4,4],[0,-4,4]), doneAction: 2);
+	envelope= EnvGen.ar(Env.new([0,2,0],[4,4],[-4,4]), doneAction: 0);
+	envelopneg= EnvGen.ar(Env.new([0,0,2,0],[0.1,4,4],[0,-4,4]), doneAction: 2);
 
 	bank.do{
 
@@ -157,11 +157,11 @@ osc_3neg = (Pan4.ar(
 /////////////////////////////////Synth Patterns(generators)
 (
 (
-Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(4,4,12*2),
-	\cf,Prand([1],12*2,),
-	\n1,Pseq(Array.fill(12*2, { arg i; i + 1 }),1),
-   \n2,Pseq(Array.fill(12*2, { arg i; i + 1 }),1),
-  	\n3,Pseq(Array.fill(12*2, { arg i; i + 1 }),1),
+Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(2,2,12*4),
+	\cf,Prand([1],12*4,),
+	\n1,Pseq(Array.fill(12*4, { arg i; i + 1 }),1),
+   \n2,Pseq(Array.fill(12*4, { arg i; i + 1 }),1),
+  	\n3,Pseq(Array.fill(12*4, { arg i; i + 1 }),1),
 	\rotation1,Pexprand(0.1,1,inf),
 	\rotation2,Pexprand(0.1,1,inf),
 	\rotation3,Pexprand(0.1,1,inf),
