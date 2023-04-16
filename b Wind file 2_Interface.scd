@@ -17,7 +17,10 @@ s.sampleRate
 e.query
 
 ////////////buffer from
-~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/SC_230416_025701.wav")
+~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/CARRIER_6.wav")
+~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/CARRIER_8.wav")
+~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/CARRIER_9.wav")
+~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/CARRIER_12.wav")
 
 //////////individual Synth Definitions which apply band pass filters in 30 individual tones to the noise recording from Granulator file, in stereo)
 (
