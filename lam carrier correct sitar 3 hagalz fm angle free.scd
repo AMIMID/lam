@@ -53,11 +53,11 @@ SynthDef.new(\oa, {
 	note3 = 2.pow(n3/(fundamental*2));
 
 	modulator_length=v/freq;
-	carrier_length=modulator_length/2;
+	carrier_length=modulator_length/1;
 	carrier_freq=v/carrier_length;
 
-	envelope= EnvGen.ar(Env.new([0,2,0],[4,4],[-4,4]), doneAction: 0);
-	envelopneg= EnvGen.ar(Env.new([0,0,2,0],[0.1,4,4],[0,-4,4]), doneAction: 2);
+	envelope= EnvGen.ar(Env.new([0,8,0],[4,4],[-4,4]), doneAction: 0);
+	envelopneg= EnvGen.ar(Env.new([0,0,8,0],[0.1,4,4],[0,-4,4]), doneAction: 2);
 
 	bank.do{
 

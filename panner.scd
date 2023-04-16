@@ -13,10 +13,10 @@ s.options.numInputBusChannels=0;
 )
 
 
-~e1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/RECORDING2.wav",channels:0);
-~e2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/RECORDING2.wav",channels:1);
-~e3 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/RECORDING2.wav",channels:2);
-~e4 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Dokuments/PROJECT  FILES/Suco/lam/audio files/RECORDING2.wav",channels:3);
+~e1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/SC_230414_203035.wav",channels:0);
+~e2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/SC_230414_203035.wav",channels:1);
+~e3 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/SC_230414_203035.wav",channels:2);
+~e4 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/SC_230414_203035.wav",channels:3);
 
 s.options.numOutputBusChannels=8;
 
