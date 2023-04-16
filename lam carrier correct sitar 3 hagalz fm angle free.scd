@@ -36,7 +36,7 @@ SynthDef.new(\oa, {
 	over1=1;
 	over1=2;
 	m=0;
-	frequency=1;
+	frequency=12;
 	bank=32;
 	angle1=90;
 	angle2=180;
@@ -157,11 +157,11 @@ osc_3neg = (Pan4.ar(
 /////////////////////////////////Synth Patterns(generators)
 (
 (
-Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(2,2,12*4),
-	\cf,Prand([1],12*4,),
-	\n1,Pseq(Array.fill(12*4, { arg i; i + 1 }),1),
-   \n2,Pseq(Array.fill(12*4, { arg i; i + 1 }),1),
-  	\n3,Pseq(Array.fill(12*4, { arg i; i + 1 }),1),
+Pdef(\1, Pbind(\instrument, \oa, \dur,Pexprand(2,2,12*2),
+	\cf,Prand([1],12*2,),
+	\n1,Pseq(Array.fill(12*2, { arg i; i + 1 }),1),
+   \n2,Pseq(Array.fill(12*2, { arg i; i + 1 }),1),
+  	\n3,Pseq(Array.fill(12*2, { arg i; i + 1 }),1),
 	\rotation1,Pexprand(0.1,1,inf),
 	\rotation2,Pexprand(0.1,1,inf),
 	\rotation3,Pexprand(0.1,1,inf),

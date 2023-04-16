@@ -11,27 +11,27 @@ s.options.numInputBusChannels=0;
 {Out.ar(0,PanAz.ar(8,PlayBuf.ar(1,2,BufRateScale.kr(0),startPos:0,loop:inf),LFNoise1.ar(0.1),width:2))}.play;
 {Out.ar(0,PanAz.ar(8,PlayBuf.ar(1,3,BufRateScale.kr(0),startPos:0,loop:inf),LFNoise1.ar(0.1),width:2))}.play;
 )
+///////////////////////////////////////////////////////////
 
+~E1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_6.wav",channels:0);
+~E2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_6.wav",channels:1);
+~E3 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_6.wav",channels:2);
+~E4 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_6.wav",channels:3);
 
-~E1 = Buffer.readChannel(s,,channels:0);
-~E2 = Buffer.readChannel(s,,channels:1);
-~E3 = Buffer.readChannel(s,,channels:2);
-~E4 = Buffer.readChannel(s,,channels:3);
+~K1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_8.wav",channels:0);
+~K2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_8.wav",channels:1);
+~K3 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_8.wav",channels:2);
+~K4 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_8.wav",channels:3);
 
-~K1 = Buffer.readChannel(s,,channels:0);
-~K2 = Buffer.readChannel(s,,channels:1);
-~K3 = Buffer.readChannel(s,,channels:2);
-~K4 = Buffer.readChannel(s,,channels:3);
+~L1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_9.wav",channels:0);
+~L2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_9.wav",channels:1);
+~L3 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_9.wav",channels:2);
+~L4 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_9.wav",channels:3);
 
-~L1 = Buffer.readChannel(s,,channels:0);
-~L2 = Buffer.readChannel(s,,channels:1);
-~L3 = Buffer.readChannel(s,,channels:2);
-~L4 = Buffer.readChannel(s,,channels:3);
-
-~M1 = Buffer.readChannel(s,,channels:0);
-~M2 = Buffer.readChannel(s,,channels:1);
-~M3 = Buffer.readChannel(s,,channels:2);
-~M4 = Buffer.readChannel(s,,channels:3);
+~M1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_12.wav",channels:0);
+~M2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_12.wav",channels:1);
+~M3 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_12.wav",channels:2);
+~M4 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/R_12.wav",channels:3);
 
 s.options.numOutputBusChannels=8;
 
