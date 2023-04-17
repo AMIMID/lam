@@ -2,7 +2,7 @@
 
 s.options.numOutputBusChannels=4;
 s.options.numInputBusChannels=0;
-TempoClock.default.tempo_(120/240)
+TempoClock.default.tempo_(120/120)
 );
 s.options.memSize = 8192*16;
 
@@ -17,10 +17,10 @@ s.sampleRate
 e.query
 
 ////////////buffer from
-~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/01/CARRIER_6.wav")
-~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/01/CARRIER_8.wav")
-~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/01/CARRIER_9.wav")
-~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/01/CARRIER_12.wav")
+~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/8 octaves 1.wav")
+~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/8 octaves 2.wav")
+~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/8 octaves 3.wav")
+~e = Buffer.read(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/8 octaves 4.wav")
 
 //////////individual Synth Definitions which apply band pass filters in 30 individual tones to the noise recording from Granulator file, in stereo)
 (
