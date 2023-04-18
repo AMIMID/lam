@@ -36,6 +36,7 @@ SynthDef.new(\oa, {
 	pitch=2.pow(n/12);
 
 	freq =(((4*8)-1)*((4*8)/2));
+	freq=freq/2;
 
 
 	rotation1=TExpRand.ar(1,2,Dust.ar(10));

@@ -61,10 +61,10 @@ s.options.numOutputBusChannels=8;
 
 ///////////////////////////////////////////////////////////////////
 (
-~e1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms3.wav",channels:0);
-~e2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms3.wav",channels:1);
-~e3 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms3.wav",channels:2);
-~e4 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms3.wav",channels:3);
+~e1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/sitar one synth m3. saw.wav",channels:0);
+~e2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/sitar one synth m3. saw.wav",channels:1);
+~e3 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/sitar one synth m3. saw.wav",channels:2);
+~e4 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/sitar one synth m3. saw.wav",channels:3);
 )
 (
 {Out.ar(0,PanAz.ar(4,PlayBuf.ar(1,0,BufRateScale.kr(0),startPos:0,loop:inf),LFNoise1.ar(1),width:2))}.play;
