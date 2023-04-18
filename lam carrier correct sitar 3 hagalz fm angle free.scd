@@ -36,7 +36,7 @@ SynthDef.new(\oa, {
 	over1=1;
 	over1=2;
 	m=0;
-	frequency=12;
+	frequency=1;
 	bank=32;
 	angle1=90;
 	angle2=180;

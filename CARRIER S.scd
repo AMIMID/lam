@@ -14,7 +14,7 @@ s.options.numWireBufs = 1024*16;
 
 s.options.numOutputBusChannels=4;
 TempoClock.default.tempo_(120/120);
-s.options.memSize = 8192*9;
+s.options.memSize = 8192*8;
 s.waitForBoot
 (
 (
@@ -36,8 +36,8 @@ SynthDef.new(\oa, {
 	over1=1;
 	over1=2;
 	m=0;
-	frequency=6;
-	bank=32;
+	frequency=1;
+	bank=64;
 	angle1=90;
 	angle2=180;
 	angle3=135;
@@ -52,13 +52,9 @@ SynthDef.new(\oa, {
 	note2 = 2.pow(n2/(fundamental*2));
 	note3 = 2.pow(n3/(fundamental*2));
 
-	modulator_length=v/freq;
-	carrier_length=modulator_length/1;
-	carrier_freq=v/carrier_length;
-
-	envelope= EnvGen.ar(Env.new([0,8,0],[4,4],[-4,4]), doneAction: 0);
-	envelopneg= EnvGen.ar(Env.new([0,0,8,0],[0.1,4,4],[0,-4,4]), doneAction: 2);
-
+	//envelope= EnvGen.ar(Env.new([0,8,0],[4,4],[-4,4]), doneAction: 0);
+	//envelopneg= EnvGen.ar(Env.new([0,0,8,0],[0.1,4,4],[0,-4,4]), doneAction: 2);
+envelope= EnvGen.ar(Env.sine(8), doneAction: 2);
 	bank.do{
 
 				angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
@@ -80,59 +76,46 @@ SynthDef.new(\oa, {
 	detune6=exp(Complex(0,1)*angle6);
 
 osc_1 = (Pan4.ar(
-			SinOsc.ar(freq:((note1*carrier_freq)*over1)*detune1.real,mul:((cf*note1)*over1).reciprocal*detune1.real,phase:detune1.theta)
-		*
-		SinOsc.ar(freq:((note1*carrier_freq)*over1)*detune1.imag,mul:((cf*note1)*over1).reciprocal*detune1.imag,phase:detune1.theta+90.degrad)
+			SinOsc.ar(freq:((note1*freq)*over1),mul:((cf*note1)*over1).reciprocal,phase:detune1.theta)
 
 ,xpos:SinOsc.ar(rotation1,phase:detune1.theta+0.degrad,mul:detune1.real),ypos:SinOsc.ar(rotation1,phase:detune1.theta+90.degrad,mul:detune1.imag)));
 
 
 osc_2 = (Pan4.ar(
-		SinOsc.ar(freq:((note2*carrier_freq)*over1)*detune2.real,mul:((cf*note2)*over1).reciprocal*detune2.real,phase:detune2.theta)
-		*
-		SinOsc.ar(freq:((note2*carrier_freq)*over1)*detune2.imag,mul:((cf*note2)*over1).reciprocal*detune2.imag,phase:detune2.theta+90.degrad)
+		SinOsc.ar(freq:((note2*freq)*over1),mul:((cf*note2)*over1).reciprocal,phase:detune2.theta)
 
 ,xpos:SinOsc.ar(rotation2,phase:detune2.theta+90.degrad,mul:detune2.real),ypos:SinOsc.ar(rotation2,phase:detune2.theta+0.degrad,mul:detune2.imag)));
 
 
 osc_3 = (Pan4.ar(
-		SinOsc.ar(freq:((note3*carrier_freq)*over1)*detune3.real,mul:((cf*note3)*over1).reciprocal*detune3.real,phase:detune3.theta)
-		*
-		SinOsc.ar(freq:((note3*carrier_freq)*over1)*detune3.imag,mul:((cf*note3)*over1).reciprocal*detune3.imag,phase:detune3.theta+90.degrad)
+		SinOsc.ar(freq:((note3*freq)*over1),mul:((cf*note3)*over1).reciprocal,phase:detune3.theta)
 
 			,xpos:SinOsc.ar(rotation3,phase:detune3.theta+theta.degrad,mul:detune3.real),ypos:SinOsc.ar(rotation3,phase:detune3.theta+(theta+90).degrad,mul:detune3.imag)));
 
 
 osc_1neg = (Pan4.ar(
-		SinOsc.ar(freq:((note1*carrier_freq)*over1)*detune4.real,mul:((cf*note1)*over1).reciprocal*detune4.real,phase:detune4.theta)
-		*
-		SinOsc.ar(freq:((note1*carrier_freq)*over1)*detune4.imag,mul:((cf*note1)*over1).reciprocal*detune4.imag,phase:detune4.theta+90.neg.degrad)
-
+		SinOsc.ar(freq:((note1*freq)*over1),mul:((cf*note1)*over1).reciprocal,phase:detune4.theta)
 
 ,xpos:SinOsc.ar(rotation1,phase:detune4.theta+0.degrad,mul:detune4.real),ypos:SinOsc.ar(rotation1,phase:detune4.theta+90.neg.degrad,mul:detune4.imag)));
 
 
 osc_2neg = (Pan4.ar(
-		SinOsc.ar(freq:((note2*carrier_freq)*over1)*detune5.real,mul:((cf*note2)*over1).reciprocal*detune5.real,phase:detune5.theta)
-		*
-		SinOsc.ar(freq:((note2*carrier_freq)*over1)*detune5.imag,mul:((cf*note2)*over1).reciprocal*detune5.imag,phase:detune5.theta+90.neg.degrad)
+		SinOsc.ar(freq:((note2*freq)*over1),mul:((cf*note2)*over1).reciprocal,phase:detune5.theta)
 
 ,xpos:SinOsc.ar(rotation2,phase:detune5.theta+90.neg.degrad,mul:detune5.real),ypos:SinOsc.ar(rotation2,phase:detune5.theta+0.degrad,mul:detune5.imag)));
 
 
 osc_3neg = (Pan4.ar(
-		SinOsc.ar(freq:((note3*carrier_freq)*over1)*detune6.real,mul:((cf*note3)*over1).reciprocal*detune6.real,phase:detune6.theta)
-		*
-		SinOsc.ar(freq:((note3*carrier_freq)*over1)*detune6.imag,mul:((cf*note3)*over1).reciprocal*detune6.imag,phase:detune6.theta+90.neg.degrad)
+		SinOsc.ar(freq:((note3*freq)*over1),mul:((cf*note3)*over1).reciprocal,phase:detune6.theta)
 
 ,xpos:SinOsc.ar(rotation3,phase:detune6.theta+theta.neg.degrad,mul:detune6.real),ypos:SinOsc.ar(rotation3,phase:detune6.theta+(theta+90).neg.degrad,mul:detune6.imag)));
 
 	    osc_1=osc_1*envelope;
 		osc_2=osc_2*envelope;
 		osc_3=osc_3*envelope;
-		osc_1neg=osc_1neg*envelopneg;
-		osc_2neg=osc_2neg*envelopneg;
-		osc_3neg=osc_3neg*envelopneg;
+		osc_1neg=osc_1neg*envelope;
+		osc_2neg=osc_2neg*envelope;
+		osc_3neg=osc_3neg*envelope;
 
 
 		Out.ar(0,LeakDC.ar(osc_1));
