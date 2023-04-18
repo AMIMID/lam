@@ -23,9 +23,9 @@
 )
 
 (
-{Pan4.ar(SinOsc.ar(440,phase:0.degrad),SinOsc.ar(2.999.rand,phase:0.degrad),SinOsc.ar(2.999.rand,phase:90.degrad))}.play;
-{Pan4.ar(SinOsc.ar(440,phase:90.degrad),SinOsc.ar(2.999.rand,phase:0.degrad),SinOsc.ar(2.999.rand,phase:90.degrad))}.play;
-{Pan4.ar(SinOsc.ar(440,phase:45.degrad),SinOsc.ar(2.999.rand,phase:45.degrad),SinOsc.ar(2.999.rand,phase:45.neg.degrad))}.play;
+{Pan4.ar(SinOsc.ar(440,phase:0.degrad),SinOsc.ar(10,phase:0.degrad),SinOsc.ar(10,phase:0.degrad))}.play;
+{Pan4.ar(SinOsc.ar(440,phase:90.degrad),SinOsc.ar(10,phase:90.degrad),SinOsc.ar(10,phase:90.degrad))}.play;
+{Pan4.ar(SinOsc.ar(440,phase:45.degrad),SinOsc.ar(10,phase:45.degrad),SinOsc.ar(10,phase:45.neg.degrad))}.play;
 s.record(numChannels:4) ;
 
 

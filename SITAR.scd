@@ -16,6 +16,7 @@ s.options.numOutputBusChannels=4;
 TempoClock.default.tempo_(120/120);
 s.options.memSize = 8192*8;
 s.waitForBoot
+s.reboot
 (
 (
 SynthDef.new(\oa, {
@@ -36,12 +37,12 @@ SynthDef.new(\oa, {
 
  fundamental=((4*cf)-1)*((4*cf)/2);
 
-	rotation1=TExpRand.ar(1,10,Dust.ar(1));
-	rotation2=TExpRand.ar(1,10,Dust.ar(1));
-	rotation3=TExpRand.ar(1,10,Dust.ar(1));
-	rotation4=TExpRand.ar(1,10,Dust.ar(1));
-	rotation5=TExpRand.ar(1,10,Dust.ar(1));
-	rotation6=TExpRand.ar(1,10,Dust.ar(1));
+	rotation1=TExpRand.ar(1,10,Dust.ar(10));
+	rotation2=TExpRand.ar(1,10,Dust.ar(10));
+	rotation3=TExpRand.ar(1,10,Dust.ar(10));
+	rotation4=TExpRand.ar(1,10,Dust.ar(10));
+	rotation5=TExpRand.ar(1,10,Dust.ar(10));
+	rotation6=TExpRand.ar(1,10,Dust.ar(10));
 
 	bank.do{
 
@@ -57,9 +58,9 @@ SynthDef.new(\oa, {
 
 
 
-osc1=Pan4.ar(SinOsc.ar(freq,mul:bank.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1*detune1.real,phase:0.degrad),SinOsc.ar(rotation4*detune1.imag,phase:90.degrad));
+osc1=Pan4.ar(SinOsc.ar(freq,mul:bank.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1*detune1.real,phase:0.degrad),SinOsc.ar(rotation4*detune1.imag,phase:0.degrad));
 
-osc2=Pan4.ar(SinOsc.ar(freq,mul:bank.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2*detune2.real,phase:0.degrad),SinOsc.ar(rotation5*detune2.imag,phase:90.degrad));
+osc2=Pan4.ar(SinOsc.ar(freq,mul:bank.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2*detune2.real,phase:90.degrad),SinOsc.ar(rotation5*detune2.imag,phase:90.degrad));
 
 osc3=Pan4.ar(SinOsc.ar(freq,mul:bank.reciprocal,phase:detune3.theta),SinOsc.ar(rotation3*detune3.real,phase:45.degrad),SinOsc.ar(rotation6*detune3.imag,phase:45.neg.degrad));
 
