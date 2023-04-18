@@ -20,7 +20,7 @@ s.reboot
 (
 (
 SynthDef.new(\oa, {
-	arg rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1, cf=8, theta=45;
+	arg rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1, cf=2, theta=45;
 	var frequency,detune1,detune2,detune3;
 	var osc1,osc2,osc3;
 	var freq;
@@ -65,9 +65,10 @@ osc2=Pan4.ar(SinOsc.ar(freq,mul:bank.reciprocal,phase:detune2.theta),SinOsc.ar(r
 osc3=Pan4.ar(SinOsc.ar(freq,mul:bank.reciprocal,phase:detune3.theta),SinOsc.ar(rotation3*detune3.real,phase:45.degrad),SinOsc.ar(rotation6*detune3.imag,phase:45.neg.degrad));
 
 
+
 		Out.ar(0,LeakDC.ar(osc1));
 		Out.ar(0,LeakDC.ar(osc2));
-		Out.ar(0,LeakDC.ar(osc3));
+		//Out.ar(0,LeakDC.ar(osc3));
 
 	};
 
