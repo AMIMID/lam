@@ -22,7 +22,7 @@ s.reboot
 (
 (
 SynthDef.new(\oa, {
-	arg rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1, n=1, cutt=220;
+	arg rotation1=1,rotation2=1, n=1, cutt=220;
 	var frequency=8,detune1,detune2,detune3;
 	var osc1,osc2;
 	var freq1,env;
@@ -33,21 +33,14 @@ SynthDef.new(\oa, {
 	bank=8;
 	angle1=0;
 	angle2=90;
-	//angle3=45;
 	pitch=2.pow(n/12);
 
 	freq1 =(((4*8)-1)*((4*8)/2));
 	freq1=freq1/4;
-	freq2 =(((4*8)-1)*((4*8)/2));
-	freq2=freq2/2;
 
+	rotation1=TExpRand.ar(0.1,2,Dust.ar(1));
+	rotation2=TExpRand.ar(0.1,2,Dust.ar(1));
 
-	rotation1=TExpRand.ar(1,2,Dust.ar(1));
-	rotation2=TExpRand.ar(1,2,Dust.ar(1));
-	rotation3=TExpRand.ar(1,2,Dust.ar(1));
-	rotation4=TExpRand.ar(1,2,Dust.ar(1));
-	rotation5=TExpRand.ar(1,2,Dust.ar(1));
-	rotation6=TExpRand.ar(1,2,Dust.ar(1));
 
 env=EnvGen.ar(Env.perc(0.01,4,pitch.reciprocal*0.5),doneAction:2);
 
@@ -63,15 +56,13 @@ env=EnvGen.ar(Env.perc(0.01,4,pitch.reciprocal*0.5),doneAction:2);
 
 
 
-osc1=PanAz.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1*detune1.real,phase:detune1.theta));
+osc1=PanAz.ar(4,SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1*detune1.real,phase:detune1.theta));
 
-osc2=PanAz.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2*detune2.real,phase:detune2.theta));
+osc2=PanAz.ar(4,SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2*detune1.imag,phase:detune2.theta));
 
 
 	Out.ar(0,LeakDC.ar(LPF.ar(osc1*env,cutt)));
 	Out.ar(0,LeakDC.ar(LPF.ar(osc2*env,cutt)));
-	Out.ar(0,LeakDC.ar(LPF.ar(osc3*env,cutt)));
-	Out.ar(0,LeakDC.ar(LPF.ar(osc4*env,cutt)));
 
 		m = m+1;
 		over = over + (m+1)/1;
