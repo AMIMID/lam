@@ -9,19 +9,19 @@ s.options.device_("USB Sound Device");
 
 ({Out.ar(2,SoundIn.ar(0))}.play;
 s.record(numChannels:4)
-
+(
 s.options.numWireBufs = 1024*16;
-
 s.options.numOutputBusChannels=4;
 s.options.numInputBusChannels=0;
 TempoClock.default.tempo_(120/120);
 s.options.memSize = 8192*8;
 s.waitForBoot
+)
 s.reboot
 (
 (
 SynthDef.new(\oa, {
-	arg rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1, n=1, cutt=1000;
+	arg rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1, n=1, cutt=220;
 	var frequency=8,detune1,detune2,detune3;
 	var osc1,osc2,osc3;
 	var freq,env;
@@ -62,9 +62,9 @@ env=EnvGen.ar(Env.perc(0.01,6,pitch.reciprocal),doneAction:2);
 
 
 
-osc1=Pan4.ar(SinOsc.ar((freq*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1*detune1.real,phase:0.degrad),SinOsc.ar(rotation4*detune1.imag,phase:0.degrad),);
+osc1=Pan4.ar(SinOsc.ar((freq*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1*detune1.real,phase:detune1.theta),SinOsc.ar(rotation4*detune1.imag,phase:detune1.theta));
 
-osc2=Pan4.ar(SinOsc.ar((freq*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2*detune2.real,phase:90.degrad),SinOsc.ar(rotation5*detune2.imag,phase:90.degrad));
+osc2=Pan4.ar(SinOsc.ar((freq*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2*detune2.real,phase:detune2.theta),SinOsc.ar(rotation5*detune2.imag,phase:detune2.theta));
 
 //osc3=Pan4.ar(SinOsc.ar((freq*over)*pitch,mul:over.reciprocal,phase:detune3.theta),SinOsc.ar(rotation3*detune3.real,phase:45.degrad),SinOsc.ar(rotation6*detune3.imag,phase:45.neg.degrad));
 
