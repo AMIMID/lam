@@ -20,12 +20,11 @@ s.reboot
 (
 (
 SynthDef.new(\oa, {
-	arg rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1, cf=8, n=1;
-	var frequency=2,detune1,detune2,detune3;
+	arg rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1, n=1;
+	var frequency=8,detune1,detune2,detune3;
 	var osc1,osc2,osc3;
 	var freq,env;
 	var bank, angle1,angle2,angle3,scale;
-    var fundamental;
 	var pitch;
 
 	frequency=1;
@@ -35,9 +34,8 @@ SynthDef.new(\oa, {
 	angle3=45;
 	pitch=2.pow(n/12);
 
-	freq =(((4*cf)-1)*((4*cf)/2))/frequency;
+	freq =(((4*8)-1)*((4*8)/2));
 
- fundamental=((4*cf)-1)*((4*cf)/2);
 
 	rotation1=TExpRand.ar(1,10,Dust.ar(1));
 	rotation2=TExpRand.ar(1,10,Dust.ar(1));
@@ -66,7 +64,7 @@ osc1=Pan4.ar(SinOsc.ar(freq*pitch,mul:bank.reciprocal,phase:detune1.theta),SinOs
 
 osc2=Pan4.ar(SinOsc.ar(freq*pitch,mul:bank.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2*detune2.real,phase:90.degrad),SinOsc.ar(rotation5*detune2.imag,phase:90.degrad));
 
-osc3=Pan4.ar(SinOsc.ar(freq*pitch,mul:bank.reciprocal,phase:detune3.theta),SinOsc.ar(rotation3*detune3.real,phase:45.degrad),SinOsc.ar(rotation6*detune3.imag,phase:45.neg.degrad));
+//osc3=Pan4.ar(SinOsc.ar(freq*pitch,mul:bank.reciprocal,phase:detune3.theta),SinOsc.ar(rotation3*detune3.real,phase:45.degrad),SinOsc.ar(rotation6*detune3.imag,phase:45.neg.degrad));
 
 
 
