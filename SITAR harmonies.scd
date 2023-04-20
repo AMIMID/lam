@@ -13,7 +13,6 @@ s.record(numChannels:4)
 s.options.numWireBufs = 1024*16;
 s.options.numOutputBusChannels=4;
 s.options.numInputBusChannels=0;
-s.options.maxNodes=1024
 TempoClock.default.tempo_(120/120);
 s.options.memSize = 8192*8;
 s.waitForBoot
@@ -42,14 +41,14 @@ SynthDef.new(\oa, {
 	freq2=freq2/1;
 
 
-	rotation1=TExpRand.ar(0.1,20,Dust.ar(0.1)).poll;
-	rotation2=TExpRand.ar(0.1,20,Dust.ar(0.1));
-	rotation3=TExpRand.ar(0.1,20,Dust.ar(0.1));
-	rotation4=TExpRand.ar(0.1,20,Dust.ar(0.1));
-	rotation5=TExpRand.ar(0.1,20,Dust.ar(0.1));
-	rotation6=TExpRand.ar(0.1,20,Dust.ar(0.1));
-	rotation7=TExpRand.ar(0.1,20,Dust.ar(0.1));
-	rotation8=TExpRand.ar(0.1,20,Dust.ar(0.1));
+	rotation1=TExpRand.ar(0.1,10,Dust.ar(0.1)).poll;
+	rotation2=TExpRand.ar(0.1,10,Dust.ar(0.1));
+	rotation3=TExpRand.ar(0.1,10,Dust.ar(0.1));
+	rotation4=TExpRand.ar(0.1,10,Dust.ar(0.1));
+	rotation5=TExpRand.ar(0.1,10,Dust.ar(0.1));
+	rotation6=TExpRand.ar(0.1,10,Dust.ar(0.1));
+	rotation7=TExpRand.ar(0.1,10,Dust.ar(0.1));
+	rotation8=TExpRand.ar(0.1,10,Dust.ar(0.1));
 
 
 env=EnvGen.ar(Env.perc(0.01,4,pitch.reciprocal*0.5),doneAction:2);
