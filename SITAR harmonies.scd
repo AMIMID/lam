@@ -37,19 +37,19 @@ SynthDef.new(\oa, {
 	pitch=2.pow(n/12);
 
 	freq1 =(((4*8)-1)*((4*8)/2));
-	freq1=freq1/4;
+	freq1=freq1/2;
 	freq2 =(((4*8)-1)*((4*8)/2));
-	freq2=freq2/2;
+	freq2=freq2/1;
 
 
-	rotation1=TExpRand.ar(0.1,20,Dust.ar(1)).poll;
-	rotation2=TExpRand.ar(0.1,20,Dust.ar(1));
-	rotation3=TExpRand.ar(0.1,20,Dust.ar(1));
-	rotation4=TExpRand.ar(0.1,20,Dust.ar(1));
-	rotation5=TExpRand.ar(0.1,20,Dust.ar(1));
-	rotation6=TExpRand.ar(0.1,20,Dust.ar(1));
-	rotation7=TExpRand.ar(0.1,20,Dust.ar(1));
-	rotation8=TExpRand.ar(0.1,20,Dust.ar(1));
+	rotation1=TExpRand.ar(0.1,20,Dust.ar(0.1)).poll;
+	rotation2=TExpRand.ar(0.1,20,Dust.ar(0.1));
+	rotation3=TExpRand.ar(0.1,20,Dust.ar(0.1));
+	rotation4=TExpRand.ar(0.1,20,Dust.ar(0.1));
+	rotation5=TExpRand.ar(0.1,20,Dust.ar(0.1));
+	rotation6=TExpRand.ar(0.1,20,Dust.ar(0.1));
+	rotation7=TExpRand.ar(0.1,20,Dust.ar(0.1));
+	rotation8=TExpRand.ar(0.1,20,Dust.ar(0.1));
 
 
 env=EnvGen.ar(Env.perc(0.01,4,pitch.reciprocal*0.5),doneAction:2);
