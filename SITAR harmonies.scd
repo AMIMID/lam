@@ -21,7 +21,7 @@ s.reboot
 (
 (
 SynthDef.new(\oa, {
-	arg rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1,rotation7=1,rotation8=1, n=1, cutt=220;
+	arg rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1,rotation7=1,rotation8=1, n=1, cutt=496;
 	var frequency=8,detune1,detune2,detune3;
 	var osc1,osc2,osc3,osc4;
 	var freq1,freq2,env;
