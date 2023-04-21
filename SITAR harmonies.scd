@@ -29,7 +29,7 @@ SynthDef.new(\oa, {
 	var pitch,m=0,over=1;
 
 	frequency=1;
-	bank=8;
+	bank=4;
 	angle1=0;
 	angle2=90;
 	//angle3=45;
