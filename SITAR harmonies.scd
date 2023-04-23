@@ -6,7 +6,7 @@ s.options.numWireBufs=64*1;
 s.options.numInputBusChannels=0;
 s.options.outputStreamsEnabled.postln
 s.options.device_("USB Sound Device");
-
+Server.killAll
 ({Out.ar(2,SoundIn.ar(0))}.play;
 s.record(numChannels:4)
 (
@@ -73,7 +73,7 @@ osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune2.thet
 osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7*detune2.real,phase:detune2.theta),SinOsc.ar(rotation8*detune2.imag,phase:detune2.theta));
 
 
-	Out.ar(out,LeakDC.ar(LPF.ar(osc1*env*(2/3),cutt)));
+	Out.ar(out.poll,LeakDC.ar(LPF.ar(osc1*env*(2/3),cutt)));
 	Out.ar(out,LeakDC.ar(LPF.ar(osc2*env*(2/3),cutt)));
 	Out.ar(out,LeakDC.ar(LPF.ar(osc3*env*(1/2),cutt)));
 	Out.ar(out,LeakDC.ar(LPF.ar(osc4*env*(1/2),cutt)));
