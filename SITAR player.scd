@@ -27,7 +27,7 @@ SynthDef.new(\player,{
 	arg tempo;
 	var env;
 
-	env=EnvGen.ar(Env.sine(60,2), doneAction: 2);
+	env=EnvGen.ar(Env.sine(120,tempo.reciprocal), doneAction: 2);
 
 Out.ar(0,PlayBuf.ar(1,0,BufRateScale.kr(0),startPos:~e1.numFrames.rand,loop:inf,rate:tempo)*env);
 Out.ar(1,PlayBuf.ar(1,1,BufRateScale.kr(1),startPos:~e2.numFrames.rand,loop:inf,rate:tempo)*env);
@@ -37,7 +37,8 @@ Out.ar(3,PlayBuf.ar(1,3,BufRateScale.kr(3),startPos:~e4.numFrames.rand,loop:inf,
 )
 
 (
-Pdef(\1, Pbind(\instrument, \player, \dur,Pexprand(30,60,inf),
-	\tempo,Pxrand([1,1/2,1/3,1/4],inf);
-)).play(quant:1);
+Pdef(\1, Pbind(\instrument, \player,
+	\dur,60,
+	\tempo,Pxrand([1,3/4,2/3,1/2],inf);
+)).play;
 )
