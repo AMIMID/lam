@@ -1,16 +1,23 @@
 
-
+(
+s.options.numWireBufs = 1024*16;
+s.options.numOutputBusChannels=16;
+s.options.numInputBusChannels=0;
+TempoClock.default.tempo_(120/120);
+s.options.memSize = 8192*8;
+s.waitForBoot
+)
 
 (
-~e1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms8.wav",channels:0);
-~e2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms8.wav",channels:1);
-~e3 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms8.wav",channels:2);
-~e4 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms8.wav",channels:3);
+~e1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms6.wav",channels:0);
+~e2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms6.wav",channels:1);
+~e3 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms6.wav",channels:2);
+~e4 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/ms6.wav",channels:3);
 )
 
 (
 SynthDef.new(\player,{
-	arg tempo;
+	arg tempo,out1,out2,out3,out4;
 	var env,el1,el2,el3,el4;
 	var rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1,rotation7=1,rotation8=1;
 	var detune,bank=3, angle=180;
@@ -20,7 +27,10 @@ SynthDef.new(\player,{
 		Out.ar(pair[0], pair[1])
 	}
 };
-	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
+	 out1 = NamedControl.kr(\outt1, [0, 1, 2, 3]);  // multiple buses!
+	 out2 = NamedControl.kr(\outt2, [4, 5, 6, 7]);  // multiple buses!
+	 out3 = NamedControl.kr(\outt3, [8, 9, 10, 11]);  // multiple buses!
+	 out4 = NamedControl.kr(\outt4, [12, 13, 14, 15]);  // multiple buses!
 
 	env=EnvGen.ar(Env.sine(120,tempo.reciprocal), doneAction: 2);
 
@@ -44,20 +54,27 @@ el1=Pan4.ar(PlayBuf.ar(1,0,BufRateScale.kr(0),startPos:~e1.numFrames.rand,loop:i
 		el4=Pan4.ar(PlayBuf.ar(1,3,BufRateScale.kr(3),startPos:~e4.numFrames.rand,loop:inf,rate:tempo),SinOsc.ar(rotation7*detune.real,phase:detune.theta),SinOsc.ar(rotation8*detune.imag,phase:detune.theta));
 
 
-    wrappedOut.value(out, LeakDC.ar(el1 * env));
-	wrappedOut.value(out, LeakDC.ar(el2 * env));
-	wrappedOut.value(out, LeakDC.ar(el3 * env));
-    wrappedOut.value(out, LeakDC.ar(el4 * env));
+    wrappedOut.value(out1, LeakDC.ar(el1 * env));
+	wrappedOut.value(out2, LeakDC.ar(el2 * env));
+	wrappedOut.value(out3, LeakDC.ar(el3 * env));
+    wrappedOut.value(out4, LeakDC.ar(el4 * env));
 	}
 }).add;
 )
 
+(Synth.new(\player,[tempo:1/2,out1:(0..3).rotate(4.rand),out2:(4..7).rotate(4.rand),out3:(8..11).rotate(4.rand),out4:(12..15).rotate(4.rand)]))
+
 (
 Pdef(\1, Pbind(\instrument, \player,
 	\dur,60,
-	\tempo,Pxrand([1,3/4,2/3,1/2],inf);
+	\tempo,Pxrand([1,3/4,2/3,1/2],inf),
+	\out1,(0..3).rotate(4.rand),
+	\out2,(4..7).rotate(4.rand),
+	\out3,(8..11).rotate(4.rand),
+	\out4,(12..15).rotate(4.rand);
 )).play;
 )
 
+s.record(numChannels:4) ;
 
 
