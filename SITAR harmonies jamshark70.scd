@@ -21,7 +21,8 @@ s.reboot
 (
 (
 SynthDef.new(\oa, {
-	arg rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1,rotation7=1,rotation8=1, n=1, cutt=496;
+	arg  n=1, cutt=496;
+	var rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1,rotation7=1,rotation8=1;
 	var frequency=8,detune1,detune2,detune3;
 	var osc1,osc2,osc3,osc4;
 	var freq1,freq2,env;
@@ -76,7 +77,8 @@ env=EnvGen.ar(Env.perc(0.01,3,pitch.reciprocal*0.5),doneAction:2);
 osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1*detune1.real,phase:detune1.theta),SinOsc.ar(rotation3*detune1.imag,phase:detune1.theta));
 
 osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2*detune2.real,phase:detune2.theta),SinOsc.ar(rotation4*detune2.imag,phase:detune2.theta));
-		osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5*detune1.real,phase:detune1.theta),SinOsc.ar(rotation6*detune1.imag,phase:detune1.theta));
+
+osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5*detune1.real,phase:detune1.theta),SinOsc.ar(rotation6*detune1.imag,phase:detune1.theta));
 
 osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7*detune2.real,phase:detune2.theta),SinOsc.ar(rotation8*detune2.imag,phase:detune2.theta));
 

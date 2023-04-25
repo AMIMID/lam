@@ -13,7 +13,7 @@ SynthDef.new(\player,{
 	arg tempo;
 	var env,el1,el2,el3,el4;
 	var rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1,rotation7=1,rotation8=1;
-	var detune,bank=4, angle=180;
+	var detune,bank=32, angle=180;
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -24,14 +24,14 @@ SynthDef.new(\player,{
 
 	env=EnvGen.ar(Env.sine(120,tempo.reciprocal), doneAction: 2);
 
-	rotation1=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation2=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation3=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation4=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation5=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation6=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation7=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation8=TExpRand.ar(0.1,10,Dust.ar(0.1));
+	rotation1=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation2=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation3=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation4=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation5=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation6=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation7=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation8=TExpRand.ar(1,2,Dust.ar(0.1));
 
 	bank.do{
 
