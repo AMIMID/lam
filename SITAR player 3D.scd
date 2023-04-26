@@ -1,7 +1,7 @@
 
 (
 s.options.numWireBufs = 1024*16;
-s.options.numOutputBusChannels=16;
+s.options.numOutputBusChannels=6;
 s.options.numInputBusChannels=0;
 TempoClock.default.tempo_(120/120);
 s.options.memSize = 8192*8;
@@ -40,7 +40,7 @@ Pdef(\1, Pbind(\instrument, \player,
 )).play;
 )
 
-////////////////////////////////////////////
+////////////////////////////////////////////simple ring elevation
 
 (
 SynthDef.new(\player,{
@@ -104,4 +104,65 @@ Pdef(\1, Pbind(\instrument, \player,
 
 s.record(numChannels:4) ;
 
+//////////////////////////////////////////////////sphere
 
+
+(
+~e1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Dokuments/MUSIC/piRATES.mp3",channels:0);
+~e2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Dokuments/MUSIC/piRATES.mp3",channels:1);
+)
+
+
+(
+SynthDef.new(\player,{
+	arg tempo;
+	var env,el1,el2;
+	var rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1,rotation7=1,rotation8=1;
+	var detune,bank=1, angle=180;
+	var wrappedOut = { |busArray, signalArray|
+	// magic trick to expand to the larger of the two arrays
+	[busArray, signalArray].flop.do { |pair|
+		Out.ar(pair[0], pair[1])
+	}
+};
+
+	var out1 = NamedControl.kr(\out1, [0, 1, 2, 3]);  // multiple buses!
+	var out2 = NamedControl.kr(\out2, [1, 4, 3, 5]);  // multiple buses!
+
+	env=EnvGen.ar(Env.sine(120,tempo.reciprocal), doneAction: 2);
+
+	rotation1=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation2=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation3=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation4=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation5=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation6=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation7=TExpRand.ar(1,2,Dust.ar(0.1));
+	rotation8=TExpRand.ar(1,2,Dust.ar(0.1));
+
+	bank.do{
+
+	angle=(angle+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
+	detune=exp(Complex(0,1)*angle);
+
+el1=Pan4.ar(PlayBuf.ar(1,0,BufRateScale.kr(0),startPos:~e1.numFrames.rand,loop:inf,rate:tempo),SinOsc.ar(rotation1*detune.theta,phase:detune.real),SinOsc.ar(rotation2*detune.theta,phase:detune.real));
+		el2=Pan4.ar(PlayBuf.ar(1,1,BufRateScale.kr(1),startPos:~e2.numFrames.rand,loop:inf,rate:tempo),SinOsc.ar(rotation3*detune.theta,phase:detune.imag),SinOsc.ar(rotation4*detune.theta,phase:detune.imag));
+
+
+    wrappedOut.value(out1, LeakDC.ar(el1 * env));
+	wrappedOut.value(out2, LeakDC.ar(el2 * env));
+
+	}
+}).add;
+)
+
+
+(
+Pdef(\1, Pbind(\instrument, \player,
+	\dur,60,
+	\tempo,Pxrand([1],inf),
+	\out1,[0, 1, 2, 3].rotate(4.rand),
+	\out2,[1, 4, 3, 5].rotate(4.rand);
+)).play;
+)
+s.record(numChannels:6)

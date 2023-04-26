@@ -52,14 +52,14 @@ SynthDef.new(\oa, {
 	freq2=freq2/2;
 
 
-	rotation1=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation2=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation3=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation4=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation5=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation6=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation7=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation8=TExpRand.ar(0.1,10,Dust.ar(0.1));
+	rotation1=TExpRand.ar(0.1,1,Dust.ar(0.1));
+	rotation2=TExpRand.ar(0.1,1,Dust.ar(0.1));
+	rotation3=TExpRand.ar(0.1,1,Dust.ar(0.1));
+	rotation4=TExpRand.ar(0.1,1,Dust.ar(0.1));
+	rotation5=TExpRand.ar(0.1,1,Dust.ar(0.1));
+	rotation6=TExpRand.ar(0.1,1,Dust.ar(0.1));
+	rotation7=TExpRand.ar(0.1,1,Dust.ar(0.1));
+	rotation8=TExpRand.ar(0.1,1,Dust.ar(0.1));
 
 
 env=EnvGen.ar(Env.perc(0.01,3,pitch.reciprocal*0.5),doneAction:2);
@@ -76,13 +76,13 @@ env=EnvGen.ar(Env.perc(0.01,3,pitch.reciprocal*0.5),doneAction:2);
 
 
 
-osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1*detune1.real,phase:detune1.theta),SinOsc.ar(rotation3*detune1.imag,phase:detune1.theta));
+osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1,phase:detune1.real.degrad),SinOsc.ar(rotation3,phase:detune1.imag.degrad));
 
-osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2*detune2.real,phase:detune2.theta),SinOsc.ar(rotation4*detune2.imag,phase:detune2.theta));
+osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2,phase:detune2.real.degrad),SinOsc.ar(rotation4,phase:detune2.imag.degrad));
 
-osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5*detune1.real,phase:detune1.theta),SinOsc.ar(rotation6*detune1.imag,phase:detune1.theta));
+osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5,phase:detune1.real.degrad),SinOsc.ar(rotation6,phase:detune1.imag.degrad));
 
-osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7*detune2.real,phase:detune2.theta),SinOsc.ar(rotation8*detune2.imag,phase:detune2.theta));
+osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
 
 
 	wrappedOut.value(out1, LeakDC.ar(LPF.ar(osc1 * env * (2/3), cutt)));
@@ -119,7 +119,7 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 	Synth(\oa, [n: num - 48, out1: [0, 1, 2, 3, 4, 5, 6, 7].rotate(8.rand), out2: [0, 8, 9, 10, 3, 11, 12, 13].rotate(8.rand), out3:[6, 14, 9, 15, 16, 17,12 ].rotate(8.rand)]);
 }, noteNum: (36..96))
 )
-s.record(numChannels:6) ;
+s.record(numChannels:18) ;
 
 
 

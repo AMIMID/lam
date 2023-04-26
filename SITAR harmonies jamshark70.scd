@@ -74,13 +74,13 @@ env=EnvGen.ar(Env.perc(0.01,3,pitch.reciprocal*0.5),doneAction:2);
 
 
 
-osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1*detune1.theta,phase:detune1.real.degrad),SinOsc.ar(rotation3*detune1.theta,phase:detune1.imag.degrad));
+osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1,phase:detune1.real.degrad),SinOsc.ar(rotation3,phase:detune1.imag.degrad));
 
-osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2*detune2.theta,phase:detune2.real.degrad),SinOsc.ar(rotation4*detune2.theta,phase:detune2.imag.degrad));
+osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2,phase:detune2.real.degrad),SinOsc.ar(rotation4,phase:detune2.imag.degrad));
 
-osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5*detune1.theta,phase:detune1.real.degrad),SinOsc.ar(rotation6*detune1.theta,phase:detune1.imag.degrad));
+osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5,phase:detune1.real.degrad),SinOsc.ar(rotation6,phase:detune1.imag.degrad));
 
-osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7*detune2.theta,phase:detune2.real.degrad),SinOsc.ar(rotation8*detune2.theta,phase:detune2.imag.degrad));
+osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
 
 
 	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc1 * env * (2/3), cutt)));
