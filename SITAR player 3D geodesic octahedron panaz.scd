@@ -22,7 +22,7 @@ s.reboot
 (
 SynthDef.new(\oa, {
 	arg  n=1, cutt=496;
-	var rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1,rotation7=1,rotation8=1;
+	var rotation1=1,rotation2=1,rotation3=1,rotation4=1;
 	var frequency=8,detune1,detune2;
 	var osc1,osc2,osc3,osc4;
 	var freq1,freq2,env;
@@ -40,7 +40,7 @@ SynthDef.new(\oa, {
 
 
 	frequency=1;
-	bank=4;
+	bank=8;
 	angle1=0;
 	angle2=90;
 	//angle3=45;
@@ -56,10 +56,6 @@ SynthDef.new(\oa, {
 	rotation2=TExpRand.ar(0.1,10,Dust.ar(0.1));
 	rotation3=TExpRand.ar(0.1,10,Dust.ar(0.1));
 	rotation4=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation5=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation6=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation7=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation8=TExpRand.ar(0.1,10,Dust.ar(0.1));
 
 
 env=EnvGen.ar(Env.perc(0.01,3,pitch.reciprocal*0.5),doneAction:2);
@@ -76,13 +72,13 @@ env=EnvGen.ar(Env.perc(0.01,3,pitch.reciprocal*0.5),doneAction:2);
 
 
 
-osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1,phase:detune1.real.degrad),SinOsc.ar(rotation3,phase:detune1.imag.degrad));
+osc1=PanAz.ar(8,SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation1,phase:detune1.real.degrad));
 
-osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2,phase:detune2.real.degrad),SinOsc.ar(rotation4,phase:detune2.imag.degrad));
+osc2=PanAz.ar(8,SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2,phase:detune1.imag.degrad));
 
-osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5,phase:detune1.real.degrad),SinOsc.ar(rotation6,phase:detune1.imag.degrad));
+osc3=PanAz.ar(8,SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune1.theta),SinOsc.ar(rotation3,phase:detune1.real.degrad));
 
-osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
+osc4=PanAz.ar(8,SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune2.theta),SinOsc.ar(rotation4,phase:detune1.imag.degrad));
 
 
 	wrappedOut.value(out1, LeakDC.ar(LPF.ar(osc1 * env * (2/3), cutt)));

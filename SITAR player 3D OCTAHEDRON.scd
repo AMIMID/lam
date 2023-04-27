@@ -11,7 +11,7 @@ Server.killAll
 s.record(numChannels:4)
 (
 s.options.numWireBufs = 1024*16;
-s.options.numOutputBusChannels=18;
+s.options.numOutputBusChannels=6;
 s.options.numInputBusChannels=0;
 TempoClock.default.tempo_(120/120);
 s.options.memSize = 8192*8;
@@ -34,9 +34,14 @@ SynthDef.new(\oa, {
 		Out.ar(pair[0], pair[1])
 	}
 };
-	var out1 = NamedControl.kr(\out1, [0, 1, 2, 3, 4, 5, 6, 7]);  // multiple buses!
-	var out2 = NamedControl.kr(\out2, [0, 8, 9, 10, 3, 11, 12, 13]);  // multiple buses!
-	var out3 = NamedControl.kr(\out3, [6, 14, 9, 15, 16, 17,12 ]);  // multiple buses!
+	var out1 = NamedControl.kr(\out1, [0,1,2]);  // multiple buses!
+	var out2 = NamedControl.kr(\out2, [3,2,1]);  // multiple buses!
+	var out3 = NamedControl.kr(\out3, [4,3,1]);  // multiple buses!
+	var out4 = NamedControl.kr(\out4, [0,4,1]);  // multiple buses!
+	var out5 = NamedControl.kr(\out5, [0,2,5]);  // multiple buses!
+	var out6 = NamedControl.kr(\out6, [3,2,5]);  // multiple buses!
+	var out7 = NamedControl.kr(\out7, [4,3,5]);  // multiple buses!
+	var out8 = NamedControl.kr(\out8, [0,4,5]);  // multiple buses!
 
 
 	frequency=1;
@@ -90,9 +95,18 @@ osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal,phase:detune2.thet
 	wrappedOut.value(out1, LeakDC.ar(LPF.ar(osc3 * env * (1/2), cutt)));
     wrappedOut.value(out2, LeakDC.ar(LPF.ar(osc4 * env * (1/2), cutt)));
 	wrappedOut.value(out3, LeakDC.ar(LPF.ar(osc1 * env * (2/3), cutt)));
-    wrappedOut.value(out3, LeakDC.ar(LPF.ar(osc2 * env * (2/3), cutt)));
+	wrappedOut.value(out4, LeakDC.ar(LPF.ar(osc2 * env * (2/3), cutt)));
 	wrappedOut.value(out3, LeakDC.ar(LPF.ar(osc3 * env * (1/2), cutt)));
-    wrappedOut.value(out3, LeakDC.ar(LPF.ar(osc4 * env * (1/2), cutt)));
+    wrappedOut.value(out4, LeakDC.ar(LPF.ar(osc4 * env * (1/2), cutt)));
+	wrappedOut.value(out5, LeakDC.ar(LPF.ar(osc1 * env * (2/3), cutt)));
+	wrappedOut.value(out6, LeakDC.ar(LPF.ar(osc2 * env * (2/3), cutt)));
+	wrappedOut.value(out5, LeakDC.ar(LPF.ar(osc3 * env * (1/2), cutt)));
+    wrappedOut.value(out6, LeakDC.ar(LPF.ar(osc4 * env * (1/2), cutt)));
+	wrappedOut.value(out7, LeakDC.ar(LPF.ar(osc1 * env * (2/3), cutt)));
+	wrappedOut.value(out8, LeakDC.ar(LPF.ar(osc2 * env * (2/3), cutt)));
+	wrappedOut.value(out7, LeakDC.ar(LPF.ar(osc3 * env * (1/2), cutt)));
+    wrappedOut.value(out8, LeakDC.ar(LPF.ar(osc4 * env * (1/2), cutt)));
+
 
 
 		m = m+1;
@@ -116,10 +130,10 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 	if(num < 49) {
 		num = num - 1
 	};
-	Synth(\oa, [n: num - 48, out1: [0, 1, 2, 3, 4, 5, 6, 7].rotate(8.rand), out2: [0, 8, 9, 10, 3, 11, 12, 13].rotate(8.rand), out3:[6, 14, 9, 15, 16, 17,12 ].rotate(8.rand)]);
+	Synth(\oa, [n: num - 48, out1: [0,1,2].rotate(3.rand), out2: [3,2,1].rotate(3.rand), out3:[4,3,1].rotate(3.rand), out4: [0,4,1].rotate(3.rand), out5: [0,2,5].rotate(3.rand), out6:[3,2,5].rotate(3.rand), out7: [4,3,5].rotate(3.rand), out8: [0,4,5].rotate(3.rand)]);
 }, noteNum: (36..96))
 )
-s.record(numChannels:18) ;
+s.record(numChannels:6) ;
 
 
 

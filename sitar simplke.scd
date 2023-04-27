@@ -62,10 +62,10 @@ SynthDef.new(\oa, {
 		Out.ar(pair[0], pair[1])
 	}
 };
-	var out = NamedControl.kr(\out, [0, 1, 2, 3, 4, 5]);  // multiple buses!
+	var out = NamedControl.kr(\out, [0, 1, 2]);  // multiple buses!
 
 
-	osc1=Pan4.ar(SinOsc.ar(440,mul:1,phase:0.degrad),SinOsc.ar(0.1,phase:0.degrad),SinOsc.ar(0.1,phase:0.degrad));
+	osc1=Pan4.ar(SinOsc.ar(440,mul:1,phase:0.degrad),SinOsc.ar(0.1,phase:0.degrad),SinOsc.ar(0.1,phase:90.degrad));
 
 
 	wrappedOut.value(out, LeakDC.ar(osc1));
@@ -76,7 +76,28 @@ SynthDef.new(\oa, {
 Synth.new(\oa)
 
 
+/////////////////////////////////////
+
+(
+SynthDef.new(\oa, {
+	var osc1,osc2,osc3,osc4;
+	var wrappedOut = { |busArray, signalArray|
+	// magic trick to expand to the larger of the two arrays
+	[busArray, signalArray].flop.do { |pair|
+		Out.ar(pair[0], pair[1])
+	}
+};
+	var out = NamedControl.kr(\out, [0, 2,3,6]);  // multiple buses!
 
 
+	osc1=PanAz.ar(4,SinOsc.ar(440,mul:1,phase:0.degrad),SinOsc.ar(0.1,phase:0.degrad));
+
+
+	wrappedOut.value(out, LeakDC.ar(osc1));
+
+}).add;
+)
+
+Synth.new(\oa)
 
 
