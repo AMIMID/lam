@@ -23,6 +23,7 @@ s.reboot
 SynthDef.new(\oa, {
 	arg  n=1, cutt=220,decay=6;
 	var rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1,rotation7=1,rotation8=1;
+	var rotation9=1,rotation10=1,rotation11=1,rotation12=1,rotation13=1,rotation14=1,rotation15=1,rotation16=1;
 	var frequency=8,detune1,detune2;
 	var osc1,osc2,osc3,osc4,osc5,osc6,osc7,osc8;
 	var freq1,freq2,freq3,freq4, env;
@@ -42,7 +43,7 @@ SynthDef.new(\oa, {
 	angle1=0;
 	angle2=90;
 	//angle3=45;
-	pitch=2.pow(n/(2*496));
+	pitch=2.pow(n/(2*6));
 
 	freq1 =(((4*8)-1)*((4*8)/2));
 	freq1=freq1*(1/1);
@@ -62,9 +63,17 @@ SynthDef.new(\oa, {
 	rotation6=TExpRand.ar(0.01,1,Dust.ar(0.1));
 	rotation7=TExpRand.ar(0.01,1,Dust.ar(0.1));
 	rotation8=TExpRand.ar(0.01,1,Dust.ar(0.1));
+	rotation9=TExpRand.ar(0.01,1,Dust.ar(0.1));
+	rotation10=TExpRand.ar(0.01,1,Dust.ar(0.1));
+	rotation11=TExpRand.ar(0.01,1,Dust.ar(0.1));
+	rotation12=TExpRand.ar(0.01,1,Dust.ar(0.1));
+	rotation13=TExpRand.ar(0.01,1,Dust.ar(0.1));
+	rotation14=TExpRand.ar(0.01,1,Dust.ar(0.1));
+	rotation15=TExpRand.ar(0.01,1,Dust.ar(0.1));
+	rotation16=TExpRand.ar(0.01,1,Dust.ar(0.1));
 
 
-env=EnvGen.ar(Env.sine(decay,pitch.reciprocal*0.5),doneAction:2);
+env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.5),doneAction:2);
 
 	bank.do{
 
@@ -86,13 +95,13 @@ osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,p
 
 osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
 
-osc5=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5,phase:detune1.real.degrad),SinOsc.ar(rotation6,phase:detune1.imag.degrad));
+osc5=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation9,phase:detune1.real.degrad),SinOsc.ar(rotation10,phase:detune1.imag.degrad));
 
-osc6=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
+osc6=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation11,phase:detune2.real.degrad),SinOsc.ar(rotation12,phase:detune2.imag.degrad));
 
-osc7=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5,phase:detune1.real.degrad),SinOsc.ar(rotation6,phase:detune1.imag.degrad));
+osc7=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation13,phase:detune1.real.degrad),SinOsc.ar(rotation14,phase:detune1.imag.degrad));
 
-osc8=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
+osc8=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation15,phase:detune2.real.degrad),SinOsc.ar(rotation16,phase:detune2.imag.degrad));
 
 	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc1 * env * (1/1), cutt)));
 	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc2 * env * (1/1), cutt)));
@@ -100,7 +109,7 @@ osc8=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,p
     wrappedOut.value(out, LeakDC.ar(LPF.ar(osc4 * env * (2/3), cutt)));
 	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc5 * env * (3/4), cutt)));
     wrappedOut.value(out, LeakDC.ar(LPF.ar(osc6 * env * (3/4), cutt)));
-		wrappedOut.value(out, LeakDC.ar(LPF.ar(osc7 * env * (1/2), cutt)));
+	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc7 * env * (1/2), cutt)));
     wrappedOut.value(out, LeakDC.ar(LPF.ar(osc8 * env * (1/2), cutt)));
 
 		m = m+1;
@@ -115,9 +124,9 @@ osc8=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,p
 (
 Pdef(\1, Pbind(\instrument, \oa,
 	\dur,Pexprand(1,2,inf),
-	\n,Pbrown(1,992,1,inf),
-	\cutt,Pexprand(248,2480,inf),
-	\decay,Pbrown(4,8,1,inf);
+	\n,Pbrown(24.neg,24,1,inf),
+	\cutt,Pexprand(248,496,inf),
+	\decay,Pbrown(4,6,1,inf);
 )).play;
 )
 s.record(numChannels:4) ;
