@@ -24,8 +24,8 @@ SynthDef.new(\oa, {
 	arg  n=1, cutt=220,decay=6;
 	var rotation1=1,rotation2=1,rotation3=1,rotation4=1,rotation5=1,rotation6=1,rotation7=1,rotation8=1;
 	var frequency=8,detune1,detune2;
-	var osc1,osc2,osc3,osc4,osc5,osc6;
-	var freq1,freq2,freq3, env;
+	var osc1,osc2,osc3,osc4,osc5,osc6,osc7,osc8;
+	var freq1,freq2,freq3,freq4, env;
 	var bank, angle1,angle2;
 	var pitch,m=0,over=1;
 	var wrappedOut = { |busArray, signalArray|
@@ -38,18 +38,20 @@ SynthDef.new(\oa, {
 
 
 	frequency=1;
-	bank=12;
+	bank=8;
 	angle1=0;
 	angle2=90;
 	//angle3=45;
 	pitch=2.pow(n/(2*496));
 
 	freq1 =(((4*8)-1)*((4*8)/2));
-	freq1=freq1/3;
+	freq1=freq1*(1/1);
 	freq2 =(((4*8)-1)*((4*8)/2));
-	freq2=freq2/2;
+	freq2=freq2*(3/2);
 	freq3 =(((4*8)-1)*((4*8)/2));
-	freq3=freq3/1;
+	freq3=freq3*(4/3);
+	freq4 =(((4*8)-1)*((4*8)/2));
+	freq4=freq4*(2/1);
 
 
 	rotation1=TExpRand.ar(0.01,1,Dust.ar(0.1));
@@ -88,12 +90,18 @@ osc5=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,p
 
 osc6=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
 
-	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc1 * env * (3), cutt)));
-	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc2 * env * (3), cutt)));
-	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc3 * env * (2), cutt)));
-    wrappedOut.value(out, LeakDC.ar(LPF.ar(osc4 * env * (2), cutt)));
-	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc5 * env * (1), cutt)));
-    wrappedOut.value(out, LeakDC.ar(LPF.ar(osc6 * env * (1), cutt)));
+osc7=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5,phase:detune1.real.degrad),SinOsc.ar(rotation6,phase:detune1.imag.degrad));
+
+osc8=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
+
+	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc1 * env * (1/1), cutt)));
+	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc2 * env * (1/1), cutt)));
+	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc3 * env * (2/3), cutt)));
+    wrappedOut.value(out, LeakDC.ar(LPF.ar(osc4 * env * (2/3), cutt)));
+	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc5 * env * (3/4), cutt)));
+    wrappedOut.value(out, LeakDC.ar(LPF.ar(osc6 * env * (3/4), cutt)));
+		wrappedOut.value(out, LeakDC.ar(LPF.ar(osc7 * env * (1/2), cutt)));
+    wrappedOut.value(out, LeakDC.ar(LPF.ar(osc8 * env * (1/2), cutt)));
 
 		m = m+1;
 		over = over + (m+1)/1;
@@ -106,10 +114,10 @@ osc6=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,p
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,Pexprand(1/2,1,inf),
+	\dur,Pexprand(1,2,inf),
 	\n,Pbrown(1,992,1,inf),
 	\cutt,Pexprand(248,2480,inf),
-	\decay,Pbrown(1,8,1,inf);
+	\decay,Pbrown(4,8,1,inf);
 )).play;
 )
 s.record(numChannels:4) ;
