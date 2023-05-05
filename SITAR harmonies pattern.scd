@@ -29,6 +29,7 @@ SynthDef.new(\oa, {
 	var freq1,freq2,freq3,freq4, env;
 	var bank, angle1,angle2;
 	var pitch,m=0,over=1;
+	var cf=8;
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -37,40 +38,40 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-
 	frequency=1;
-	bank=8;
+	bank=6;
 	angle1=0;
 	angle2=90;
 	//angle3=45;
 	pitch=2.pow(n/(2*6));
 
-	freq1 =(((4*8)-1)*((4*8)/2));
+	//(((4*cf)-1)*((4*cf)/2));
+
+	freq1 = 256;
 	freq1=freq1*(1/1);
-	freq2 =(((4*8)-1)*((4*8)/2));
+	freq2 =256;
 	freq2=freq2*(3/2);
-	freq3 =(((4*8)-1)*((4*8)/2));
+	freq3 =256;
 	freq3=freq3*(4/3);
-	freq4 =(((4*8)-1)*((4*8)/2));
+	freq4 =256;
 	freq4=freq4*(2/1);
 
-
-	rotation1=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation2=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation3=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation4=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation5=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation6=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation7=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation8=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation9=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation10=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation11=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation12=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation13=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation14=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation15=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation16=TExpRand.ar(0.01,1,Dust.ar(0.1));
+	rotation1=TExpRand.ar(0.01,1,Dust.ar(20));
+	rotation2=TExpRand.ar(0.01,1,Dust.ar(20));
+	rotation3=TExpRand.ar(0.01,1,Dust.ar(20));
+	rotation4=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation5=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation6=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation7=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation8=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation9=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation10=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation11=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation12=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation13=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation14=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation15=TExpRand.ar(0.01,1,Dust.ar(20));
+	//rotation16=TExpRand.ar(0.01,1,Dust.ar(20));
 
 
 env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.5),doneAction:2);
@@ -91,26 +92,26 @@ osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,p
 
 osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2,phase:detune2.real.degrad),SinOsc.ar(rotation4,phase:detune2.imag.degrad));
 
-osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5,phase:detune1.real.degrad),SinOsc.ar(rotation6,phase:detune1.imag.degrad));
+//osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5,phase:detune1.real.degrad),SinOsc.ar(rotation6,phase:detune1.imag.degrad));
 
-osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
+//osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
 
-osc5=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation9,phase:detune1.real.degrad),SinOsc.ar(rotation10,phase:detune1.imag.degrad));
+//osc5=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation9,phase:detune1.real.degrad),SinOsc.ar(rotation10,phase:detune1.imag.degrad));
 
-osc6=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation11,phase:detune2.real.degrad),SinOsc.ar(rotation12,phase:detune2.imag.degrad));
+//osc6=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation11,phase:detune2.real.degrad),SinOsc.ar(rotation12,phase:detune2.imag.degrad));
 
-osc7=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation13,phase:detune1.real.degrad),SinOsc.ar(rotation14,phase:detune1.imag.degrad));
+//osc7=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation13,phase:detune1.real.degrad),SinOsc.ar(rotation14,phase:detune1.imag.degrad));
 
-osc8=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation15,phase:detune2.real.degrad),SinOsc.ar(rotation16,phase:detune2.imag.degrad));
+//osc8=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation15,phase:detune2.real.degrad),SinOsc.ar(rotation16,phase:detune2.imag.degrad));
 
 	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc1 * env * (1/1), cutt)));
 	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc2 * env * (1/1), cutt)));
-	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc3 * env * (2/3), cutt)));
-    wrappedOut.value(out, LeakDC.ar(LPF.ar(osc4 * env * (2/3), cutt)));
-	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc5 * env * (3/4), cutt)));
-    wrappedOut.value(out, LeakDC.ar(LPF.ar(osc6 * env * (3/4), cutt)));
-	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc7 * env * (1/2), cutt)));
-    wrappedOut.value(out, LeakDC.ar(LPF.ar(osc8 * env * (1/2), cutt)));
+	//wrappedOut.value(out, LeakDC.ar(LPF.ar(osc3 * env * (2/3), cutt)));
+   // wrappedOut.value(out, LeakDC.ar(LPF.ar(osc4 * env * (2/3), cutt)));
+	//wrappedOut.value(out, LeakDC.ar(LPF.ar(osc5 * env * (3/4), cutt)));
+   // wrappedOut.value(out, LeakDC.ar(LPF.ar(osc6 * env * (3/4), cutt)));
+	//wrappedOut.value(out, LeakDC.ar(LPF.ar(osc7 * env * (1/2), cutt)));
+   // wrappedOut.value(out, LeakDC.ar(LPF.ar(osc8 * env * (1/2), cutt)));
 
 		m = m+1;
 		over = over + (m+1)/1;
@@ -123,13 +124,34 @@ osc8=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,p
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,Pexprand(1,2,inf),
-	\n,Pbrown(24.neg,24,1,inf),
-	\cutt,Pexprand(248,496,inf),
+	\dur,Pbrown(1/2,2,1/2,inf),
+	\n,Pbrown(992.neg,992,1,inf),
+	\cutt,Pexprand(248,248,inf),
 	\decay,Pbrown(4,6,1,inf);
 )).play;
 )
 s.record(numChannels:4) ;
+
+(
+(
+Pdef(\1, Pbind(\instrument, \oa,
+	\dur,Pwrand([1,1/2],[100,10].normalizeSum,inf),
+	\n,Pseq([3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11],inf),
+	\cutt,Pbrown(220,440,55,inf),
+	\decay,Pbrown(6,8,1,inf),
+	\out,(0..3).rotate(4.rand);
+)).play;
+);
+(
+Pdef(\2, Pbind(\instrument, \oa,
+	\dur,Pwrand([1,1/2],[100,10].normalizeSum,inf),
+	\n,Pseq([20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest,15],inf),
+	\cutt,Pbrown(220,440,55,inf),
+	\decay,Pbrown(6,8,1,inf),
+	\out,(0..3).rotate(4.rand);
+)).play;
+)
+)
 
 
 
