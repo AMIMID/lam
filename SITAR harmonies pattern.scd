@@ -29,7 +29,7 @@ SynthDef.new(\oa, {
 	var freq1,freq2,freq3,freq4, env;
 	var bank, angle1,angle2;
 	var pitch,m=0,over=1;
-	var cf=8;
+	var cf=8, fund=174.61;
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -39,7 +39,7 @@ SynthDef.new(\oa, {
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
 	frequency=1;
-	bank=6;
+	bank=12;
 	angle1=0;
 	angle2=90;
 	//angle3=45;
@@ -47,23 +47,23 @@ SynthDef.new(\oa, {
 
 	//(((4*cf)-1)*((4*cf)/2));
 
-	freq1 = 256;
+	freq1 = fund;
 	freq1=freq1*(1/1);
-	freq2 =256;
+	freq2 =fund;
 	freq2=freq2*(3/2);
-	freq3 =256;
+	freq3 =fund;
 	freq3=freq3*(4/3);
-	freq4 =256;
+	freq4 =fund;
 	freq4=freq4*(2/1);
 
-	rotation1=TExpRand.ar(0.01,1,Dust.ar(20));
-	rotation2=TExpRand.ar(0.01,1,Dust.ar(20));
-	rotation3=TExpRand.ar(0.01,1,Dust.ar(20));
-	rotation4=TExpRand.ar(0.01,1,Dust.ar(20));
-	//rotation5=TExpRand.ar(0.01,1,Dust.ar(20));
-	//rotation6=TExpRand.ar(0.01,1,Dust.ar(20));
-	//rotation7=TExpRand.ar(0.01,1,Dust.ar(20));
-	//rotation8=TExpRand.ar(0.01,1,Dust.ar(20));
+	rotation1=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation2=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation3=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation4=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation5=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation6=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation7=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation8=TExpRand.ar(0.01,1,Dust.ar(100));
 	//rotation9=TExpRand.ar(0.01,1,Dust.ar(20));
 	//rotation10=TExpRand.ar(0.01,1,Dust.ar(20));
 	//rotation11=TExpRand.ar(0.01,1,Dust.ar(20));
@@ -135,20 +135,20 @@ s.record(numChannels:4) ;
 (
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,Pwrand([1,1/2],[100,10].normalizeSum,inf),
-	\n,Pseq([3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11],inf),
-	\cutt,Pbrown(220,440,55,inf),
+	\dur,Pwrand([1/2,3/4],[100,20].normalizeSum,inf),
+	\n,Pseq([3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11,20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest],inf),
+	\cutt,Pbrown(220,440,1,inf),
 	\decay,Pbrown(6,8,1,inf),
-	\out,(0..3).rotate(4.rand);
+	//\out,(0..3).rotate(4.rand);
 )).play;
 );
 (
 Pdef(\2, Pbind(\instrument, \oa,
-	\dur,Pwrand([1,1/2],[100,10].normalizeSum,inf),
-	\n,Pseq([20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest,15],inf),
-	\cutt,Pbrown(220,440,55,inf),
+	\dur,Pwrand([1/2,3/4],[100,20].normalizeSum,inf),
+	\n,Pseq([20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest,15,3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11],inf),
+	\cutt,Pbrown(220,440,1,inf),
 	\decay,Pbrown(6,8,1,inf),
-	\out,(0..3).rotate(4.rand);
+	//\out,(0..3).rotate(4.rand);
 )).play;
 )
 )
