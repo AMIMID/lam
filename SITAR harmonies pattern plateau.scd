@@ -88,7 +88,7 @@ env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.5),doneAction:2);
 
 
 
-osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(pitch,phase:detune1.real.degrad),SinOsc.ar(pitch,phase:detune1.imag.degrad));
+osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(pitch,phase:detune1.real.degrad,mul:pitch.reciprocal),SinOsc.ar(pitch,phase:detune1.imag.degrad,mul:pitch.reciprocal));
 
 //osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(pitch,phase:detune2.real.degrad),SinOsc.ar(pitch,phase:detune2.imag.degrad));
 
@@ -135,7 +135,7 @@ s.record(numChannels:4) ;
 (
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,Pwrand([1/2,3/4],[100,20].normalizeSum,inf),
+	\dur,Pwrand([1/2,3/4,2/3],[100,20,20].normalizeSum,inf),
 	\n,Prand([3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11,20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest],inf),
 	\cutt,Pbrown(220,440,1,inf),
 	\decay,Pbrown(6,8,1,inf),
@@ -144,7 +144,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 );
 (
 Pdef(\2, Pbind(\instrument, \oa,
-	\dur,Pwrand([1/2,3/4],[100,20].normalizeSum,inf),
+	\dur,Pwrand([1/2,3/4,2/3],[100,20,20].normalizeSum,inf),
 	\n,Prand([20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest,15,3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11],inf),
 	\cutt,Pbrown(220,440,1,inf),
 	\decay,Pbrown(6,8,1,inf),
