@@ -39,7 +39,7 @@ SynthDef.new(\oa, {
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
 	frequency=1;
-	bank=12;
+	bank=24;
 	angle1=0;
 	angle2=90;
 	//angle3=45;
@@ -88,9 +88,9 @@ env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.5),doneAction:2);
 
 
 
-osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(n,phase:detune1.real.degrad),SinOsc.ar(n,phase:detune1.imag.degrad));
+osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(pitch,phase:detune1.real.degrad),SinOsc.ar(pitch,phase:detune1.imag.degrad));
 
-osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(n,phase:detune2.real.degrad),SinOsc.ar(n,phase:detune2.imag.degrad));
+//osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(pitch,phase:detune2.real.degrad),SinOsc.ar(pitch,phase:detune2.imag.degrad));
 
 //osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5,phase:detune1.real.degrad),SinOsc.ar(rotation6,phase:detune1.imag.degrad));
 
@@ -105,9 +105,9 @@ osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,p
 //osc8=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation15,phase:detune2.real.degrad),SinOsc.ar(rotation16,phase:detune2.imag.degrad));
 
 	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc1 * env * (1/1), cutt)));
-	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc2 * env * (1/1), cutt)));
+	//wrappedOut.value(out, LeakDC.ar(LPF.ar(osc2 * env * (1/1), cutt)));
 	//wrappedOut.value(out, LeakDC.ar(LPF.ar(osc3 * env * (2/3), cutt)));
-   // wrappedOut.value(out, LeakDC.ar(LPF.ar(osc4 * env * (2/3), cutt)));
+    //wrappedOut.value(out, LeakDC.ar(LPF.ar(osc4 * env * (2/3), cutt)));
 	//wrappedOut.value(out, LeakDC.ar(LPF.ar(osc5 * env * (3/4), cutt)));
    // wrappedOut.value(out, LeakDC.ar(LPF.ar(osc6 * env * (3/4), cutt)));
 	//wrappedOut.value(out, LeakDC.ar(LPF.ar(osc7 * env * (1/2), cutt)));
