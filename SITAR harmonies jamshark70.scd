@@ -45,35 +45,37 @@ SynthDef.new(\oa, {
 	//angle3=45;
 	pitch=2.pow(n/(2*6));
 
-	freq1 =(((4*8)-1)*((4*8)/2));
+		//(((4*cf)-1)*((4*cf)/2));
+
+	freq1 = 256;
 	freq1=freq1*(1/1);
-	freq2 =(((4*8)-1)*((4*8)/2));
+	freq2 =256;
 	freq2=freq2*(3/2);
-	freq3 =(((4*8)-1)*((4*8)/2));
+	freq3 =256;
 	freq3=freq3*(4/3);
-	freq4 =(((4*8)-1)*((4*8)/2));
+	freq4 =256;
 	freq4=freq4*(2/1);
 
 
-	rotation1=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation2=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation3=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation4=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation5=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation6=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation7=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation8=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation9=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation10=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation11=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation12=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation13=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation14=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation15=TExpRand.ar(0.01,1,Dust.ar(0.1));
-	rotation16=TExpRand.ar(0.01,1,Dust.ar(0.1));
+	rotation1=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation2=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation3=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation4=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation5=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation6=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation7=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation8=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation9=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation10=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation11=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation12=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation13=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation14=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation15=TExpRand.ar(0.01,1,Dust.ar(100));
+	rotation16=TExpRand.ar(0.01,1,Dust.ar(100));
 
 
-env=EnvGen.ar(Env.perc(0.01,6,pitch.reciprocal*0.5),doneAction:2);
+env=EnvGen.ar(Env.perc(0.01,6,pitch.reciprocal*0.2),doneAction:2);
 
 	bank.do{
 
@@ -88,13 +90,13 @@ osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,p
 
 osc2=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation2,phase:detune2.real.degrad),SinOsc.ar(rotation4,phase:detune2.imag.degrad));
 
-osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5,phase:detune1.real.degrad),SinOsc.ar(rotation6,phase:detune1.imag.degrad));
+//osc3=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation5,phase:detune1.real.degrad),SinOsc.ar(rotation6,phase:detune1.imag.degrad));
 
-osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
+//osc4=Pan4.ar(SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation7,phase:detune2.real.degrad),SinOsc.ar(rotation8,phase:detune2.imag.degrad));
 
-osc5=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation9,phase:detune1.real.degrad),SinOsc.ar(rotation10,phase:detune1.imag.degrad));
+//osc5=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation9,phase:detune1.real.degrad),SinOsc.ar(rotation10,phase:detune1.imag.degrad));
 
-osc6=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation11,phase:detune2.real.degrad),SinOsc.ar(rotation12,phase:detune2.imag.degrad));
+//osc6=Pan4.ar(SinOsc.ar((freq3*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),SinOsc.ar(rotation11,phase:detune2.real.degrad),SinOsc.ar(rotation12,phase:detune2.imag.degrad));
 
 osc7=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(rotation13,phase:detune1.real.degrad),SinOsc.ar(rotation14,phase:detune1.imag.degrad));
 
@@ -102,11 +104,11 @@ osc8=Pan4.ar(SinOsc.ar((freq4*over)*pitch,mul:over.reciprocal*pitch.reciprocal,p
 
 	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc1 * env * (1/1), cutt)));
 	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc2 * env * (1/1), cutt)));
-	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc3 * env * (2/3), cutt)));
-    wrappedOut.value(out, LeakDC.ar(LPF.ar(osc4 * env * (2/3), cutt)));
-	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc5 * env * (3/4), cutt)));
-    wrappedOut.value(out, LeakDC.ar(LPF.ar(osc6 * env * (3/4), cutt)));
-		wrappedOut.value(out, LeakDC.ar(LPF.ar(osc7 * env * (1/2), cutt)));
+	//wrappedOut.value(out, LeakDC.ar(LPF.ar(osc3 * env * (2/3), cutt)));
+   // wrappedOut.value(out, LeakDC.ar(LPF.ar(osc4 * env * (2/3), cutt)));
+	//wrappedOut.value(out, LeakDC.ar(LPF.ar(osc5 * env * (3/4), cutt)));
+   // wrappedOut.value(out, LeakDC.ar(LPF.ar(osc6 * env * (3/4), cutt)));
+	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc7 * env * (1/2), cutt)));
     wrappedOut.value(out, LeakDC.ar(LPF.ar(osc8 * env * (1/2), cutt)));
 
 		m = m+1;

@@ -36,12 +36,12 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=6;
+	bank=24;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
 
-	freq1 = fund*8;
+	freq1 = fund*4;
 	freq1=freq1*(1/1);
 
 env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.5),doneAction:2);
@@ -80,7 +80,7 @@ s.record(numChannels:4) ;
 (
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,Pwrand([1/2,3/4,2/3],[100,1,1].normalizeSum,inf),
+	\dur,Pwrand([1/2,3/4,2/3],[100,10,10].normalizeSum,inf),
 	\n,Prand([3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11,20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest],inf),
 	\cutt,Pbrown(220,440,1,inf),
 	\decay,Pbrown(6,8,1,inf);
@@ -88,7 +88,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 );
 (
 Pdef(\2, Pbind(\instrument, \oa,
-	\dur,Pwrand([1/2,3/4,2/3],[100,1,1].normalizeSum,inf),
+	\dur,Pwrand([1/2,3/4,2/3],[100,10,10].normalizeSum,inf),
 	\n,Prand([20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest,15,3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11],inf),
 	\cutt,Pbrown(220,440,1,inf),
 	\decay,Pbrown(6,8,1,inf);

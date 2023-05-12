@@ -60,10 +60,10 @@ SynthDef.new(\oa, {
 	rotation2=TExpRand.ar(0.01,1,Dust.ar(100));
 	rotation3=TExpRand.ar(0.01,1,Dust.ar(100));
 	rotation4=TExpRand.ar(0.01,1,Dust.ar(100));
-	rotation5=TExpRand.ar(0.01,1,Dust.ar(100));
-	rotation6=TExpRand.ar(0.01,1,Dust.ar(100));
-	rotation7=TExpRand.ar(0.01,1,Dust.ar(100));
-	rotation8=TExpRand.ar(0.01,1,Dust.ar(100));
+	//rotation5=TExpRand.ar(0.01,1,Dust.ar(100));
+	//rotation6=TExpRand.ar(0.01,1,Dust.ar(100));
+	//rotation7=TExpRand.ar(0.01,1,Dust.ar(100));
+	//rotation8=TExpRand.ar(0.01,1,Dust.ar(100));
 	//rotation9=TExpRand.ar(0.01,1,Dust.ar(20));
 	//rotation10=TExpRand.ar(0.01,1,Dust.ar(20));
 	//rotation11=TExpRand.ar(0.01,1,Dust.ar(20));
@@ -136,7 +136,7 @@ s.record(numChannels:4) ;
 (
 Pdef(\1, Pbind(\instrument, \oa,
 	\dur,Pwrand([1/2,3/4],[100,20].normalizeSum,inf),
-	\n,Pseq([3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11,20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest],inf),
+	\n,Prand([3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11,20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest],inf),
 	\cutt,Pbrown(220,440,1,inf),
 	\decay,Pbrown(6,8,1,inf),
 	//\out,(0..3).rotate(4.rand);
@@ -145,7 +145,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 (
 Pdef(\2, Pbind(\instrument, \oa,
 	\dur,Pwrand([1/2,3/4],[100,20].normalizeSum,inf),
-	\n,Pseq([20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest,15,3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11],inf),
+	\n,Prand([20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest,15,3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11],inf),
 	\cutt,Pbrown(220,440,1,inf),
 	\decay,Pbrown(6,8,1,inf),
 	//\out,(0..3).rotate(4.rand);

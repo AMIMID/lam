@@ -22,16 +22,17 @@ s.reboot
 // 3D
 a = VBAPSpeakerArray.new(3, [[0, 45], [90, 45], [180, 45], [-90, 45],[0, -45], [90, -45], [180, -45], [-90, -45],[0, 0], [45, 0], [90, 0], [135, 0],[180, 0], [-135, 0], [-90, 0], [-45,0]]); // torus geo dome
 ~b = Buffer.loadCollection(s, a.getSetsAndMatrices);
-
+)
+(
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=496;
-	var rotation1=1,rotation2=1,rotation3=1,rotation4=1;
-	var frequency=8,detune1,detune2;
-	var osc1,osc2,osc3,osc4;
-	var freq1,freq2,env;
-	var bank, angle1,angle2;
+	arg  n=1, cutt=496,decay=6;
+	var detune1;
+	var osc1;
+	var freq1,env;
+	var bank, angle1;
 	var pitch,m=0,over=1;
+	var fund=(((4*2)-1)*((4*2)/2));
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -42,52 +43,34 @@ SynthDef.new(\oa, {
 
 
 
-	frequency=1;
-	bank=8;
+	bank=12;
 	angle1=0;
-	angle2=90;
 	//angle3=45;
 	pitch=2.pow(n/12);
 
-	freq1 =(((4*8)-1)*((4*8)/2));
-	freq1=freq1/3;
-	freq2 =(((4*8)-1)*((4*8)/2));
-	freq2=freq2/2;
+	freq1 = fund*2;
+	freq1=freq1*(1/1);
 
 
-	rotation1=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation2=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation3=TExpRand.ar(0.1,10,Dust.ar(0.1));
-	rotation4=TExpRand.ar(0.1,10,Dust.ar(0.1));
 
 
-env=EnvGen.ar(Env.perc(0.01,3,pitch.reciprocal*0.5),doneAction:2);
+env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.5),doneAction:2);
 
 	bank.do{
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1);
 
-		angle2=(angle2+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
-	detune2=exp(Complex(0,1)*angle2);
 
 
 
 
 
-osc1=VBAP.ar(18,SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),~b.bufnum,SinOsc.ar(rotation1,phase:detune1.real.degrad),SinOsc.ar(rotation1,phase:detune1.imag.degrad));
-
-osc2=VBAP.ar(18,SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),~b.bufnum,SinOsc.ar(rotation2,phase:detune1.real.degrad),SinOsc.ar(rotation2,phase:detune1.imag.degrad));
-
-osc3=VBAP.ar(18,SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),~b.bufnum,SinOsc.ar(rotation3,phase:detune1.real.degrad),SinOsc.ar(rotation3,phase:detune1.imag.degrad));
-
-osc4=VBAP.ar(18,SinOsc.ar((freq2*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune2.theta),~b.bufnum,SinOsc.ar(rotation4,phase:detune1.real.degrad),SinOsc.ar(rotation4,phase:detune1.imag.degrad));
+osc1=VBAP.ar(16,SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),~b.bufnum,SinOsc.ar(over*pitch,phase:detune1.real.degrad,mul:over.reciprocal*pitch.reciprocal),SinOsc.ar(over*pitch,phase:detune1.imag.degrad,mul:over.reciprocal*pitch.reciprocal));
 
 
-	wrappedOut.value(out1, LeakDC.ar(LPF.ar(osc1 * env * (2/3), cutt)));
-	wrappedOut.value(out1, LeakDC.ar(LPF.ar(osc2 * env * (2/3), cutt)));
-	wrappedOut.value(out1, LeakDC.ar(LPF.ar(osc3 * env * (1/2), cutt)));
-    wrappedOut.value(out1, LeakDC.ar(LPF.ar(osc4 * env * (1/2), cutt)));
+
+	wrappedOut.value(out1, LeakDC.ar(LPF.ar(osc1 * env * (1/1), cutt)));
 
 
 		m = m+1;
@@ -114,7 +97,8 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 	Synth(\oa, [n: num - 48, out1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].rotate(16.rand)]);
 }, noteNum: (36..96))
 )
-s.record(numChannels:18) ;
+)
+s.record(numChannels:16) ;
 
 
 

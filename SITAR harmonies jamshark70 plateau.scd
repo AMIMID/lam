@@ -22,7 +22,7 @@ s.reboot
 (
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=440,decay=6;
+	arg  n=1, cutt=496,decay=6;
 	var detune1,detune2;
 	var osc1;
 	var freq1,freq2,freq3,freq4, env;
@@ -42,7 +42,7 @@ SynthDef.new(\oa, {
 	pitch=2.pow(n/(2*6));
 
 
-	freq1 = fund*4;
+	freq1 = fund*2;
 	freq1=freq1*(1/1);
 
 env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.5),doneAction:2);
@@ -54,7 +54,7 @@ env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.5),doneAction:2);
 
 
 
-osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(pitch,phase:detune1.real.degrad,mul:pitch.reciprocal),SinOsc.ar(pitch,phase:detune1.imag.degrad,mul:pitch.reciprocal));
+osc1=Pan4.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(over*pitch,phase:detune1.real.degrad,mul:over.reciprocal*pitch.reciprocal),SinOsc.ar(over*pitch,phase:detune1.imag.degrad,mul:over.reciprocal*pitch.reciprocal));
 
 	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc1 * env * (1/1), cutt)));
 
