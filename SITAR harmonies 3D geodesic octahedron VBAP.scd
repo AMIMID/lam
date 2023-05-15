@@ -43,7 +43,7 @@ SynthDef.new(\oa, {
 
 
 
-	bank=12;
+	bank=8;
 	angle1=0;
 	//angle3=45;
 	pitch=2.pow(n/12);
