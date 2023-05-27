@@ -13,7 +13,7 @@ s.record(numChannels:4)
 s.options.numWireBufs = 1024*16;
 s.options.numOutputBusChannels=2;
 s.options.numInputBusChannels=0;
-TempoClock.default.tempo_(120/240);
+TempoClock.default.tempo_(120/120);
 s.options.memSize = 8192*8;
 s.waitForBoot
 )
@@ -45,7 +45,7 @@ SynthDef.new(\oa, {
 	freq1 = fund*4;
 	freq1=freq1*(1/1);
 
-env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*1),doneAction:2);
+env=EnvGen.ar(Env.sine(decay,pitch.reciprocal*1),doneAction:2);
 
 	bank.do{
 
@@ -57,7 +57,7 @@ env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*1),doneAction:2);
 osc1=Pan2.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(over*pitch,phase:detune1.real.degrad,mul:over.reciprocal*pitch.reciprocal));
 osc2=Pan2.ar(SinOsc.ar((freq1*over)*pitch,mul:over.reciprocal*pitch.reciprocal,phase:detune1.theta),SinOsc.ar(over*pitch,phase:detune1.imag.degrad,mul:over.reciprocal*pitch.reciprocal));
 
-	wrappedOut.value(out, LeakDC.ar(LPF.ar(osc1 * osc2 * env, cutt)));
+		wrappedOut.value(out, LeakDC.ar(LPF.ar((osc1 * osc2 )* env, cutt)));
 
 		m = m+1;
 		over = over + (m+1)/1;
@@ -91,7 +91,7 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 Pdef(\1, Pbind(\instrument, \oa,
 	\dur,Pwrand([1/2,3/4,2/3],[100,10,10].normalizeSum,inf),
 	\n,Prand([3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11,20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest],inf),
-	\cutt,Pbrown(220,880,10,inf),
+	//\cutt,Pbrown(220,880,10,inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 );
@@ -99,7 +99,27 @@ Pdef(\1, Pbind(\instrument, \oa,
 Pdef(\2, Pbind(\instrument, \oa,
 	\dur,Pwrand([1/2,3/4,2/3],[100,10,10].normalizeSum,inf),
 	\n,Prand([20,\rest,\rest,\rest,20,\rest,15,\rest,\rest,\rest,20,\rest,15,3,8,11,15,11,8,3,8,11,15,11,8,3,10,8,22,20,15,11,10,8,10,8,22,20,15,11,10,8,15,10,11],inf),
-	\cutt,Pbrown(220,880,10,inf),
+//	\cutt,Pbrown(220,880,10,inf),
+	\decay,Pbrown(4,8,1,inf);
+)).play;
+)
+)
+
+
+(
+(
+Pdef(\1, Pbind(\instrument, \oa,
+	\dur,Pwrand([1/2,3/4,2/3],[100,10,10].normalizeSum,inf),
+	\n,Pxrand([8,\rest,11,\rest,15],inf),
+	//\cutt,Pbrown(220,880,10,inf),
+	\decay,Pbrown(4,8,1,inf);
+)).play;
+);
+(
+Pdef(\2, Pbind(\instrument, \oa,
+	\dur,Pwrand([1/2,3/4,2/3],[100,10,10].normalizeSum,inf),
+	\n,Pxrand([18,20,22,23,25],inf),
+//	\cutt,Pbrown(220,880,10,inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 )
