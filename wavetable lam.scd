@@ -45,11 +45,11 @@ SynthDef.new(\oa, {
 	pitch=2.pow(n/(2*6));
 
 
-	freq1 = fund*4;
+	freq1 = fund*2;
 	freq1=freq1*(1/1);
 
 env=EnvGen.ar(Env.perc(0.02,decay,1),doneAction:2);
-	~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!8);
+	~amps = [1] ++ ({[exprand(0.01,1),exprand(0.01,1)].choose}!16);
 
 
 ~tf = Signal.sineFill(1025, ~amps,
@@ -57,7 +57,11 @@ env=EnvGen.ar(Env.perc(0.02,decay,1),doneAction:2);
 	[-0.72231270791305,-1.4446254158261,
 		2.2578096926769,1.5354969847638,
 		0.81318427685075,-1.7675659218259,
-		-2.4898786297389,1.212556478764]
+		-2.4898786297389,1.212556478764,
+			0.49024377085098,-0.23206893706207,
+			-2.8128191357387,2.7480534635278,
+			2.0257407556148,-0.55500944306184,
+			-1.2773221509749,2.4251129575281]
 );
 
 ~tf.plot;
@@ -73,13 +77,13 @@ env=EnvGen.ar(Env.perc(0.02,decay,1),doneAction:2);
 
 
 
-		osc1=Pan2.ar(LeakDC.ar(Shaper.ar(~tfBuf,SinOsc.ar((freq1)*pitch,mul:pitch.reciprocal*LFNoise1.kr(pitch.reciprocal),phase:detune1.theta))),SinOsc.ar(pitch,phase:detune1.real.degrad,mul:pitch.reciprocal));
-		osc2=Pan2.ar(LeakDC.ar(Shaper.ar(~tfBuf,SinOsc.ar((freq1)*pitch,mul:pitch.reciprocal*LFNoise1.kr(pitch.reciprocal),phase:detune1.theta))),SinOsc.ar(pitch,phase:detune1.imag.degrad,mul:pitch.reciprocal));
+		osc1=Pan2.ar(LeakDC.ar(Shaper.ar(~tfBuf,SinOsc.ar((freq1)*over*pitch,mul:over.reciprocal*pitch.reciprocal*LFNoise1.kr(over.reciprocal*pitch.reciprocal),phase:detune1.theta))),SinOsc.ar(over*pitch,phase:detune1.real.degrad,mul:over.reciprocal*pitch.reciprocal));
+		osc2=Pan2.ar(LeakDC.ar(Shaper.ar(~tfBuf,SinOsc.ar((freq1)*over*pitch,mul:over.reciprocal*pitch.reciprocal*LFNoise1.kr(over.reciprocal*pitch.reciprocal),phase:detune1.theta))),SinOsc.ar(over*pitch,phase:detune1.imag.degrad,mul:over.reciprocal*pitch.reciprocal));
 
 		wrappedOut.value(out, LeakDC.ar(LPF.ar((osc1 * osc2 )* env, cutt)));
 
-		//m = m+1;
-		//over = over + (m+1)/1;
+		m = m+1;
+		over = over + (m+1)/1;
 
 	};
 }).add;
@@ -128,7 +132,7 @@ Pdef(\2, Pbind(\instrument, \oa,
 (
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,Pwrand([1/2,3/4,2/3],[100,10,10].normalizeSum,inf),
+	\dur,Pwrand([1/2,3/4,2/3],[100,0,0].normalizeSum,inf),
 	\n,Pxrand([8,\rest,11,\rest,15],inf),
 	//\cutt,Pbrown(220,880,10,inf),
 	\decay,Pbrown(4,8,1,inf);
@@ -136,7 +140,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 );
 (
 Pdef(\2, Pbind(\instrument, \oa,
-	\dur,Pwrand([1/2,3/4,2/3],[100,10,10].normalizeSum,inf),
+	\dur,Pwrand([1/2,3/4,2/3],[100,0,0].normalizeSum,inf),
 	\n,Pxrand([18,20,22,23,25],inf),
 //	\cutt,Pbrown(220,880,10,inf),
 	\decay,Pbrown(4,8,1,inf);

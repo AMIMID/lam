@@ -63,13 +63,15 @@ sig.plot;
 
 Buffer.freeAll
 b= Buffer.alloc(s,2048);
+c= Buffer.alloc(s,2048);
 
 (
 
-~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!8);
+~amps1 = [1] ++ ({[0,exprand(0.01,1)].choose}!8);
+~amps2 = [1] ++ ({[0,exprand(0.01,1)].choose}!8);
 
 
-~tf = Signal.sineFill(1025, ~amps,
+~tf1 = Signal.sineFill(1025, ~amps1,
 
 	[-0.72231270791305,-1.4446254158261,
 		2.2578096926769,1.5354969847638,
@@ -77,22 +79,33 @@ b= Buffer.alloc(s,2048);
 		-2.4898786297389,1.212556478764]
 );
 
-~tf.plot;
-~tfBuf=b.loadCollection(~tf.asWavetableNoWrap);
+~tf2 = Signal.sineFill(1025, ~amps2,
+
+	[-0.72231270791305,-1.4446254158261,
+		2.2578096926769,1.5354969847638,
+		0.81318427685075,-1.7675659218259,
+		-2.4898786297389,1.212556478764]
+);
+
+~tf1.plot;
+~tf2.plot;
+~tf1Buf=b.loadCollection(~tf1.asWavetableNoWrap);
+~tf2Buf=c.loadCollection(~tf2.asWavetableNoWrap);
 )
 
-{LeakDC.ar(Shaper.ar(~tfBuf, SinOsc.ar(220)*LFNoise1.kr(0.5!2)))}.play
+{LeakDC.ar(Shaper.ar(~tf1Buf, SinOsc.ar(220)*LFNoise1.kr(1).range(0,1))!2)}.play
 
 
 //////VOSC
 
 
 
+{LeakDC.ar(VOsc.ar(LFNoise1.kr(1), 220!2))}.play
 
 ///////////////array data
 (
 ~angle1=0;
-8.do{
+16.do{
 	~angle1=(~angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	~detune1=exp(Complex(0,1)*~angle1).theta.postln;
 
