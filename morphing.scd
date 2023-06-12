@@ -104,9 +104,9 @@ env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),trig,doneAction:2);
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1);
 
-		osc1=Pan2.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*pitch,mul:LFNoise1.kr(ch),phase:detune1.theta))),detune1.theta.wrap(-1,1));
-	//	osc1=Pan2.ar(LeakDC.ar(Shaper.ar(tfBuf,SinOsc.ar((freq1)*pitch,mul:LFNoise1.kr(ch),phase:detune1.theta))),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay],[-4])));
-	//osc2=Pan2.ar(LeakDC.ar(Shaper.ar(tfBuf,SinOsc.ar((freq1)*pitch,mul:LFNoise1.kr(ch),phase:detune1.theta))),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay],[-4])));
+
+		osc1=Pan2.ar(LeakDC.ar(Shaper.ar(tfBuf,SinOsc.ar((freq1)*pitch,mul:LFNoise1.kr(ch),phase:detune1.real.degrad))),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay],[-4])));
+	osc2=Pan2.ar(LeakDC.ar(Shaper.ar(tfBuf,SinOsc.ar((freq1)*pitch,mul:LFNoise1.kr(ch),phase:detune1.imag.degrad))),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay],[-4])));
 
 		tfBuf=tfBuf+1;
 

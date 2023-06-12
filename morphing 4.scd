@@ -30,13 +30,13 @@ Buffer.freeAll
 (
 (~tf=Array.fill(32,{
 	var amps,phases;
-	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!12);
-	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!12);
+	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!6);
+	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!6);
 	Signal.sineFill(1025, amps,phases).asWavetableNoWrap;
 });
 );
 
-~tBuf = Buffer.allocConsecutive(24,s,2048);
+~tBuf = Buffer.allocConsecutive(32,s,2048);
 
 (
 ~tBuf.do({
@@ -66,7 +66,7 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=24;
+	bank=32;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -92,7 +92,14 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 	detune1=exp(Complex(0,1)*angle1);
 
 
-		osc1=Pan4.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*pitch,mul:LFNoise1.kr(ch),phase:detune1.theta))),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay],[-4])),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay],[-4])));
+	osc1=Pan4.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*pitch,mul:LFNoise1.kr(ch),phase:detune1.phase))),EnvGen.ar(Env.new([detune1.imag,detune1.real],
+		[decay])),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
+
+
+
+
+		//osc1=Pan4.ar(SinOsc.ar((freq1)*pitch,phase:detune1.theta),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay])),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
+
 
 		tfBuf=tfBuf+1;
 
@@ -124,7 +131,7 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 s.record(numChannels:4);
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,1/2,
+	\dur,1/4,
 	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(2,4,1,inf);
