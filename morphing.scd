@@ -43,8 +43,8 @@ Env(
 
 (~tf=Array.fill(32,{
 	var amps,phases;
-	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!12);
-	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!12);
+	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!6);
+	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!6);
 	Signal.sineFill(1025, amps,phases).asWavetableNoWrap;
 });
 );
@@ -63,7 +63,7 @@ Env(
 (
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=20000,decay=4;
+	arg  n=1, cutt=20000,decay=12;
 	var amps,tf,tfBuf=0;
 	var detune1,detune2;
 	var osc1,osc2;
@@ -86,7 +86,6 @@ SynthDef.new(\oa, {
 
 	freq1 = fund*2;
 	freq1=freq1*(1/1);
-	ch=TExpRand.ar(0.1,1,Dust.kr(1));
 
 
 /*amps = [1] ++ ({[exprand(0.01,1),exprand(0.01,1)].choose}!8);
@@ -97,24 +96,31 @@ tfBuf=~b.loadCollection(tf.asWavetableNoWrap);*/
 
 	bank.do{
 
-
-env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),trig,doneAction:2);
-	//env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
+		//env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),trig,doneAction:2);
+	env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1);
 
 
-		osc1=Pan2.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*pitch,mul:LFNoise1.kr(ch),phase:detune1.real.degrad))),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay])));
-	    osc2=Pan2.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*pitch,mul:LFNoise1.kr(ch),phase:detune1.imag.degrad))),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
+
+		osc1=Pan2.ar(
+			LeakDC.ar(
+				Shaper.ar(~tBuf[tfBuf].bufnum,
+					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(0.1))),mul:LFNoise1.kr(TExpRand.ar(0.1,2,Dust.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay])));
+	    osc2=Pan2.ar(
+				LeakDC.ar(
+					Shaper.ar(~tBuf[tfBuf].bufnum,
+					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(0.1))),mul:LFNoise1.kr(TExpRand.ar(0.1,2,Dust.kr(0.1))),phase:((detune1.imag)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
+
 
 		tfBuf=tfBuf+1;
 
 			m = m+1;
 		over = over + m;
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*0.05),cutt));
-	wrappedOut.value(out, LPF.ar(LeakDC.ar((osc2 )* env*0.05),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*0.1),cutt));
+	wrappedOut.value(out, LPF.ar(LeakDC.ar((osc2 )* env*0.1),cutt));
 
 		trig = TDelay.ar(trig, 0.001);
 	};
@@ -143,7 +149,7 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,1/2,
+	\dur,1/4,
 	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(4,6,1,inf);
