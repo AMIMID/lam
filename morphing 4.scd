@@ -30,8 +30,8 @@ Buffer.freeAll
 (
 (~tf=Array.fill(32,{
 	var amps,phases;
-	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!6);
-	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!6);
+	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!rrand(3,12));
+	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!rrand(3,12));
 	Signal.sineFill(1025, amps,phases).asWavetableNoWrap;
 });
 );
@@ -131,7 +131,7 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 s.record(numChannels:4);
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,1/4,
+	\dur,1/3,
 	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(2,4,1,inf);

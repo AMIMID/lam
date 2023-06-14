@@ -44,8 +44,8 @@ Env(
 (~tf=Array.fill(64,{
 	var amps,phases;
 	amps = [1] ++ ({[exprand(0.01,1),exprand(0.1,1)].choose}!rrand(6,12));
-	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!6);
-	Signal.sineFill(1025, amps,[0]).asWavetableNoWrap;
+	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!rrand(6,12));
+	Signal.sineFill(1025, amps,phases).asWavetableNoWrap;
 });
 );
 
