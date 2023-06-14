@@ -41,15 +41,15 @@ Env(
 });
 );*/
 
-(~tf=Array.fill(32,{
+(~tf=Array.fill(64,{
 	var amps,phases;
-	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!6);
+	amps = [1] ++ ({[exprand(0.01,1),exprand(0.1,1)].choose}!rrand(6,12));
 	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!6);
-	Signal.sineFill(1025, amps,phases).asWavetableNoWrap;
+	Signal.sineFill(1025, amps,[0]).asWavetableNoWrap;
 });
 );
 
-~tBuf = Buffer.allocConsecutive(32,s,2048);
+~tBuf = Buffer.allocConsecutive(64,s,2048);
 
 (
 ~tBuf.do({
@@ -79,7 +79,7 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1]);  // multiple buses!
 
-	bank=32;
+	bank=24;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -96,8 +96,8 @@ tfBuf=~b.loadCollection(tf.asWavetableNoWrap);*/
 
 	bank.do{
 
-		//env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),trig,doneAction:2);
-	env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
+		env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),trig,doneAction:2);
+	//env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1);
@@ -107,11 +107,11 @@ tfBuf=~b.loadCollection(tf.asWavetableNoWrap);*/
 		osc1=Pan2.ar(
 			LeakDC.ar(
 				Shaper.ar(~tBuf[tfBuf].bufnum,
-					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(0.1))),mul:LFNoise1.kr(TExpRand.ar(0.1,2,Dust.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay])));
+					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(100))),mul:LFNoise1.kr(TExpRand.ar(0.1,10,Dust.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay])));
 	    osc2=Pan2.ar(
 				LeakDC.ar(
 					Shaper.ar(~tBuf[tfBuf].bufnum,
-					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(0.1))),mul:LFNoise1.kr(TExpRand.ar(0.1,2,Dust.kr(0.1))),phase:((detune1.imag)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
+					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(100))),mul:LFNoise1.kr(TExpRand.ar(0.1,10,Dust.kr(0.1))),phase:((detune1.imag)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
 
 
 		tfBuf=tfBuf+1;
@@ -149,16 +149,16 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,1/4,
-	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20],inf),
+	\dur,6,
+	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
-	\decay,Pbrown(4,6,1,inf);
+	\decay,Pbrown(12,12,1,inf);
 )).play;
 );
 
 (
 Pdef(\2, Pbind(\instrument, \oa,
-	\dur,1,
+	\dur,1/3,
 	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(4,6,1,inf);
