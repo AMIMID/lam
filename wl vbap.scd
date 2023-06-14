@@ -18,6 +18,28 @@ s.options.memSize = 8192*8;
 s.waitForBoot
 )
 s.reboot
+
+(
+
+(~tf=Array.fill(24,{
+	var amps,phases;
+	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!6);
+	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!6);
+	Signal.sineFill(1025, amps,phases).asWavetableNoWrap;
+});
+);
+
+~tBuf = Buffer.allocConsecutive(24,s,2048);
+
+(
+~tBuf.do({
+	arg buf, i;
+	buf.loadCollection(~tf[i]);
+});
+)
+)
+
+
 (
 // 3D
 a = VBAPSpeakerArray.new(3, [[0, 45], [90, 45], [180, 45], [-90, 45],[0, -45], [90, -45], [180, -45], [-90, -45],[0, 0], [45, 0], [90, 0], [135, 0],[180, 0], [-135, 0], [-90, 0], [-45,0]]); // torus geo dome
@@ -28,8 +50,8 @@ Buffer.freeAll
 (
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=10000,decay=3;
-	var amps,tf,tfBuf;
+	arg  n=1, cutt=10000,decay=12;
+	var amps,tf,tfBuf=0;
 	var detune1,detune2;
 	var osc1,osc2;
 	var freq1,freq2,freq3,freq4, env;
@@ -53,24 +75,8 @@ bank=24;
 	freq1=freq1*(1/1);
 
 env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),doneAction:2);
-amps = [1] ++ ({[exprand(0.01,1),exprand(0.01,1)].choose}!12);
-//	tf=Env([-1,1],[1],[0]).asSignal(1025);
 
-		tf = Signal.sineFill(1025, amps,
-
-	[-0.72231270791305,-1.4446254158261,
-		2.2578096926769,1.5354969847638,
-		0.81318427685075,-1.7675659218259,
-		-2.4898786297389,1.212556478764,
-			0.49024377085098,-0.23206893706207,
-			-2.8128191357387,2.7480534635278,
-		]
-);
-//		tf=tf.normalize;
-tf.plot;
-tfBuf=~c.loadCollection(tf.asWavetableNoWrap);
-
-	bank=32;
+	bank=24;
 	angle1=0;
 	//angle3=45;
 	pitch=2.pow(n/12);
@@ -81,7 +87,8 @@ tfBuf=~c.loadCollection(tf.asWavetableNoWrap);
 
 
 
-env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.5),doneAction:2);
+	//env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),trig,doneAction:2);
+	env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 	bank.do{
 
@@ -93,9 +100,9 @@ env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.5),doneAction:2);
 
 
 
-osc1=VBAP.ar(16,LeakDC.ar(Shaper.ar(tfBuf,SinOsc.ar((freq1)*pitch,mul:LFNoise1.kr(pitch.reciprocal),phase:detune1.theta))),~b.bufnum,detune1.real,detune1.imag);
+osc1=VBAP.ar(16,LeakDC.ar(Shaper.ar(tfBuf,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(100))),mul:LFNoise1.kr(TExpRand.ar(0.1,10,Dust.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),~b.bufnum,detune1.real.raddeg,detune1.imag.raddeg);
 
-
+	tfBuf=tfBuf+1;
 
 	wrappedOut.value(out1, LeakDC.ar(LPF.ar(osc1 * env * (1/1), cutt)));
 
@@ -124,7 +131,7 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 	Synth(\oa, [n: num - 48, out1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].rotate(16.rand)]);
 }, noteNum: (36..96))
 )
-)
+
 s.record(numChannels:16) ;
 
 
