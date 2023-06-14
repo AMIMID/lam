@@ -21,15 +21,15 @@ s.reboot
 
 (
 
-(~tf=Array.fill(24,{
+(~tf=Array.fill(32,{
 	var amps,phases;
-	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!6);
-	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!6);
-	Signal.sineFill(1025, amps,phases).asWavetableNoWrap;
+	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!rrand(3,12));
+	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!rrand(3,12));
+	Signal.sineFill(1025, amps,[0]).asWavetableNoWrap;
 });
 );
 
-~tBuf = Buffer.allocConsecutive(24,s,2048);
+~tBuf = Buffer.allocConsecutive(32,s,2048);
 
 (
 ~tBuf.do({
@@ -66,7 +66,7 @@ SynthDef.new(\oa, {
 };
 	var out1 = NamedControl.kr(\out1, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]);  // multiple buses!
 
-bank=24;
+bank=12;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -74,7 +74,7 @@ bank=24;
 	freq1 = fund*4;
 	freq1=freq1*(1/1);
 
-env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),doneAction:2);
+env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.01),doneAction:2);
 
 	bank=24;
 	angle1=0;
@@ -100,7 +100,7 @@ env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),doneAction:2);
 
 
 
-osc1=VBAP.ar(16,LeakDC.ar(Shaper.ar(tfBuf,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(100))),mul:LFNoise1.kr(TExpRand.ar(0.1,10,Dust.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),~b.bufnum,detune1.real.raddeg,detune1.imag.raddeg);
+		osc1=VBAP.ar(16,LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(0.1))),mul:LFNoise1.kr(TExpRand.ar(0.1,1,Dust.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),~b.bufnum,detune1.real.raddeg.wrap(-180,180),detune1.imag.raddeg.wrap(-90,90));
 
 	tfBuf=tfBuf+1;
 
@@ -139,7 +139,7 @@ s.record(numChannels:16) ;
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,1/2,
+	\dur,1,
 	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\decay,Pbrown(2,4,1,inf);
 )).play;

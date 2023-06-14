@@ -107,11 +107,11 @@ tfBuf=~b.loadCollection(tf.asWavetableNoWrap);*/
 		osc1=Pan2.ar(
 			LeakDC.ar(
 				Shaper.ar(~tBuf[tfBuf].bufnum,
-					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(100))),mul:LFNoise1.kr(TExpRand.ar(0.1,10,Dust.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay])));
+					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Impulse.kr(100))),mul:LFNoise1.kr(TExpRand.ar(0.1,10,Impulse.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay])));
 	    osc2=Pan2.ar(
 				LeakDC.ar(
 					Shaper.ar(~tBuf[tfBuf].bufnum,
-					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(100))),mul:LFNoise1.kr(TExpRand.ar(0.1,10,Dust.kr(0.1))),phase:((detune1.imag)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
+					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Impulse.kr(100))),mul:LFNoise1.kr(TExpRand.ar(0.1,10,Impulse.kr(0.1))),phase:((detune1.imag)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
 
 
 		tfBuf=tfBuf+1;

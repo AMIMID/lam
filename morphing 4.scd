@@ -92,13 +92,9 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 	detune1=exp(Complex(0,1)*angle1);
 
 
-		osc1=Pan4.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Dust.kr(0.1))),mul:LFNoise1.kr(TExpRand.ar(0.1,2,Dust.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.imag,detune1.real],
+		osc1=Pan4.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Impulse.kr(0.1))),mul:LFNoise1.kr(TExpRand.ar(0.1,2,Impulse.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.imag,detune1.real],
 		[decay])),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
 
-
-
-
-		//osc1=Pan4.ar(SinOsc.ar((freq1)*pitch,phase:detune1.theta),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay])),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
 
 
 		tfBuf=tfBuf+1;
@@ -134,7 +130,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 	\dur,1/3,
 	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
-	\decay,Pbrown(2,4,1,inf);
+	\decay,Pbrown(4,6,1,inf);
 )).play;
 );
 
