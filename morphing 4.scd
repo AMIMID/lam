@@ -66,7 +66,7 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=32;
+	bank=24;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -92,8 +92,16 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 	detune1=exp(Complex(0,1)*angle1);
 
 
-		osc1=Pan4.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Impulse.kr(0.1))),mul:LFNoise1.kr(TExpRand.ar(0.1,2,Impulse.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.imag,detune1.real],
-		[decay])),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
+		/*osc1=Pan4.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Impulse.kr(0.1))),
+			mul:LFNoise1.kr(TExpRand.ar(0.1,2,Impulse.kr(0.1))),
+			phase:((detune1.theta)*pi).mod(2pi)))),
+		EnvGen.ar(Env.new([detune1.imag,detune1.real],
+		[decay])),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));*/
+
+		osc1=Pan4.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Impulse.kr(0.1))),
+			mul:LFNoise1.kr(TExpRand.ar(0.1,2,Impulse.kr(0.1))),
+			phase:((detune1.theta)*pi).mod(2pi)))),
+		LFNoise1.ar(((detune1.real)*pi).mod(2pi)),LFNoise1.ar(((detune1.imag)*pi).mod(2pi)));
 
 
 

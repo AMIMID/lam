@@ -74,7 +74,6 @@ bank=12;
 	freq1 = fund*4;
 	freq1=freq1*(1/1);
 
-env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.01),doneAction:2);
 
 	bank=24;
 	angle1=0;
@@ -87,8 +86,8 @@ env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal*0.01),doneAction:2);
 
 
 
-	//env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),trig,doneAction:2);
-	env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
+	env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),doneAction:2);
+	//env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 	bank.do{
 

@@ -63,7 +63,7 @@ Env(
 (
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=20000,decay=12;
+	arg  n=1, cutt=20000,decay=2;
 	var amps,tf,tfBuf=0;
 	var detune1,detune2;
 	var osc1,osc2;
@@ -104,14 +104,31 @@ tfBuf=~b.loadCollection(tf.asWavetableNoWrap);*/
 
 
 
+
+
 		osc1=Pan2.ar(
+				Shaper.ar(~tBuf[tfBuf].bufnum,
+					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.001,0.01,Dust.kr(1))),
+						mul:LFNoise1.kr(TExpRand.ar(0.1,1,Dust.kr(0.1))),
+					phase:detune1.theta)),
+			LFNoise1.ar(((detune1.theta)*pi).mod(2pi)));
+
+		/*osc1=Pan2.ar(
 			LeakDC.ar(
 				Shaper.ar(~tBuf[tfBuf].bufnum,
-					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Impulse.kr(100))),mul:LFNoise1.kr(TExpRand.ar(0.1,10,Impulse.kr(0.1))),phase:((detune1.real)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.imag,detune1.real],[decay])));
+					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.001,0.01,Impulse.kr(1))),
+						mul:LFNoise1.kr(TExpRand.ar(0.1,10,Impulse.kr(0.1))),
+						phase:((detune1.real.round(0.001))*pi).mod(2pi)))),
+			EnvGen.ar(Env.new([detune1.imag.round(0.001),detune1.real.round(0.001)],[decay])));
 	    osc2=Pan2.ar(
 				LeakDC.ar(
 					Shaper.ar(~tBuf[tfBuf].bufnum,
-					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Impulse.kr(100))),mul:LFNoise1.kr(TExpRand.ar(0.1,10,Impulse.kr(0.1))),phase:((detune1.imag)*pi).mod(2pi)))),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));
+					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.001,0.01,Impulse.kr(1))),
+						mul:LFNoise1.kr(TExpRand.ar(0.1,10,Impulse.kr(0.1))),
+						phase:((detune1.imag.round(0.001))*pi).mod(2pi)))),
+		EnvGen.ar(Env.new([detune1.real.round(0.001),detune1.imag.round(0.001)],[decay])));
+		*/
+
 
 
 		tfBuf=tfBuf+1;
@@ -119,8 +136,8 @@ tfBuf=~b.loadCollection(tf.asWavetableNoWrap);*/
 			m = m+1;
 		over = over + m;
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*0.1),cutt));
-	wrappedOut.value(out, LPF.ar(LeakDC.ar((osc2 )* env*0.1),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env),cutt));
+	//wrappedOut.value(out, LPF.ar(LeakDC.ar((osc2 )* env),cutt));
 
 		trig = TDelay.ar(trig, 0.001);
 	};
