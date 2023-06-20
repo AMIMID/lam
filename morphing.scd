@@ -63,7 +63,7 @@ Env(
 (
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=20000,decay=2;
+	arg  n=1, cutt=20000,decay=1;
 	var amps,tf,tfBuf=0;
 	var detune1,detune2;
 	var osc1,osc2;
@@ -136,7 +136,7 @@ tfBuf=~b.loadCollection(tf.asWavetableNoWrap);*/
 			m = m+1;
 		over = over + m;
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*0.2),cutt));
 	//wrappedOut.value(out, LPF.ar(LeakDC.ar((osc2 )* env),cutt));
 
 		trig = TDelay.ar(trig, 0.001);
@@ -166,19 +166,19 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,6,
+	\dur,1/3,
 	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
-	\decay,Pbrown(12,12,1,inf);
+	\decay,Pbrown(1,4,1,inf);
 )).play;
 );
 
 (
 Pdef(\2, Pbind(\instrument, \oa,
 	\dur,1/3,
-	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20],inf),
+	\n,Pseq([20,23,11,25,15,23,22,8,20,23,11,22,15,18,20,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20,8],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
-	\decay,Pbrown(4,6,1,inf);
+	\decay,Pbrown(1,4,1,inf);
 )).play;
 );
 
