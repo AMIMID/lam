@@ -100,14 +100,14 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 
 		osc1=Pan4.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Impulse.kr(0.1))),
 			mul:LFNoise1.kr(TExpRand.ar(0.1,2,Impulse.kr(0.1))),
-			phase:((detune1.theta)*pi).mod(2pi)))),
-		LFNoise1.ar(((detune1.real)*pi).mod(2pi)),LFNoise1.ar(((detune1.imag)*pi).mod(2pi)));
+			phase:detune1.theta)),
+			detune1.real.round(0.001),detune1.imag.round(0.001)));
 
 
 
 		tfBuf=tfBuf+1;
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*0.1),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*1),cutt));
 		trig = TDelay.ar(trig, 0.001);
 	};
 }).add;

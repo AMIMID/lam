@@ -43,8 +43,8 @@ Env(
 
 (~tf=Array.fill(64,{
 	var amps,phases;
-	amps = [1] ++ ({[exprand(0.01,1),exprand(0.1,1)].choose}!rrand(6,12));
-	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!rrand(6,12));
+	amps = [1] ++ ({[exprand(0.01,1),exprand(0.1,1)].choose}!rrand(1,3));
+	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!rrand(1,3));
 	Signal.sineFill(1025, amps,phases).asWavetableNoWrap;
 });
 );
@@ -63,7 +63,7 @@ Env(
 (
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=20000,decay=1;
+	arg  n=1, cutt=20000,decay=3;
 	var amps,tf,tfBuf=0;
 	var detune1,detune2;
 	var osc1,osc2;
@@ -105,29 +105,29 @@ tfBuf=~b.loadCollection(tf.asWavetableNoWrap);*/
 
 
 
-
+/*
 		osc1=Pan2.ar(
 				Shaper.ar(~tBuf[tfBuf].bufnum,
 					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.001,0.01,Dust.kr(1))),
 						mul:LFNoise1.kr(TExpRand.ar(0.1,1,Dust.kr(0.1))),
 					phase:detune1.theta)),
-			LFNoise1.ar(((detune1.theta)*pi).mod(2pi)));
+			LFNoise1.ar(((detune1.theta)*pi).mod(2pi)));*/
 
-		/*osc1=Pan2.ar(
+		osc1=Pan2.ar(
 			LeakDC.ar(
 				Shaper.ar(~tBuf[tfBuf].bufnum,
-					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.001,0.01,Impulse.kr(1))),
-						mul:LFNoise1.kr(TExpRand.ar(0.1,10,Impulse.kr(0.1))),
-						phase:((detune1.real.round(0.001))*pi).mod(2pi)))),
+					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.001,0.01,Dust.kr(1))),
+						mul:LFNoise1.kr(TExpRand.ar(0.1,10,Dust.kr(0.1))),
+						phase:detune1.theta))),
 			EnvGen.ar(Env.new([detune1.imag.round(0.001),detune1.real.round(0.001)],[decay])));
 	    osc2=Pan2.ar(
 				LeakDC.ar(
 					Shaper.ar(~tBuf[tfBuf].bufnum,
-					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.001,0.01,Impulse.kr(1))),
-						mul:LFNoise1.kr(TExpRand.ar(0.1,10,Impulse.kr(0.1))),
-						phase:((detune1.imag.round(0.001))*pi).mod(2pi)))),
+					SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.001,0.01,Dust.kr(1))),
+						mul:LFNoise1.kr(TExpRand.ar(0.1,10,Dust.kr(0.1))),
+						phase:detune1.theta))),
 		EnvGen.ar(Env.new([detune1.real.round(0.001),detune1.imag.round(0.001)],[decay])));
-		*/
+
 
 
 
@@ -137,9 +137,9 @@ tfBuf=~b.loadCollection(tf.asWavetableNoWrap);*/
 		over = over + m;
 
 		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*0.2),cutt));
-	//wrappedOut.value(out, LPF.ar(LeakDC.ar((osc2 )* env),cutt));
+	wrappedOut.value(out, LPF.ar(LeakDC.ar((osc2 )* env*0.2),cutt));
 
-		trig = TDelay.ar(trig, 0.001);
+		trig = TDelay.ar(trig, 0);
 	};
 }).add;
 );

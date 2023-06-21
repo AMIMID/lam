@@ -32,7 +32,7 @@ SynthDef.new(\oa, {
 	arg  n,decay=4;
 	var detune1, osc1,osc2;
 	var freq1,freq2,freq3,freq4, env;
-	var bank, angle1;
+	var bank, angle1,detune2, angle2;
 	var pitch,m=0,over=1,ch;
 	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
@@ -46,10 +46,11 @@ SynthDef.new(\oa, {
 
 	bank=32;
 	angle1=0;
+	angle2=0;
 	pitch=2.pow(n/(2*6));
 
 
-	freq1 = fund*8;
+	freq1 = fund*16;
 	freq1=freq1*(1/1);
 
 
@@ -61,28 +62,32 @@ SynthDef.new(\oa, {
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad);
 
-		exp(Complex(0,1)*pi).imag.round(0.001)
+		angle2=(angle2+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
+		detune2=(exp(Complex(0,1)*angle2.degrad)*over);
 
 
-	/*	osc1=Pan2.ar(
-					SinOsc.ar((freq1+detune1.theta)*(pitch),
-						phase:detune1.theta),
+		/*osc1=Pan2.ar(
+					SinOsc.ar((freq1+detune2.real.round(0.0001))*(pitch),
+				phase:detune1.theta,mul:1),
 				detune1.real.round(0.001));
 
 
 			osc2=Pan2.ar(
-					SinOsc.ar((freq1+detune1.theta)*(pitch),
-						phase:detune1.theta),
-				detune1.imag.round(0.001));
-		*/
-			osc1=Pan4.ar(
-					SinOsc.ar((freq1+detune1.theta)*(pitch),
+					SinOsc.ar((freq1+detune2.imag.round(0.0001))*(pitch),
 						phase:detune1.theta,mul:1),
+				detune1.imag.round(0.001));*/
+
+			osc1=Pan4.ar(
+			SinOsc.ar((freq1+detune2.theta)*(pitch),
+				phase:detune1.theta,mul:TExpRand.kr(trig:SinOsc.kr(0.1))),
 				detune1.real.round(0.001),detune1.imag.round(0.001));
 
 
 		wrappedOut.value(out, LeakDC.ar((osc1 )* env*0.1));
 	//wrappedOut.value(out, LeakDC.ar((osc2 )* env*0.1));
+		//Out.ar(0,LeakDC.ar((osc1 )* env*0.5));
+			m = m+1;
+		over = over + m;
 
 		trig = TDelay.ar(trig, 0);
 	};
@@ -121,7 +126,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 
 (
 Pdef(\2, Pbind(\instrument, \oa,
-	\dur,1/3,
+	\dur,1/4,
 	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(4,4,1,inf);
