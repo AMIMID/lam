@@ -378,7 +378,7 @@ s.record(numChannels:4);
 (
 Pdef(\1, Pbind(\instrument, \oa,
 	\dur,Pbrown(1/4,2,1/2,inf),
-	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+\n,Prand([12,17,19,24,29,31,36],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(2,4,1,inf);
 )).play;
@@ -386,7 +386,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 (
 Pdef(\2, Pbind(\instrument, \ob,
 	\dur,Pbrown(1/4,2,1/2,inf),
-	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24,29,31,36],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(2,4,1,inf);
 )).play;
@@ -394,7 +394,7 @@ Pdef(\2, Pbind(\instrument, \ob,
 (
 Pdef(\3, Pbind(\instrument, \oc,
 	\dur,Pbrown(1/4,2,1/2,inf),
-	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24,29,31,36],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(2,4,1,inf);
 )).play;
@@ -402,7 +402,7 @@ Pdef(\3, Pbind(\instrument, \oc,
 (
 Pdef(\4, Pbind(\instrument, \od,
 	\dur,Pbrown(1/4,2,1/2,inf),
-	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24,29,31,36],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(2,4,1,inf);
 )).play;
@@ -410,7 +410,7 @@ Pdef(\4, Pbind(\instrument, \od,
 (
 Pdef(\5, Pbind(\instrument, \oe,
 	\dur,Pbrown(1/4,2,1/2,inf),
-	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24,29,31,36],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(2,4,1,inf);
 )).play;
@@ -418,7 +418,7 @@ Pdef(\5, Pbind(\instrument, \oe,
 (
 Pdef(\6, Pbind(\instrument, \of,
 	\dur,Pbrown(1/4,2,1/2,inf),
-	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24,29,31,36],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(2,4,1,inf);
 )).play;
@@ -426,7 +426,7 @@ Pdef(\6, Pbind(\instrument, \of,
 (
 Pdef(\7, Pbind(\instrument, \og,
 	\dur,Pbrown(1/4,2,1/2,inf),
-	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24,29,31,36],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
 	\decay,Pbrown(2,4,1,inf);
 )).play;
@@ -436,3 +436,4 @@ Pdef(\7, Pbind(\instrument, \og,
 
 
 ///\n,Prand([12,17,19,24,29,31,36],inf),
+//[8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20]
