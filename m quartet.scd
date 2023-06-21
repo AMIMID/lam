@@ -433,3 +433,6 @@ Pdef(\7, Pbind(\instrument, \og,
 );
 )
 
+
+
+///\n,Prand([12,17,19,24,29,31,36],inf),
