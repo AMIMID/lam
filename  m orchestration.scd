@@ -16,7 +16,7 @@ Buffer.freeAll
 (~tf=Array.fill(96,{
 	var amps;
 	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!2);
-	Signal.sineFill(1025, amps,[0.degrad,90.degrad]).asWavetableNoWrap;
+	Signal.sineFill(1025, [1,1],[0.degrad,90.degrad]).asWavetableNoWrap;
 });
 );
 ~tBuf = Buffer.allocConsecutive(96,s,2048);
@@ -1895,22 +1895,28 @@ Tdef(\o).clear;
 (
 Tdef.new(\oo,{
 
-	Tdef(\h).play;(30).wait;
-	Tdef(\k).play;(30).wait;
+	Tdef(\h).play;(10).wait;
+	Tdef(\k).play;(10).wait;
 	Tdef(\m).play;(30).wait;
      Tdef(\j).play;
-	Tdef(\h).stop;(30).wait;
-	Tdef(\m).stop;(30).wait;
-	Tdef(\k).stop;
-	Tdef(\j).stop;
-	Tdef(\o).play;(30).wait;
+	//Tdef(\h).stop;(1).wait;
+	//Tdef(\m).stop;(1).wait;
+	//Tdef(\k).stop;
+	//Tdef(\j).stop;
+	Tdef(\o).play;(10).wait;
 	Tdef(\m).play;
 	Tdef(\j).play;(30).wait;
 	Tdef(\k).play;
-	Tdef(\o).stop;
-	Tdef(\m).stop;(60).wait;
-	Tdef(\j).stop;
-	Tdef(\k).stop;
+	//Tdef(\o).stop;
+	//Tdef(\m).stop;(15).wait;
+	//Tdef(\j).stop;
+	//Tdef(\k).stop;(10).wait;
+	Tdef(\i).play;(10).wait;
+	Tdef(\m).play;(10).wait;
+	Tdef(\o).play;(15).wait;
+	//Tdef(\m).stop;(1).wait;
+	//Tdef(\i).stop;(10).wait;
+	//Tdef(\o).stop;
 }
 )
 )
