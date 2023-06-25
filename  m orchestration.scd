@@ -280,8 +280,8 @@ SynthDef.new(\of, {
 
 	bank.do{
 
-env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
-//env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
+//env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
+env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad);
