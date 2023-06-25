@@ -30,8 +30,8 @@ Buffer.freeAll
 (
 (~tf=Array.fill(32,{
 	var amps,phases;
-	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!rrand(3,12));
-	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!rrand(3,12));
+	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!rrand(1,4));
+	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!rrand(1,4));
 	Signal.sineFill(1025, amps,phases).asWavetableNoWrap;
 });
 );
@@ -89,7 +89,10 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 //env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
-	detune1=exp(Complex(0,1)*angle1);
+	detune1=exp(Complex(0,1)*angle1.degrad);
+
+		detune2=(exp(Complex(0,1)*SinOsc.ar(1,mul:0.1)));
+
 
 
 		/*osc1=Pan4.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Impulse.kr(0.1))),
@@ -98,11 +101,13 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 		EnvGen.ar(Env.new([detune1.imag,detune1.real],
 		[decay])),EnvGen.ar(Env.new([detune1.real,detune1.imag],[decay])));*/
 
-		osc1=Pan4.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.01,0.1,Impulse.kr(0.1))),
-			mul:LFNoise1.kr(TExpRand.ar(0.1,2,Impulse.kr(0.1))),
+		osc1=Pan4.ar(LeakDC.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*(pitch+TExpRand.ar(0.001,0.01,Dust.kr(0.1))),
+			mul:LFNoise1.kr(TExpRand.ar(0.1,2,Dust.kr(0.1))),
 			phase:detune1.theta)),
 			detune1.real.round(0.001),detune1.imag.round(0.001)));
 
+			m = m+1;
+		over = over + m;
 
 
 		tfBuf=tfBuf+1;

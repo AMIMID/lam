@@ -4,7 +4,7 @@ s.record(numChannels:4)
 s.options.numWireBufs = 1024*16;
 s.options.numOutputBusChannels=4;
 s.options.numInputBusChannels=0;
-TempoClock.default.tempo_(120/120);
+TempoClock.default.tempo_(120/240);
 s.options.memSize = 8192*8;
 s.waitForBoot
 )
@@ -14,13 +14,11 @@ Buffer.freeAll
 
 (
 (~tf=Array.fill(96,{
-	var amps,phases;
-	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!rrand(1,8));
-	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!rrand(1,8));
-	Signal.sineFill(1025, amps,phases).asWavetableNoWrap;
+	var amps;
+	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!2);
+	Signal.sineFill(1025, [1,1],[0.degrad,90.degrad]).asWavetableNoWrap;
 });
 );
-
 ~tBuf = Buffer.allocConsecutive(96,s,2048);
 
 (
@@ -30,8 +28,8 @@ Buffer.freeAll
 });
 );
 )
-
-
+~tf.do({arg n,i; n.plot(~tBuf[i].bufnum.asString)});
+(((4*2)-1)*((4*2)/2))
 (
 (
 SynthDef.new(\oa, {
@@ -40,7 +38,7 @@ SynthDef.new(\oa, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -85,7 +83,7 @@ SynthDef.new(\ob, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -130,7 +128,7 @@ SynthDef.new(\oc, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -175,7 +173,7 @@ SynthDef.new(\od, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -219,7 +217,7 @@ SynthDef.new(\oe, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -264,7 +262,7 @@ SynthDef.new(\of, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -309,7 +307,7 @@ SynthDef.new(\og, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -354,7 +352,7 @@ SynthDef.new(\oh, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -409,13 +407,13 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 		num = num - 1
 	};
 	Synth(\oa, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\ob, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\oc, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\od, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\oe, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\of, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\og, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\oh, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\ob, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\oc, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\od, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\oe, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\of, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\og, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\oh, [n: num - 48, out: (0..3).rotate(4.rand)]);
 }, noteNum: (36..96))
 )
 
@@ -425,77 +423,77 @@ s.record(numChannels:4);
 Pdef(\1, Pbind(\instrument, \oa,
 		\dur,Pbrown(1/4,2,1/2,inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+\n,Prand([12,17,19,24],inf),
 	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
+	\decay,Pbrown(2,6,1,inf);
 )).play;
 );
 (
 Pdef(\2, Pbind(\instrument, \ob,
 	\dur,Pbrown(1/4,2,1/2,inf),
 	///\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24],inf),
 	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
+	\decay,Pbrown(2,6,1,inf);
 )).play;
 );
 (
 Pdef(\3, Pbind(\instrument, \oc,
 		\dur,Pbrown(1/4,2,1/2,inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24],inf),
 	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
+	\decay,Pbrown(2,6,1,inf);
 )).play;
 );
 (
 Pdef(\4, Pbind(\instrument, \od,
 		\dur,Pbrown(1/4,2,1/2,inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24],inf),
 	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
+	\decay,Pbrown(2,6,1,inf);
 )).play;
 );
 (
 Pdef(\5, Pbind(\instrument, \oe,
 		\dur,Pbrown(1/4,2,1/2,inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24],inf),
 	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
+	\decay,Pbrown(2,6,1,inf);
 )).play;
 );
 (
 Pdef(\6, Pbind(\instrument, \of,
 		\dur,Pbrown(1/4,2,1/2,inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24],inf),
 	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
+	\decay,Pbrown(2,6,1,inf);
 )).play;
 );
 (
 Pdef(\7, Pbind(\instrument, \og,
 		\dur,Pbrown(1/4,2,1/2,inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24],inf),
 	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
+	\decay,Pbrown(2,6,1,inf);
 )).play;
 );
 (
 Pdef(\8, Pbind(\instrument, \oh,
 		\dur,Pbrown(1/4,2,1/2,inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\n,Prand([12,17,19,24],inf),
 	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
+	\decay,Pbrown(2,6,1,inf);
 )).play;
 );
 )
 
 
 
-///\n,Prand([12,17,19,24,29,31,36],4),
+///\n,Prand([12,17,19,24],inf),
 //[8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20]

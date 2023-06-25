@@ -4,7 +4,7 @@ s.record(numChannels:4)
 s.options.numWireBufs = 1024*16;
 s.options.numOutputBusChannels=4;
 s.options.numInputBusChannels=0;
-TempoClock.default.tempo_(120/120);
+TempoClock.default.tempo_(120/60);
 s.options.memSize = 8192*8;
 s.waitForBoot
 )
@@ -14,13 +14,11 @@ Buffer.freeAll
 
 (
 (~tf=Array.fill(96,{
-	var amps,phases;
-	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!rrand(1,8));
-	phases = [1] ++ ({[exprand(pi,2pi),exprand(pi,2pi)].choose}!rrand(1,8));
-	Signal.sineFill(1025, amps,phases).asWavetableNoWrap;
+	var amps;
+	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!2);
+	Signal.sineFill(1025, [1,1],[0.degrad,90.degrad]).asWavetableNoWrap;
 });
 );
-
 ~tBuf = Buffer.allocConsecutive(96,s,2048);
 
 (
@@ -30,8 +28,8 @@ Buffer.freeAll
 });
 );
 )
-
-
+~tf.do({arg n,i; n.plot(~tBuf[i].bufnum.asString)});
+(((4*2)-1)*((4*2)/2))
 (
 (
 SynthDef.new(\oa, {
@@ -40,7 +38,7 @@ SynthDef.new(\oa, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -49,7 +47,7 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=10;
+	bank=6;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -74,7 +72,7 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 		tfBuf=tfBuf+1;
 
 		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*2),cutt));
-		trig = TDelay.ar(trig, 0.001);
+		trig = TDelay.ar(trig, 0);
 	};
 }).add;
 );
@@ -85,7 +83,7 @@ SynthDef.new(\ob, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -94,7 +92,7 @@ SynthDef.new(\ob, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=10;
+	bank=6;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -119,7 +117,7 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 		tfBuf=tfBuf+1;
 
 		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*(3/2)),cutt));
-		trig = TDelay.ar(trig, 0.001);
+		trig = TDelay.ar(trig, 0);
 	};
 }).add;
 );
@@ -130,7 +128,7 @@ SynthDef.new(\oc, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -139,7 +137,7 @@ SynthDef.new(\oc, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=10;
+	bank=6;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -164,7 +162,7 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 		tfBuf=tfBuf+1;
 
 		wrappedOut.value(out, LPF.ar((osc1 )* env*(4/3)),cutt);
-		trig = TDelay.ar(trig, 0.001);
+		trig = TDelay.ar(trig, 0);
 	};
 }).add;
 );
@@ -175,7 +173,7 @@ SynthDef.new(\od, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -184,7 +182,7 @@ SynthDef.new(\od, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=10;
+	bank=6;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -208,7 +206,7 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 		tfBuf=tfBuf+1;
 
 		wrappedOut.value(out, LPF.ar((osc1 )* env*1),cutt);
-		trig = TDelay.ar(trig, 0.001);
+		trig = TDelay.ar(trig, 0);
 	};
 }).add;
 );
@@ -219,7 +217,7 @@ SynthDef.new(\oe, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -228,7 +226,7 @@ SynthDef.new(\oe, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=10;
+	bank=6;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -253,7 +251,7 @@ env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 		tfBuf=tfBuf+1;
 
 		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*(2)),cutt));
-		trig = TDelay.ar(trig, 0.001);
+		trig = TDelay.ar(trig, 0);
 	};
 }).add;
 );
@@ -264,7 +262,7 @@ SynthDef.new(\of, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -273,7 +271,7 @@ SynthDef.new(\of, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=10;
+	bank=6;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -282,8 +280,8 @@ SynthDef.new(\of, {
 
 	bank.do{
 
-env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
-//env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
+//env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
+env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad);
@@ -298,7 +296,7 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 		tfBuf=tfBuf+1;
 
 		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*(3/2)),cutt));
-		trig = TDelay.ar(trig, 0.001);
+		trig = TDelay.ar(trig, 0);
 	};
 }).add;
 );
@@ -309,7 +307,7 @@ SynthDef.new(\og, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -318,7 +316,7 @@ SynthDef.new(\og, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=10;
+	bank=6;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -343,7 +341,7 @@ env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 		tfBuf=tfBuf+1;
 
 		wrappedOut.value(out, LPF.ar((osc1 )* env*(4/3)),cutt);
-		trig = TDelay.ar(trig, 0.001);
+		trig = TDelay.ar(trig, 0);
 	};
 }).add;
 );
@@ -354,7 +352,7 @@ SynthDef.new(\oh, {
 	var detune1, osc1;
 	var freq1, env;
 	var bank, angle1, pitch;
-	var fund=(((2*2)-1)*((2*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -363,7 +361,7 @@ SynthDef.new(\oh, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=10;
+	bank=6;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -388,7 +386,7 @@ env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 		tfBuf=tfBuf+1;
 
 		wrappedOut.value(out, LPF.ar((osc1 )* env*(1)),cutt);
-		trig = TDelay.ar(trig, 0.001);
+		trig = TDelay.ar(trig, 0);
 	};
 }).add;
 );
@@ -409,93 +407,238 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 		num = num - 1
 	};
 	Synth(\oa, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\ob, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\oc, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\od, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\oe, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\of, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\og, [n: num - 48, out: (0..3).rotate(4.rand)]);
-	Synth(\oh, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\ob, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\oc, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\od, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\oe, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\of, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\og, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	//Synth(\oh, [n: num - 48, out: (0..3).rotate(4.rand)]);
 }, noteNum: (36..96))
 )
 
 s.record(numChannels:4);
+
 (
 (
-Pdef(\1, Pbind(\instrument, \oa,
-		\dur,Pbrown(1/4,2,1/2,inf),
-	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
-)).play;
+Tdef.new(\h,{loop({
+//////////////////////////////////////////////////////////////////////////////////////////first 6th with normal sustain
+       TempoClock.default.tempo_(4);
+
+Synth(\oa, [n: 2,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 7,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 10,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 9,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 14,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 5,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 9,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 7,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+
+Synth(\oa, [n: 12,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 9,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 4,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 7,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 2,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 10,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 9,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 7,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+	}
+)})
+);
+
+(
+Tdef.new(\i,{loop({
+//////////////////////////////////////////////////////////////////////////////////////////first 6th with normal sustain
+
+	Synth(\oa, [n: 17,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 21,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 22,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 17,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 20.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 17.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 14.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 10.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+
+Synth(\oa, [n: 31,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 36,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 28,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 29,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 26,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 34,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 33.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\oa, [n: 31.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+	}
+)})
+);(
+Tdef.new(\j,{loop({
+//////////////////////////////////////////////////////////////////////////////////////////first 6th with normal sustain
+       TempoClock.default.tempo_(4);
+
+Synth(\od, [n: 2,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 7,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 10,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 9,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 14,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 5,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 9,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 7,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+
+Synth(\od, [n: 12,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 9,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 4,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 7,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 2,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 10,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 9,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 7,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+	}
+)})
 );
 (
-Pdef(\2, Pbind(\instrument, \ob,
-	\dur,Pbrown(1/4,2,1/2,inf),
-	///\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
-)).play;
-);
-(
-Pdef(\3, Pbind(\instrument, \oc,
-		\dur,Pbrown(1/4,2,1/2,inf),
-	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
-)).play;
-);
-(
-Pdef(\4, Pbind(\instrument, \od,
-		\dur,Pbrown(1/4,2,1/2,inf),
-	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
-)).play;
-);
-(
-Pdef(\5, Pbind(\instrument, \oe,
-		\dur,Pbrown(1/4,2,1/2,inf),
-	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
-)).play;
-);
-(
-Pdef(\6, Pbind(\instrument, \of,
-		\dur,Pbrown(1/4,2,1/2,inf),
-	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
-)).play;
-);
-(
-Pdef(\7, Pbind(\instrument, \og,
-		\dur,Pbrown(1/4,2,1/2,inf),
-	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
-)).play;
-);
-(
-Pdef(\8, Pbind(\instrument, \oh,
-		\dur,Pbrown(1/4,2,1/2,inf),
-	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	//\cutt,Pbrown(440,10000,1000,4),
-	\decay,Pbrown(2,4,1,inf);
-)).play;
+Tdef.new(\k,{loop({
+//////////////////////////////////////////////////////////////////////////////////////////first 6th with normal sustain
+       TempoClock.default.tempo_(4);
+
+Synth(\od, [n: 17,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 21,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 22,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 17,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 29.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 17.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 14.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 10.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+
+Synth(\od, [n: 31,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 36,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 28,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 29,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 26,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 34,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 33.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+Synth(\od, [n: 31.neg,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);exprand(1,4);
+
+	}
+)})
 );
 )
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////sine
 
+Tdef(\h).stop;
+Tdef(\h).play;
+Tdef(\h).clear;
+////////////////////4th
+Tdef(\i).stop;
+Tdef(\i).play;
+Tdef(\i).clear;
+/////////////////5th
+Tdef(\j).stop;
+Tdef(\j).play;
+Tdef(\j).clear;
+//////////////////6th
+Tdef(\k).stop;
+Tdef(\k).play;
+Tdef(\k).clear;
 
-///\n,Prand([12,17,19,24,29,31,36],4),
-//[8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20]
+/////////////////////////////////////sine
+
+Tdef(\l).stop;
+Tdef(\l).play;
+Tdef(\l).clear;
+////////////////////4th
+Tdef(\m).stop;
+Tdef(\m).play;
+Tdef(\m).clear;
+/////////////////5th
+Tdef(\n).stop;
+Tdef(\n).play;
+Tdef(\n).clear;
+//////////////////6th
+Tdef(\o).stop;
+Tdef(\o).play;
+Tdef(\o).clear;
+
+(
+Tdef.new(\oo,{
+
+	Tdef(\h).play;(0).wait;
+	Tdef(\i).play;(16).wait;
+    Tdef(\h).stop;(8).wait;
+	Tdef(\h).play;(16).wait;
+   Tdef(\i).stop;
+	Tdef(\k).play;
+	Tdef(\j).play;(8).wait;
+	Tdef(\h).stop;(16).wait;
+	Tdef(\h).play;(0).wait;
+	Tdef(\i).play;(16).wait;
+}
+
+)
+)
+
+Tdef(\oo).stop;
+Tdef(\oo).play;
+Tdef(\oo).clear;

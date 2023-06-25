@@ -111,3 +111,18 @@ c= Buffer.alloc(s,2048);
 
 	};
 )
+
+
+/////////////////cycle of life
+
+
+b= Buffer.alloc(s,2048);
+
+Buffer.freeAll
+
+(
+b.sine3(
+	[1,1],
+	[1,1],
+	[0.degrad,90.degrad], asWavetable:true).plot
+)

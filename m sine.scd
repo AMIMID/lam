@@ -25,12 +25,35 @@ s.waitForBoot
 )
 s.reboot
 
+b= Buffer.alloc(s,2048);
+
+Buffer.freeAll
+
+(
+b.sine3(
+	[1,1],
+	[1,1],
+	[0.degrad,90.degrad], asWavetable:false).plot
+)
+(
+
+
+
+~sig = Signal.sineFill(1024, [1,1],
+
+	[0.degrad,90.degrad]
+);
+
+~sig.plot;
+~wt= ~sig.asWavetable;
+b.loadCollection(~wt);
+)
 
 (
 (
 SynthDef.new(\oa, {
-	arg  n,decay=4;
-	var detune1, osc1,osc2;
+	arg  n,decay=8;
+	var detune1, osc1,osc2,envo;
 	var freq1,freq2,freq3,freq4, env;
 	var bank, angle1,detune2, angle2;
 	var pitch,m=0,over=1,ch;
@@ -50,20 +73,22 @@ SynthDef.new(\oa, {
 	pitch=2.pow(n/(2*6));
 
 
-	freq1 = fund*16;
+	freq1 = fund*8;
 	freq1=freq1*(1/1);
 
 
+detune2=(exp(Complex(0,1)*SinOsc.ar(1,mul:0.1)));
+
 	bank.do{
 
-		env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
-	//env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad);
 
-		angle2=(angle2+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
-		detune2=(exp(Complex(0,1)*angle2.degrad)*over);
+
+
+		env=EnvGen.ar(Env.perc(0.01,decay,pitch.reciprocal),trig,doneAction:2);
+	//env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 
 		/*osc1=Pan2.ar(
@@ -78,12 +103,12 @@ SynthDef.new(\oa, {
 				detune1.imag.round(0.001));*/
 
 			osc1=Pan4.ar(
-			SinOsc.ar((freq1+detune2.theta)*(pitch),
+			Osc.ar(b,(freq1+detune1.theta)*(pitch),
 				phase:detune1.theta,mul:TExpRand.kr(trig:SinOsc.kr(0.1))),
-				detune1.real.round(0.001),detune1.imag.round(0.001));
+				detune1.real.round(0.001),detune2.imag.round(0.001));
 
 
-		wrappedOut.value(out, LeakDC.ar((osc1 )* env*0.1));
+		wrappedOut.value(out, LeakDC.ar((osc1 )* env));
 	//wrappedOut.value(out, LeakDC.ar((osc2 )* env*0.1));
 		//Out.ar(0,LeakDC.ar((osc1 )* env*0.5));
 			m = m+1;
@@ -117,20 +142,19 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-	\dur,2,
-	\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20],inf),
+	\dur,1/3,
+	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
-	\decay,Pbrown(4,4,1,inf);
+	\decay,Pbrown(1,8,1,inf);
 )).play;
 );
 
 (
 Pdef(\2, Pbind(\instrument, \oa,
-	\dur,1/4,
-	\n,Pseq([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20],inf),
+	\dur,1/3,
+	\n,Pseq([20,23,11,25,15,23,22,8,20,23,22,11,15,18,20,18,15,22,11,23,20,8,22,23,15,25,11,23,20,8],inf),
 	//\cutt,Pbrown(440,10000,1000,inf),
-	\decay,Pbrown(4,4,1,inf);
+	\decay,Pbrown(1,8,1,inf);
 )).play;
 );
-
 
