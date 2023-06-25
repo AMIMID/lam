@@ -423,30 +423,26 @@ s.record(numChannels:4);
 (
 Tdef.new(\h,{loop({
 //////////////////////////////////////////////////////////////////////////////////////////first 6th with normal sustain
-Synth(\oa, [n: 0,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);
-Synth(\od, [n: 0,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
+Synth(\oa, [n: 2,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);
+Synth(\ob, [n: 2,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);
+Synth(\od, [n: 2,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
 
 Synth(\oa, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);
-Synth(\oe, [n: 2,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\oe, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
 
-Synth(\oa, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oa, [n: 10,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\oh, [n: 10,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);
+Synth(\oa, [n: 10,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
 
-Synth(\oa, [n: 14,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
-Synth(\oa, [n: 12,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-Synth(\oa, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\og, [n: 9,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);
+Synth(\oc, [n: 9,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);
+Synth(\oa, [n: 9,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+
+Synth(\oa, [n: 7,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
+Synth(\oa, [n: 5,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+
+Synth(\oe, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);
 Synth(\oa, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-
-Synth(\oa, [n: 10,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\oa, [n: 12,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oa, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oa, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
-Synth(\oa, [n: 2,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\oa, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oa, [n: 5,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oa, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
+Synth(\oa, [n: 2, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
 
 	}
 )})
@@ -454,50 +450,32 @@ Synth(\oa, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
 (
 Tdef.new(\i,{loop({
 //////////////////////////////////////////////////////////////////////////////////////////first 4th with normal sustain
-Synth(\ob, [n: 0,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\ob, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\ob, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\ob, [n: 10,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
-Synth(\ob, [n: 14,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
-Synth(\ob, [n: 12,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-Synth(\ob, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\ob, [n: 7, decay:1*v,out: (0..3).rotate(4.rand)]);(1/4).wait;
-
-Synth(\ob, [n: 10,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\ob, [n: 12,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\ob, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\ob, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
 Synth(\ob, [n: 2,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\ob, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\ob, [n: 5,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\ob, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\ob, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\ob, [n: 10,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\ob, [n: 9,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+
+Synth(\ob, [n: 7,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
+Synth(\ob, [n: 5,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\ob, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\ob, [n: 2, decay:1*v,out: (0..3).rotate(4.rand)]);(1/4).wait;
+
 	}
 )})
 );
 (
 Tdef.new(\j,{loop({
 //////////////////////////////////////////////////////////////////////////////////////////first 5th with normal sustain
-Synth(\oc, [n: 0,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\oc, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oc, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oc, [n: 10,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
-Synth(\oc, [n: 14,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
-Synth(\oc, [n: 12,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-Synth(\oc, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oc, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-
-Synth(\oc, [n: 10,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\oc, [n: 12,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oc, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oc, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
 Synth(\oc, [n: 2,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\oc, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oc, [n: 5,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oc, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\oc, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\oc, [n: 10,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\oc, [n: 9,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+
+Synth(\oc, [n: 7,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
+Synth(\oc, [n: 5,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\oc, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\oc, [n: 2, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+
 
 	}
 )})
@@ -505,25 +483,15 @@ Synth(\oc, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
 (
 Tdef.new(\k,{loop({
 //////////////////////////////////////////////////////////////////////////////////////////first octave with normal sustain
-Synth(\od, [n: 0,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\od, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\od, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\od, [n: 10,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
-Synth(\od, [n: 14,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
-Synth(\od, [n: 12,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-Synth(\od, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\od, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-
-Synth(\od, [n: 10,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\od, [n: 12,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\od, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\od, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
 Synth(\od, [n: 2,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\od, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\od, [n: 5,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\od, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\od, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\od, [n: 10,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\od, [n: 9,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+
+Synth(\od, [n: 7,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
+Synth(\od, [n: 5,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\od, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\od, [n: 2, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
 	}
 )})
 );
@@ -533,50 +501,32 @@ Synth(\od, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
 (
 Tdef.new(\l,{loop({
 //////////////////////////////////////////////////////////////////////////////////////////first 6th with normal sustain
-Synth(\oe, [n: 0,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\oe, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oe, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oe, [n: 10,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
-Synth(\oe, [n: 14,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
-Synth(\oe, [n: 12,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-Synth(\oe, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oe, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-
-Synth(\oe, [n: 10,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\oe, [n: 12,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oe, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oe, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
 Synth(\oe, [n: 2,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\oe, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oe, [n: 5,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oe, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\oe, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\oe, [n: 10,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\oe, [n: 9,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+
+Synth(\oe, [n: 7,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
+Synth(\oe, [n: 5,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\oe, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\oe, [n: 2, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+
 	}
 )})
 );
 (
 Tdef.new(\m,{loop({
 //////////////////////////////////////////////////////////////////////////////////////////first 4th with normal sustain
-Synth(\of, [n: 0,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\of, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\of, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\of, [n: 10,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
-Synth(\of, [n: 14,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
-Synth(\of, [n: 12,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-Synth(\of, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\of, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-
-Synth(\of, [n: 10,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\of, [n: 12,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\of, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\of, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
 Synth(\of, [n: 2,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\of, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\of, [n: 5,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\of, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\of, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\of, [n: 10,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\of, [n: 9,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+
+Synth(\of, [n: 7,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
+Synth(\of, [n: 5,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\of, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\of, [n: 2, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+
 
 	}
 )})
@@ -584,50 +534,32 @@ Synth(\of, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
 (
 Tdef.new(\n,{loop({
 //////////////////////////////////////////////////////////////////////////////////////////first 5th with normal sustain
-Synth(\og, [n: 0,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\og, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\og, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\og, [n: 10,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
-Synth(\og, [n: 14,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
-Synth(\og, [n: 12,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-Synth(\og, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\og, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-
-Synth(\og, [n: 10,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\og, [n: 12,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\og, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\og, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
 Synth(\og, [n: 2,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\og, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\og, [n: 5,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\og, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\og, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\og, [n: 10,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\og, [n: 9,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+
+Synth(\og, [n: 7,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
+Synth(\og, [n: 5,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\og, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\og, [n: 2, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+
 	}
 )})
 );
 (
 Tdef.new(\o,{loop({
 //////////////////////////////////////////////////////////////////////////////////////////first octave with normal sustain
-Synth(\oh, [n: 0,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\oh, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oh, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oh, [n: 10,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
-Synth(\oh, [n: 14,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
-Synth(\oh, [n: 12,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-Synth(\oh, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oh, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-
-Synth(\oh, [n: 10,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\oh, [n: 12,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oh, [n: 9, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oh, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
-
 Synth(\oh, [n: 2,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);(1).wait;
-Synth(\oh, [n: 9,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oh, [n: 5,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
-Synth(\oh, [n: 7,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\oh, [n: 7,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\oh, [n: 10,decay:1*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\oh, [n: 9,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+
+Synth(\oh, [n: 7,decay:4*exprand(2,4), out: (0..3).rotate(4.rand)]);1.wait;
+Synth(\oh, [n: 5,decay:2*exprand(2,4), out: (0..3).rotate(4.rand)]);(1/2).wait;
+Synth(\oh, [n: 7, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+Synth(\oh, [n: 2, decay:1*exprand(2,4),out: (0..3).rotate(4.rand)]);(1/4).wait;
+
 	}
 )})
 );
