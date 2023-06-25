@@ -17,6 +17,18 @@ Synth(\oa, [n: 14,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
 
 Synth(\oa, [n: 19,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
 
+Synth(\oa, [n: 12,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
+Synth(\oa, [n: 10,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
+Synth(\oa, [n: 5,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
+Synth(\oa, [n: 12,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
+Synth(\oa, [n: 10,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
+Synth(\oa, [n: 5,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
 
 	}
 )})
@@ -38,6 +50,19 @@ Synth(\oa, [n: 10,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
 
 Synth(\oa, [n: 7,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
 
+Synth(\oa, [n: 7,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
+Synth(\oa, [n: 2,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
+Synth(\oa, [n: 14,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
+Synth(\oa, [n: 7,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
+Synth(\oa, [n: 2,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
+Synth(\oa, [n: 14,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+
+
 
 	}
 )})
@@ -49,7 +74,9 @@ Tdef.new(\j,{loop({
 
 
 Synth(\oa, [n: 2,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(6).wait;
-Synth(\oa, [n: 2,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(6).wait;
+Synth(\oa, [n: 2,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(2).wait;
+Synth(\oa, [n: 9,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(6).wait;
+Synth(\oa, [n: 9,decay:1*exprand(2,8), out: (0..3).rotate(4.rand)]);(6).wait;
 
 
 
