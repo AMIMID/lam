@@ -36,7 +36,7 @@ x = {
     mags = (
 10000.collect{
 angle=(angle+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
-	point=exp(Complex(0,1)*angle.degrad).real;
+	point=exp(Complex(0,1)*angle.degrad).theta;
 }
 );
     phases = (
@@ -51,6 +51,6 @@ angle=(angle+(360-(360/1.61803398874989484820458683436563811772030917980576))).w
     // Now we can do the packing
     chain = PackFFT(chain, 2048, [mags, phases].flop.flatten, 0, 99, 1);
     sig = IFFT(chain);
-    sig.dup
+    sig.dup*4
 }.play
 )
