@@ -47,10 +47,19 @@ angle=(angle+(360-(360/1.61803398874989484820458683436563811772030917980576))).w
 );
     // We need to create an FFT chain to feed our data in to.
     // The easiest way is to do an FFT on some signal which we then ignore!
-    chain = FFT(LocalBuf(2048), SinOsc.ar);
+    chain = FFT(LocalBuf(2048*2), SinOsc.ar);
     // Now we can do the packing
-    chain = PackFFT(chain, 2048, [mags, phases].flop.flatten, 0, 99, 1);
+    chain = PackFFT(chain, 2048*2, [mags, phases].flop.flatten, 0, 99, 1);
     sig = IFFT(chain);
     sig.dup*4
 }.play
+)
+
+(
+s.options.numWireBufs = 1024*16;
+s.options.numOutputBusChannels=4;
+s.options.numInputBusChannels=0;
+TempoClock.default.tempo_(120/60);
+s.options.memSize = 8192*8;
+s.waitForBoot
 )

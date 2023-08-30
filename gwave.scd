@@ -13,6 +13,24 @@ Buffer.freeAll
 
 
 (
+	var angle1=1,detune1;
+~ph=1000.collect{
+	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
+	detune1=exp(Complex(0,1)*angle1.degrad).theta;
+	};
+
+b= Buffer.alloc(s,2048);
+
+~sig = Signal.sineFill(1024, 1!1000,
+	~ph
+);
+
+~sig.plot;
+~wt= ~sig.asWavetable;
+b.loadCollection(~wt);
+)
+
+(
 SynthDef.new(\oa, {
 	arg  n=1, cutt=20000,decay=3;
 	var amps,tf,tfBuf=0;
@@ -44,8 +62,8 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 	detune1=exp(Complex(0,1)*angle1.degrad);
 
 
-		osc1=Pan4.ar(SinOsc.ar((freq1*m)*pitch,
-			mul:m.reciprocal,
+		osc1=Pan4.ar(Osc.ar(b,(freq1)*pitch,
+			mul:1,
 			phase:detune1.theta),
 		detune1.real.round(0.001),detune1.imag.round(0.001));
 
