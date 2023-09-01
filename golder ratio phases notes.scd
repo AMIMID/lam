@@ -12,10 +12,10 @@ s.waitForBoot
 
 var angle1=0, detune1, m=1, x=0;
 {
-	1000.do{
+	10.do{
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
-	detune1=exp(Complex(0,1)*angle1.degrad);
+		detune1=exp(Complex(0,1)*(angle1.degrad));
 
 Out.ar(0,Pan4.ar(SinOsc.ar(110*m,
 			mul:m.reciprocal,
