@@ -1,7 +1,7 @@
 s.record(numChannels:4)
 (
 s.options.numWireBufs = 1024*16;
-s.options.numOutputBusChannels=4;
+s.options.numOutputBusChannels=8;
 s.options.numInputBusChannels=0;
 TempoClock.default.tempo_(120/60);
 s.options.memSize = 8192*8;
@@ -84,6 +84,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(440,10000,1000,inf),
+	\out,Prand([0,1,2,3],inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 )

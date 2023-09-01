@@ -15,8 +15,8 @@ Buffer.freeAll
 (
 	var angle1=1,detune1;
 
-~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!64);
-~ph=64.collect{
+~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!24);
+~ph=24.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad).theta;
 	};
@@ -39,7 +39,7 @@ SynthDef.new(\oa, {
 	var detune1, osc1;
 	var freq1, env,m=1,x=0;
 	var bank, angle1, pitch;
-	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
+	var fund=(((4*1)-1)*((4*1)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -104,6 +104,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(440,10000,1000,inf),
+	\out,Prand([0,1,2,3],inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 )
