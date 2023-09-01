@@ -15,8 +15,8 @@ Buffer.freeAll
 (
 	var angle1=1,detune1;
 
-~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!24);
-~ph=24.collect{
+~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!100);
+~ph=100.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad).theta;
 	};
@@ -48,7 +48,7 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=32;
+	bank=24;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -73,7 +73,7 @@ x=x+1;
 	m=x+1;
 	m.postln;
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env),MouseX.kr(110,20000)));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env),cutt));
 
 	};
 }).add;
@@ -99,12 +99,12 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-		\dur,Pbrown(1/4,2,1/2,inf),
+		\dur,Pbrown(1/4,1,1/4,inf),
 	\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	\cutt,Pbrown(440,10000,1000,inf),
-	\out,Prand([0,1,2,3],inf),
+	\cutt,Pbrown(440,5000,100,inf),
+	\out,Pxrand([0,1,2,3],inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 )

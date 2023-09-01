@@ -28,7 +28,7 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=32;
+	bank=24;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 
@@ -44,10 +44,10 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 		detune1=exp(Complex(0,1)*(angle1.degrad));
 
 
-		osc1=Pan4.ar(SinOsc.ar((freq1*m)*pitch,
+		osc1=Pan4.ar(SinOsc.ar((freq1*m+detune1.theta)*pitch,
 			mul:m.reciprocal,
 			phase:detune1.theta),
-		detune1.real.round(0.001),detune1.imag.round(0.001));
+		detune1.real.round(0.0001),detune1.imag.round(0.0001));
 
 x=x+1;
 	m=x+1;
@@ -79,12 +79,12 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-		\dur,Pbrown(1/4,2,1/2,inf),
+		\dur,Pbrown(1/4,1,1/4,inf),
 	\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	\cutt,Pbrown(440,10000,1000,inf),
-	\out,Prand([0,1,2,3],inf),
+	\cutt,Pbrown(440,5000,100,inf),
+	\out,Pxrand([0,1,2,3],inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 )
