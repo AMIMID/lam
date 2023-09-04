@@ -13,10 +13,10 @@ Buffer.freeAll
 
 
 (
-	var angle1=1,detune1;
+	var angle1=0,detune1;
 
-~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!16);
-~ph=16.collect{
+~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!100);
+~ph=100.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad).theta;
 	};
@@ -39,7 +39,7 @@ SynthDef.new(\oa, {
 	var detune1, osc1;
 	var freq1, env,m=1,x=0;
 	var bank, angle1, pitch;
-	var fund=(((4*1)-1)*((4*1)/2)),trig = Impulse.ar(0);
+	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -51,7 +51,7 @@ SynthDef.new(\oa, {
 	bank=18;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
-
+	fund=fund/2;
 	freq1 = fund*harm;
 	freq1=freq1*(1/1);
 env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
@@ -73,7 +73,7 @@ x=x+1;
 	m=x+1;
 	m.postln;
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*0.1),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*1),cutt));
 
 	};
 }).add;
