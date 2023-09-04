@@ -1,7 +1,7 @@
 s.record(numChannels:4)
 (
 s.options.numWireBufs = 1024*16;
-s.options.numOutputBusChannels=4;
+s.options.numOutputBusChannels=8;
 s.options.numInputBusChannels=0;
 TempoClock.default.tempo_(120/60);
 s.options.memSize = 8192*8;
@@ -15,8 +15,8 @@ Buffer.freeAll
 (
 	var angle1=1,detune1;
 
-~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!100);
-~ph=100.collect{
+~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!5);
+~ph=5.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad).theta;
 	};
@@ -48,7 +48,7 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=24;
+	bank=18;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 

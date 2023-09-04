@@ -1,7 +1,7 @@
 s.record(numChannels:4)
 (
 s.options.numWireBufs = 1024*16;
-s.options.numOutputBusChannels=8;
+s.options.numOutputBusChannels=4;
 s.options.numInputBusChannels=0;
 TempoClock.default.tempo_(120/60);
 s.options.memSize = 8192*8;
@@ -14,12 +14,12 @@ Buffer.freeAll
 
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=20000,decay=3,harm=6;
+	arg  n=1, cutt=20000,decay=3,harm=6,t=1;
 	var amps,tf,tfBuf=0;
 	var detune1, osc1;
 	var freq1, env,m=1,x=0;
 	var bank, angle1, pitch;
-	var fund=(((4*2)-1)*((4*2)/2)),trig = Impulse.ar(0);
+	var fund,trig = Impulse.ar(0);
 	var wrappedOut = { |busArray, signalArray|
 	// magic trick to expand to the larger of the two arrays
 	[busArray, signalArray].flop.do { |pair|
@@ -31,7 +31,7 @@ SynthDef.new(\oa, {
 	bank=24;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
-
+fund=(((4*t)-1)*((4*t)/2));
 	freq1 = fund*harm;
 	freq1=freq1*(1/1);
 
@@ -46,7 +46,7 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 
 		osc1=Pan4.ar(SinOsc.ar((freq1*m+detune1.theta)*pitch,
 			mul:m.reciprocal,
-			phase:detune1.theta),
+			phase:SinOsc.ar(2+detune1.theta)),
 		detune1.real.round(0.0001),detune1.imag.round(0.0001));
 
 x=x+1;
@@ -85,6 +85,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(440,5000,100,inf),
 	\out,Pxrand([0,1,2,3],inf),
+	\t,Prand([1,2,4],inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 )
