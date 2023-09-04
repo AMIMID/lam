@@ -14,7 +14,7 @@ Buffer.freeAll
 
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=20000,decay=3,harm=6,t=1;
+	arg  n=1, cutt=20000,decay=3,harm=6,t=1,attack=0.01;
 	var amps,tf,tfBuf=0;
 	var detune1, osc1;
 	var freq1, env,m=1,x=0;
@@ -28,16 +28,17 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=24;
+	bank=12;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 fund=(((4*t)-1)*((4*t)/2));
+	fund=fund/2;
 	freq1 = fund*harm;
 	freq1=freq1*(1/1);
 
 	bank.do{
 
-env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
+env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 //env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
@@ -46,7 +47,7 @@ env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 
 		osc1=Pan4.ar(SinOsc.ar((freq1*m+detune1.theta)*pitch,
 			mul:m.reciprocal,
-			phase:SinOsc.ar(2+detune1.theta)),
+			phase:detune1.theta),
 		detune1.real.round(0.0001),detune1.imag.round(0.0001));
 
 x=x+1;
@@ -85,7 +86,8 @@ Pdef(\1, Pbind(\instrument, \oa,
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(440,5000,100,inf),
 	\out,Pxrand([0,1,2,3],inf),
-	\t,Prand([1,2,4],inf),
+	\t,Prand([2],inf),
+	\attack,Pbrown(0.01,1,0.1,inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 )
