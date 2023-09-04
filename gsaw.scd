@@ -1,4 +1,4 @@
-s.record(numChannels:4)
+
 (
 s.options.numWireBufs = 1024*16;
 s.options.numOutputBusChannels=4;
@@ -36,9 +36,10 @@ fund=(((4*t)-1)*((4*t)/2));
 	freq1 = fund*harm;
 	freq1=freq1*(1/1);
 
+env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 	bank.do{
 
-env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
+
 //env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
@@ -91,3 +92,4 @@ Pdef(\1, Pbind(\instrument, \oa,
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 )
+s.record(numChannels:4)

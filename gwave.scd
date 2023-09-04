@@ -1,7 +1,7 @@
 s.record(numChannels:4)
 (
 s.options.numWireBufs = 1024*16;
-s.options.numOutputBusChannels=8;
+s.options.numOutputBusChannels=4;
 s.options.numInputBusChannels=0;
 TempoClock.default.tempo_(120/60);
 s.options.memSize = 8192*8;
@@ -15,8 +15,8 @@ Buffer.freeAll
 (
 	var angle1=1,detune1;
 
-~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!5);
-~ph=5.collect{
+~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!16);
+~ph=16.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad).theta;
 	};
@@ -34,7 +34,7 @@ b.loadCollection(~wt);
 
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=200,decay=3,harm=6;
+	arg  n=1, cutt=200,decay=3,harm=6,attack=0.01;
 	var amps,tf,tfBuf=0;
 	var detune1, osc1;
 	var freq1, env,m=1,x=0;
@@ -54,10 +54,10 @@ SynthDef.new(\oa, {
 
 	freq1 = fund*harm;
 	freq1=freq1*(1/1);
+env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 
 	bank.do{
 
-env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 //env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
@@ -73,7 +73,7 @@ x=x+1;
 	m=x+1;
 	m.postln;
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*0.1),cutt));
 
 	};
 }).add;
@@ -105,6 +105,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(440,5000,100,inf),
 	\out,Pxrand([0,1,2,3],inf),
+		\attack,Pbrown(0.01,1,0.1,inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 )
