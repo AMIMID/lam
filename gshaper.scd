@@ -32,7 +32,7 @@ b= Buffer.alloc(s,2048);
 
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=200,decay=3,harm=6,attack=0.01;
+	arg  n=1, cutt=1200,decay=3,harm=6,attack=0.01;
 	var amps,tf,tfBuf=0;
 	var detune1, osc1;
 	var freq1, env,m=1,x=0;
@@ -46,7 +46,7 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=18;
+	bank=24;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 	fund=fund/2;
@@ -63,7 +63,7 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 
 
 		osc1=Pan4.ar(Shaper.ar(~wt.bufnum, SinOsc.ar(freq1*pitch,
-						mul:LFNoise1.kr(0.1),
+						mul:LFNoise1.kr(0.01),
 						phase:detune1.theta)),
 		detune1.real.round(0.001),detune1.imag.round(0.001));
 
@@ -90,20 +90,20 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 	if(num < 49) {
 		num = num - 1
 	};
-	Synth(\oa, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	Synth(\oa, [n: num - 48, out:[ (0..3).rotate(4.rand)]]);
 
 }, noteNum: (36..96))
 )
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-		\dur,Pbrown(1/4,1,1/4,inf),
+		\dur,Pbrown(1/2,1,1/8,inf),
 	\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(440,5000,100,inf),
-	\out,Pxrand([0,1,2,3],inf),
-		\attack,Pbrown(0.01,1,0.1,inf),
+	\out,Pxrand([0,1,2,3],inf).collect([(0..3).rotate(4.rand)]),
+		//\attack,Pbrown(0.01,1,0.1,inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 )

@@ -99,13 +99,13 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-		\dur,Pbrown(1/4,1,1/4,inf),
+		\dur,Pbrown(1/2,1,1/8,inf),
 	\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(440,5000,100,inf),
-	\out,Pxrand([0,1,2,3],inf),
-		\attack,Pbrown(0.01,1,0.1,inf),
+	\out,Pxrand([0,1,2,3],inf).collect([(0..3).rotate(4.rand)]),
+		//\attack,Pbrown(0.01,1,0.1,inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
 )
