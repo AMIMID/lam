@@ -16,8 +16,8 @@ Buffer.freeAll
 (
 	var angle1=0,detune1;
 
-~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!64);
-~ph=64.collect{
+~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!32);
+~ph=32.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad).theta;
 	};
@@ -102,8 +102,8 @@ Pdef(\1, Pbind(\instrument, \oa,
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(440,1200,100,inf),
-	\out,Pxrand([0,1,2,3],inf).collect([0,_]),
-		\attack,Pbrown(0.01,1,0.1,inf),
-	\decay,Pbrown(2,4,1,inf);
+	\out, Pn(Pshuf([0, 1, 2, 3], 1), inf).clump(4).collect([_]),
+		\attack,Pbrown(0.01,0.5,0.1,inf),
+	\decay,Pbrown(2,8,1,inf);
 )).play;
 )

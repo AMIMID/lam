@@ -1,7 +1,7 @@
 
 (
 s.options.numWireBufs = 1024*16;
-s.options.numOutputBusChannels=4;
+s.options.numOutputBusChannels=8;
 s.options.numInputBusChannels=0;
 TempoClock.default.tempo_(120/60);
 s.options.memSize = 8192*8;
@@ -51,6 +51,7 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 			phase:detune1.theta),
 		detune1.real.round(0.0001),detune1.imag.round(0.0001));
 
+
 x=x+1;
 	m=x+1;
 	m.postln;
@@ -74,7 +75,7 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 	if(num < 49) {
 		num = num - 1
 	};
-	Synth(\oa, [n: num - 48, out: [(0..3).rotate(4.rand)]]);
+	Synth(\oa, [n: num - 48, out: (0..3).rotate(4.rand)]);
 
 }, noteNum: (36..96))
 )
@@ -85,10 +86,35 @@ Pdef(\1, Pbind(\instrument, \oa,
 	\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	\cutt,Pbrown(440,5000,200,inf),
-	\out,Pxrand([0,1,2,3],inf).collect([0,_]),
+	\cutt,Pbrown(440,1300,200,inf),
+	\out, Pn(Pshuf([0, 1, 2, 3], 1), inf).clump(4).collect([_]),
 		\attack,Pbrown(0.01,1,0.1,inf),
-	\decay,Pbrown(4,8,1,inf);
+	\decay,Pbrown(2,4,1,inf);
 )).play;
 )
 s.record(numChannels:4)
+
+
+
+
+(
+a=Pxrand([0,1,2,3],inf).collect([0,1,2,_].rotate(4.rand));
+x=a.asStream;
+9.do({x.next.postln;});
+)
+
+
+(
+a = Pfunc{ [0, 1, 2, 3].scramble };
+x = a.asStream;
+9.do({x.next.postln;});
+)
+
+(
+a =  Pn(Pshuf([0, 1, 2, 3], 1), inf).clump(4).collect([_]);
+x = a.asStream;
+9.do({x.next.postln;});
+)
+
+
+

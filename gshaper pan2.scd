@@ -68,7 +68,7 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 	detune1.imag.round(0.001));
 
 		osc2=Pan2.ar(Shaper.ar(~wt.bufnum, SinOsc.ar(freq1*pitch,
-						mul:LFNoise1.kr(1),
+						mul:LFNoise1.kr(0.1),
 						phase:detune1.theta)),
 		detune1.real.round(0.001));
 
@@ -103,13 +103,13 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 
 (
 Pdef(\1, Pbind(\instrument, \oa,
-		\dur,Pbrown(1/2,2,1/8,inf),
+		\dur,Pbrown(1/2,1,1/8,inf),
 	\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	\cutt,Pbrown(440,1200,100,inf),
-	\out,Pxrand([0,1],inf).collect([0,_]),
-		\attack,Pbrown(0.01,1,0.1,inf),
-	\decay,Pbrown(2,4,1,inf);
+	\cutt,Pbrown(440,2000,200,inf),
+		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
+		\attack,Pbrown(0.01,0.5,0.1,inf),
+	\decay,Pbrown(2,8,1,inf);
 )).play;
 )
