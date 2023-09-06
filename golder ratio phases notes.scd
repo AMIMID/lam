@@ -12,7 +12,7 @@ s.waitForBoot
 
 var angle1=0, detune1, m=1, x=0;
 {
-	10.do{
+	1000.do{
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 		detune1=exp(Complex(0,1)*(angle1.degrad));

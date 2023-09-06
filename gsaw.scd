@@ -14,7 +14,7 @@ Buffer.freeAll
 
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=20000,decay=3,harm=6,t=1,attack=0.01;
+	arg  n=1, cutt=20000,decay=3,harm=6,t=2,attack=0.01;
 	var amps,tf,tfBuf=0;
 	var detune1, osc1;
 	var freq1, env,m=1,x=0;
@@ -74,7 +74,7 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 	if(num < 49) {
 		num = num - 1
 	};
-	Synth(\oa, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	Synth(\oa, [n: num - 48, out: [(0..3).rotate(4.rand)]]);
 
 }, noteNum: (36..96))
 )
@@ -86,7 +86,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(440,5000,200,inf),
-	\out,Pxrand([0,1,2,3],inf).collect([_]),
+	\out,Pxrand([0,1,2,3],inf).collect([0,_]),
 		\attack,Pbrown(0.01,1,0.1,inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;
