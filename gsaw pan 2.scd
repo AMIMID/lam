@@ -60,8 +60,8 @@ x=x+1;
 	m=x+1;
 	m.postln;
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env),cutt));
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc2 )* env),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1+osc2 )* env),cutt));
+
 
 	};
 }).add;
@@ -92,7 +92,7 @@ Pdef(\1, Pbind(\instrument, \oa,
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(440,2000,200,inf),
-	\out,Pxrand([0,1],inf).collect([0,_]),
+		\out,Pxrand([0,1],inf).collect([0,_]),
 		\attack,Pbrown(0.01,1,0.1,inf),
 	\decay,Pbrown(4,8,1,inf);
 )).play;

@@ -76,8 +76,8 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 //	m=x+1;
 	//m.postln;
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*1),cutt));
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc2 )* env*1),cutt));
+	wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1+osc2 )* env),cutt));
+
 
 	};
 }).add;
