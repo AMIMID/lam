@@ -14,11 +14,11 @@ Buffer.freeAll
 ~tf=Array.fill(32,{
 	var amps,angle1=0,detune1,ph;
 
-	ph=24.collect{
+	ph=100.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad).theta;
 	};
-	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!24);
+	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!100);
 
 	Signal.sineFill(1025, amps,ph).asWavetableNoWrap;
 });
@@ -51,7 +51,7 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=12;
+	bank=24;
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 	fund=fund/2;
@@ -75,6 +75,8 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 //x=x+1;
 //	m=x+1;
 	//m.postln;
+
+		tfBuf=tfBuf+1;
 
 		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*1),cutt));
 
