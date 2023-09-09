@@ -69,7 +69,7 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 
 		osc1=Pan4.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*pitch,
 			mul:LFNoise1.kr(0.1),
-			phase:detune1.theta*pi)),
+			phase:(detune1.theta*pi).mod(2pi))),
 		detune1.real.round(0.001),detune1.imag.round(0.001));
 
 //x=x+1;

@@ -3,7 +3,7 @@
 s.options.numWireBufs = 1024*16;
 s.options.numOutputBusChannels=8;
 s.options.numInputBusChannels=0;
-TempoClock.default.tempo_(120/80);
+TempoClock.default.tempo_(120/60);
 s.options.memSize = 8192*8;
 s.waitForBoot
 )
@@ -48,7 +48,7 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 
 		osc1=Pan4.ar(SinOsc.ar((freq1*m+detune1.theta)*pitch,
 			mul:m.reciprocal,
-			phase:detune1.theta*pi),
+			phase:(detune1.theta*pi).mod(2pi)),
 		detune1.real.round(0.0001),detune1.imag.round(0.0001));
 
 

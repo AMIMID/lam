@@ -19,8 +19,8 @@ var angle1=0, detune1, m=1, x=0;
 
 Out.ar(0,Pan4.ar(SinOsc.ar(110*m,
 			mul:m.reciprocal,
-			phase:detune1.theta*pi),
-	detune1.real.round(0.001),detune1.imag.round(0.001)));
+			phase:(detune1.theta*pi).mod(2pi)),
+	0,0));
 
 x=x+1;
 	m=x+1;
