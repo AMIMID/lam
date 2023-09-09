@@ -2,7 +2,7 @@
 s.options.numWireBufs = 1024*16;
 s.options.numOutputBusChannels=4;
 s.options.numInputBusChannels=0;
-TempoClock.default.tempo_(120/60);
+TempoClock.default.tempo_(120/120);
 s.options.memSize = 8192*8;
 s.waitForBoot
 )
@@ -18,7 +18,7 @@ Buffer.freeAll
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad).theta;
 	};
-	amps = [1] ++ ({[exprand(0.1,1),exprand(0.1,1)].choose}!100);
+	amps = [1] ++ ({[exprand(0.01,1),exprand(0.1,1)].choose}!100);
 
 	Signal.sineFill(1025, amps,ph).asWavetableNoWrap;
 });
@@ -69,7 +69,7 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 
 		osc1=Pan4.ar(Shaper.ar(~tBuf[tfBuf].bufnum,SinOsc.ar((freq1)*pitch,
 			mul:LFNoise1.kr(0.1),
-			phase:detune1.theta)),
+			phase:detune1.theta*pi)),
 		detune1.real.round(0.001),detune1.imag.round(0.001));
 
 //x=x+1;
