@@ -54,7 +54,7 @@ SynthDef.new(\oa, {
 	bank=24;
 	angle1=45;
 	pitch=2.pow(n/(2*6));
-	fund=fund*2;
+	fund=fund;
 	freq1 = fund*harm;
 	freq1=freq1*(1/1);
 env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
