@@ -1,9 +1,9 @@
 
 (
 s.options.numWireBufs = 1024*16;
-s.options.numOutputBusChannels=8;
+s.options.numOutputBusChannels=4;
 s.options.numInputBusChannels=0;
-TempoClock.default.tempo_(120/60);
+TempoClock.default.tempo_(120/120);
 s.options.memSize = 8192*8;
 s.waitForBoot
 )
@@ -28,11 +28,11 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=12;
-	angle1=0;
+	bank=24;
+	angle1=45;
 	pitch=2.pow(n/(2*6));
 fund=(((4*t)-1)*((4*t)/2));
-	fund=fund/2;
+	fund=fund;
 	freq1 = fund*harm;
 	freq1=freq1*(1/1);
 
@@ -42,21 +42,21 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 
 //env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
-		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 		detune1=exp(Complex(0,1)*(angle1.degrad));
 
 
-		osc1=Pan4.ar(SinOsc.ar((freq1*m+detune1.theta)*pitch,
+		osc1=Pan4.ar(FreeVerb.ar(SinOsc.ar((freq1*m+detune1.theta)*pitch,
 			mul:m.reciprocal,
-			phase:(detune1.theta*pi).mod(2pi)),
+			phase:(detune1.theta*pi).mod(2pi)),m/100,1),
 		detune1.real.round(0.0001),detune1.imag.round(0.0001));
 
+angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 
 x=x+1;
 	m=x+1;
-	m.postln;
+	//m.postln;
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*harm.reciprocal),cutt));
 
 	};
 }).add;
@@ -83,15 +83,16 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 (
 Pdef(\1, Pbind(\instrument, \oa,
 		\dur,Pbrown(1/2,1,1/8,inf),
-	\harm,Prand([6,8,9,12],inf),
+	\harm,Prand([2,3/2,4/3,1],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	\cutt,Pbrown(440,1300,200,inf),
+	\cutt,Pbrown(440,10000,1000,inf),
 	\out, Pn(Pshuf([0, 1, 2, 3], 1), inf).clump(4).collect([_]),
-		\attack,Pbrown(0.01,1,0.1,inf),
-	\decay,Pbrown(2,4,1,inf);
+		\attack,Pbrown(0.01,0.5,0.1,inf),
+	\decay,Pbrown(2,8,1,inf);
 )).play;
 )
+
 s.record(numChannels:4)
 
 

@@ -47,9 +47,9 @@ SynthDef.new(\oa, {
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
 	bank=12;
-	angle1=0;
+	angle1=45;
 	pitch=2.pow(n/(2*6));
-	fund=fund/2;
+	fund=fund;
 	freq1 = fund*harm;
 	freq1=freq1*(1/1);
 env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
@@ -58,20 +58,21 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 
 //env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
-		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
+
 	detune1=exp(Complex(0,1)*angle1.degrad);
 
 
-		osc1=Pan4.ar(Shaper.ar(~wt.bufnum, SinOsc.ar(freq1*pitch,
+		osc1=Pan4.ar(FreeVerb.ar(Shaper.ar(~wt.bufnum, SinOsc.ar(freq1*pitch,
 						mul:LFNoise1.kr(0.1),
-						phase:detune1.theta)),
+			phase:detune1.theta)),m.reciprocal,1),
 		detune1.real.round(0.001),detune1.imag.round(0.001));
 
-//x=x+1;
-//	m=x+1;
-	//m.postln;
+x=x+1;
+	m=x+1;
+	m.postln;
+angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*1),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*harm.reciprocal),cutt));
 
 	};
 }).add;
@@ -98,10 +99,10 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 (
 Pdef(\1, Pbind(\instrument, \oa,
 		\dur,Pbrown(1/2,1,1/8,inf),
-	\harm,Prand([6,8,9,12],inf),
+	\harm,Prand([2,3/2,4/3,1],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	\cutt,Pbrown(440,1200,100,inf),
+	\cutt,Pbrown(440,10000,1000,inf),
 	\out, Pn(Pshuf([0, 1, 2, 3], 1), inf).clump(4).collect([_]),
 		//\attack,Pbrown(0.01,0.5,0.1,inf),
 	\decay,Pbrown(2,8,1,inf);
