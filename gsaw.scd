@@ -54,7 +54,7 @@ angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576)))
 
 x=x+1;
 	m=x+1;
-	m.postln;
+	//m.postln;
 
 		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*harm.reciprocal),cutt));
 
@@ -75,7 +75,7 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 	if(num < 49) {
 		num = num - 1
 	};
-	Synth(\oa, [n: num - 48, out: (0..3).rotate(4.rand)]);
+	x=Synth(\oa, [n: num - 48, out: (0..3).rotate(4.rand)]);
 
 }, noteNum: (36..96))
 )
