@@ -47,7 +47,7 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 
 		osc1=Pan4.ar(FreeVerb.ar(SinOsc.ar((freq1*m+detune1.theta)*pitch,
 			mul:m.reciprocal,
-			phase:(detune1.theta*pi).mod(2pi)),m/25,0.5),
+			phase:pi/(detune1.theta)),m/25,0.5),
 		detune1.real.round(0.0001),detune1.imag.round(0.0001));
 
 angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
