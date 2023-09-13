@@ -3,7 +3,7 @@
 s.options.numWireBufs = 1024*16;
 s.options.numOutputBusChannels=4;
 s.options.numInputBusChannels=0;
-TempoClock.default.tempo_(120/60);
+TempoClock.default.tempo_(120/80);
 s.options.memSize = 8192*8;
 s.waitForBoot
 )
@@ -12,19 +12,19 @@ s.waitForBoot
 
 var angle1=0, detune1, m=1, x=0;
 {
-	1000.do{
+	10.do{
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 		detune1=exp(Complex(0,1)*(angle1.degrad));
 
 Out.ar(0,Pan4.ar(SinOsc.ar(110*m,
 			mul:m.reciprocal,
-			phase:pi/(detune1.theta)),
-	detune1.real.round(0.0001),detune1.imag.round(0.0001)));
+			phase:2pi/(detune1.theta).postln),
+	0,0));
 
 x=x+1;
 	m=x+1;
-	m.postln;
+	//m.postln;
 
 	};
 }.play;
