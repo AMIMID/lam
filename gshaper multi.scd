@@ -14,11 +14,11 @@ Buffer.freeAll
 ~tf=Array.fill(32,{
 	var amps,angle1=0,detune1,ph;
 
-	ph=24.collect{
+	ph=32.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
-	detune1=exp(Complex(0,1)*angle1.degrad).theta;
+		detune1=2pi/(exp(Complex(0,1)*angle1.degrad).theta);
 	};
-	amps = [1] ++ ({[exprand(0.01,1),exprand(0.1,1)].choose}!24);
+	amps = [1] ++ ({[exprand(0.01,1),exprand(0.1,1)].choose}!32);
 
 	Signal.sineFill(1025, amps,ph).asWavetableNoWrap;
 });

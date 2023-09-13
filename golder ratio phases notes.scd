@@ -10,9 +10,9 @@ s.waitForBoot
 
 (
 
-var angle1=0, detune1, m=1, x=0;
+var angle1=45, detune1, m=1, x=0;
 {
-	10.do{
+	100.do{
 
 		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 		detune1=exp(Complex(0,1)*(angle1.degrad));
@@ -62,7 +62,7 @@ Buffer.freeAll
 ~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!100);
 ~ph=100.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
-	detune1=exp(Complex(0,1)*angle1.degrad).theta;
+	detune1=2pi/(exp(Complex(0,1)*angle1.degrad).theta);
 	};
 
 b= Buffer.alloc(s,2048);
