@@ -14,7 +14,7 @@ Buffer.freeAll
 
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=20000,decay=3,harm=6,t=2,attack=0.01;
+	arg  n=1, cutt=20000,decay=3,harm=2,t=2,attack=0.01;
 	var amps,tf,tfBuf=0;
 	var detune1, osc1,osc2;
 	var freq1, env,m=1,x=0;
@@ -32,11 +32,10 @@ SynthDef.new(\oa, {
 	angle1=0;
 	pitch=2.pow(n/(2*6));
 fund=(((4*t)-1)*((4*t)/2));
-	fund=fund/2;
 	freq1 = fund*harm;
 	freq1=freq1*(1/1);
 
-env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
+env=EnvGen.ar(Env.perc(attack.rand,decay,pitch.reciprocal),trig,doneAction:2);
 	bank.do{
 
 
@@ -48,19 +47,15 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 
 		osc1=Pan2.ar(SinOsc.ar((freq1*m)*pitch,
 			mul:m.reciprocal,
-			phase:detune1.theta),
+			phase:2pi/detune1.theta),
 		detune1.real.round(0.0001));
 
-			osc2=Pan2.ar(SinOsc.ar((freq1*m)*pitch,
-			mul:m.reciprocal,
-			phase:detune1.theta),
-		detune1.imag.round(0.0001));
 
 x=x+1;
 	m=x+1;
-	m.postln;
+	//m.postln;
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1+osc2 )* env),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env),cutt));
 
 
 	};
@@ -88,12 +83,12 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 (
 Pdef(\1, Pbind(\instrument, \oa,
 		\dur,Pbrown(1/2,1,1/8,inf),
-	\harm,Prand([6,8,9,12],inf),
+	//\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	\cutt,Pbrown(440,2000,200,inf),
+	\cutt,Pbrown(220,10000,1000,inf),
 		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
-		\attack,Pbrown(0.01,0.5,0.1,inf),
+		\attack,Pbrown(0.01,1,0.1,inf),
 	\decay,Pbrown(2,8,1,inf);
 )).play;
 )

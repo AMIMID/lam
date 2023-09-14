@@ -3,7 +3,7 @@
 s.options.numWireBufs = 1024*16;
 s.options.numOutputBusChannels=4;
 s.options.numInputBusChannels=0;
-TempoClock.default.tempo_(120/70);
+TempoClock.default.tempo_(120/60);
 s.options.memSize = 8192*8;
 s.waitForBoot
 )
@@ -14,7 +14,7 @@ Buffer.freeAll
 
 (
 SynthDef.new(\oa, {
-	arg  n=1, cutt=11000,decay=3,harm=3,t=2,attack=0.01;
+	arg  n=1, cutt=11000,decay=3,harm=2,t=2,attack=0.01;
 	var amps,tf,tfBuf=0;
 	var detune1, osc1;
 	var freq1, env,m=1,x=0;
@@ -28,11 +28,11 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1, 2, 3]);  // multiple buses!
 
-	bank=24;
+	bank=12;
 	angle1=45;
 	pitch=2.pow(n/(2*6));
 fund=(((4*t)-1)*((4*t)/2));
-	freq1 = fund*harm;
+	freq1 = fund*MouseX.kr(1,4);
 	freq1=freq1*(1/1);
 
 	bank.do{
@@ -45,7 +45,7 @@ env=EnvGen.ar(Env.perc(attack.rand,decay,pitch.reciprocal),trig,doneAction:2);
 
 		osc1=Pan4.ar(FreeVerb.ar(SinOsc.ar((freq1*m+detune1.theta)*pitch,
 			mul:m.reciprocal,
-			phase:2pi/(detune1.theta)),m/bank,0.5),
+			phase:2pi/(detune1.theta)),m/12,0.5),
 		detune1.real.round(0.0001),detune1.imag.round(0.0001));
 
 angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
