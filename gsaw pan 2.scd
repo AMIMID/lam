@@ -28,7 +28,7 @@ SynthDef.new(\oa, {
 };
 	var out = NamedControl.kr(\out, [0, 1]);  // multiple buses!
 
-	bank=32;
+	bank=24;
 	angle1=45;
 	pitch=2.pow(n/(2*6));
 fund=(((4*t)-1)*((4*t)/2));
@@ -57,8 +57,8 @@ x=x+1;
 	//m.postln;
 				angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env),cutt));
-		//trig = TDelay.ar(trig, 0.001);
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*1),cutt));
+		//trig = TDelay.ar(trig, 0.01);
 
 
 	};
