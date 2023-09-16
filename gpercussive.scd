@@ -60,7 +60,7 @@ x=x+1;
 )
 
 (
-Pdef(\base_pattern, Pbind(\instrument, \base,
+z=Pdef(\base_pattern, Pbind(\instrument, \base,
 	\dur,Pseq([1,1/2,1/2,1,1/2],inf),
 	//\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
@@ -69,7 +69,7 @@ Pdef(\base_pattern, Pbind(\instrument, \base,
 		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
 		//\attack,Pbrown(0.01,1,0.1,inf),
 	\decay,Pbrown(0.1,0.5,0.1,inf);
-)).play;
+))
 )
 s.record(numChannels:4)
 
@@ -102,7 +102,7 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 		detune1=exp(Complex(0,1)*(angle1.degrad));
 
 
-		osc1=Pan2.ar(FreeVerb.ar(BrownNoise.ar(mul:m.reciprocal)),detune1.real.round(0.0001));
+		osc1=Pan2.ar(FreeVerb.ar(WhiteNoise.ar(mul:m.reciprocal)),detune1.real.round(0.0001));
 
 
 x=x+1;
@@ -162,7 +162,7 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 
 
 		osc1=Pan2.ar(FreeVerb.ar(Impulse.ar((freq1)*pitch,
-			mul:m.reciprocal,
+			mul:1,
 			phase:2pi/(detune1.theta))),detune1.real.round(0.0001));
 
 
@@ -191,5 +191,9 @@ y=Pdef(\impulse1_pattern, Pbind(\instrument, \impulse1,
 	\decay,Pbrown(0.1,0.3,0.1,inf);
 ))
 )
-
-y.play
+(
+y.play;
+x.play;
+z.play;
+a.play;
+)
