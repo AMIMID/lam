@@ -31,7 +31,7 @@ SynthDef.new(\oa, {
 	var out = NamedControl.kr(\out, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);  // multiple buses!
 
 	bank=6;
-	angle1=0;
+	angle1=45;
 	pitch=2.pow(n/(2*6));
 fund=(((4*t)-1)*((4*t)/2));
 	freq1 = fund*harm;
@@ -42,19 +42,18 @@ fund=(((4*t)-1)*((4*t)/2));
 env=EnvGen.ar(Env.perc(0.05,decay,pitch.reciprocal),trig,doneAction:2);
 //env=EnvGen.ar(Env.sine(decay,pitch.reciprocal),doneAction:2);
 
-		angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 		detune1=exp(Complex(0,1)*(angle1.degrad));
 
 			osc1=VBAP.ar(16,SinOsc.ar((freq1*m+detune1.theta)*pitch,
 			mul:m.reciprocal,
-			phase:detune1.theta),~b.bufnum,detune1.real.raddeg.wrap(-180,180),detune1.imag.raddeg.wrap(-90,90));
+			phase:2pi/detune1.theta),~b.bufnum,detune1.real.raddeg.wrap(-180,180),detune1.imag.raddeg.wrap(-90,90));
 
 x=x+1;
 	m=x+1;
 	m.postln;
-
+	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env),cutt));
-
+///trig = TDelay.ar(trig, 1);
 	};
 }).add;
 
@@ -81,7 +80,7 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 (
 Pdef(\1, Pbind(\instrument, \oa,
 		\dur,Pbrown(1/4,1,1/4,inf),
-	\harm,Prand([6,8,9,12],inf),
+	//\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(440,5000,100,inf),
