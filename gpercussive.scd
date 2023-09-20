@@ -11,7 +11,7 @@ s.reboot
 Server.killAll
 Buffer.freeAll
 
-
+(
 (
 SynthDef.new(\base, {
 	arg  n=1, cutt=20000,decay=3,harm=1.5,t=2,attack=0.01;
@@ -41,10 +41,10 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 		detune1=exp(Complex(0,1)*(angle1.degrad));
 
 
-		osc1=Pan2.ar(FreeVerb.ar(SinOsc.ar((freq1*m)*pitch,add:WhiteNoise.ar(0.005),
+		osc1=Pan2.ar(FreeVerb.ar(SinOsc.ar((freq1*m)*pitch,add:BrownNoise.ar(0.05),
 			mul:m.reciprocal,
-			phase:2pi/(detune1.theta)),(m/bank)),
-		detune1.real.round(0.0001));
+			phase:(detune1.theta)+LFNoise1.ar(m)),(m/bank)),
+		detune1.imag.round(0.0001));
 
 
 x=x+1;
@@ -57,21 +57,7 @@ x=x+1;
 
 	};
 }).add;
-)
-
-(
-z=Pdef(\base_pattern, Pbind(\instrument, \base,
-	\dur,Pseq([1,1/2,1/2,1,1/2],inf),
-	//\harm,Prand([6,8,9,12],inf),
-	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-//\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	\cutt,Pbrown(220,220*8,100,inf),
-		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
-		//\attack,Pbrown(0.01,1,0.1,inf),
-	\decay,Pbrown(0.1,0.5,0.1,inf);
-))
-)
-s.record(numChannels:4)
+);
 
 (
 SynthDef.new(\noise1, {
@@ -102,7 +88,7 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 		detune1=exp(Complex(0,1)*(angle1.degrad));
 
 
-		osc1=Pan2.ar(FreeVerb.ar(WhiteNoise.ar(mul:m.reciprocal)),detune1.real.round(0.0001));
+		osc1=Pan2.ar(FreeVerb.ar(WhiteNoise.ar(mul:m.reciprocal),m/bank),detune1.real.round(0.0001));
 
 
 x=x+1;
@@ -115,22 +101,7 @@ x=x+1;
 
 	};
 }).add;
-)
-
-(
-x=Pdef(\noise1_pattern, Pbind(\instrument, \noise1,
-	\dur,Pseq([1/4,1/2,1/4,1/2,1/4],inf),
-	//\harm,Prand([6,8,9,12],inf),
-	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-//\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
-	\cutt,Pbrown(220,220*8,100,inf),
-		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
-		//\attack,Pbrown(0.01,1,0.1,inf),
-	\decay,Pbrown(0.1,0.3,0.1,inf);
-))
-)
-
-x.play
+);
 
 (
 SynthDef.new(\impulse1, {
@@ -163,7 +134,7 @@ env=EnvGen.ar(Env.perc(attack,decay,pitch.reciprocal),trig,doneAction:2);
 
 		osc1=Pan2.ar(FreeVerb.ar(Impulse.ar((freq1)*pitch,
 			mul:1,
-			phase:2pi/(detune1.theta))),detune1.real.round(0.0001));
+			phase:(detune1.theta)+LFNoise1.ar(m)),m/bank),detune1.real.round(0.0001));
 
 
 x=x+1;
@@ -171,25 +142,53 @@ x=x+1;
 	//m.postln;
 				angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*1),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*2),cutt));
 //trig = TDelay.ar(trig, 0.001);
 
 	};
 }).add;
-)
-
+);
 
 (
-y=Pdef(\impulse1_pattern, Pbind(\instrument, \impulse1,
-	\dur,Pseq([1/4,1/8,1/4,1/8,1/4],inf),
+x=Pdef(\noise1_pattern, Pbind(\instrument, \noise1,
+	\dur,Pseq([1/4,1/2,1/2,1/4,1/2],inf),
 	//\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 //\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(220,220*8,100,inf),
 		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
+	//\out,Pn(Pshuf([0, 1,2,3], 1), inf).clump(4).collect([_]),
 		//\attack,Pbrown(0.01,1,0.1,inf),
 	\decay,Pbrown(0.1,0.3,0.1,inf);
 ))
+);
+
+(
+z=Pdef(\base_pattern, Pbind(\instrument, \base,
+	\dur,Pseq([1,1/2,1/2,1,1/2],inf),
+	//\harm,Prand([6,8,9,12],inf),
+	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
+//\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\cutt,Pbrown(220,220*8,100,inf),
+		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
+	//\out,Pn(Pshuf([0, 1,2,3], 1), inf).clump(4).collect([_]),
+		//\attack,Pbrown(0.01,1,0.1,inf),
+	\decay,Pbrown(0.1,0.5,0.1,inf);
+))
+);
+(
+y=Pdef(\impulse1_pattern, Pbind(\instrument, \impulse1,
+	\dur,Pseq([1/4,1/4,1/4,1/4,1/4],inf),
+	//\harm,Prand([6,8,9,12],inf),
+	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
+//\n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
+	\cutt,Pbrown(220,220*8,100,inf),
+		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
+	//\out,Pn(Pshuf([0, 1,2,3], 1), inf).clump(4).collect([_]),
+		//\attack,Pbrown(0.01,1,0.1,inf),
+	\decay,Pbrown(0.1,0.3,0.1,inf);
+))
+)
 )
 (
 y.play;

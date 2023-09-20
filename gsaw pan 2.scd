@@ -3,7 +3,7 @@
 s.options.numWireBufs = 1024*16;
 s.options.numOutputBusChannels=2;
 s.options.numInputBusChannels=0;
-TempoClock.default.tempo_(120/80);
+TempoClock.default.tempo_(120/120);
 s.options.memSize = 8192*8;
 s.waitForBoot
 )
@@ -48,7 +48,7 @@ env=EnvGen.ar(Env.perc(attack.rand,decay,pitch.reciprocal),trig,doneAction:2);
 
 		osc1=Pan2.ar(FreeVerb.ar(SinOsc.ar((freq1*m)*pitch,
 			mul:m.reciprocal,
-			phase:2pi/(detune1.theta)),(m/bank)),
+			phase:(detune1.theta)+LFNoise1.ar(m)),(m/bank)),
 		detune1.real.round(0.0001));
 
 
@@ -84,15 +84,18 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 )
 
 (
-Pdef(\1, Pbind(\instrument, \oa,
-		\dur,Pbrown(1/2,1,1/8,inf),
+a=Pdef(\1, Pbind(\instrument, \oa,
+	\dur,1/2,
+	//\dur,Pbrown(1/2,1,1/8,inf),
 	//\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n,Prand([8,20,23,11,25,15,23,22,8,20,23,11,22,15,18,20],inf),
 	\cutt,Pbrown(220,220*8,100,inf),
 		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
-		\attack,Pbrown(0.01,1,0.1,inf),
+	//\out,Pn(Pshuf([0, 1,2,3], 1), inf).clump(4).collect([_]),
+		\attack,Pbrown(0.01,0.5,0.1,inf),
 	\decay,Pbrown(2,8,2,inf);
-)).play;
+))
 )
+a.play
 s.record(numChannels:4)
