@@ -63,7 +63,7 @@ x=x+1;
 				angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 
 		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1 )* env*1),cutt));
-		//trig = TDelay.ar(trig, 1);
+		//trig = TDelay.ar(trig, 0.01);
 
 
 	};
@@ -145,138 +145,65 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 )
 
 
-
-
-(
-Tdef.new(\h,{//loop({
-Synth(\oa, [n: 2,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\oa, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 18,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-Synth(\oa, [n: 7,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\oa, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 22,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-//////////////////////////////////////////////////////////////////////
-Synth(\oa, [n: 2,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\oa, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 18,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-Synth(\oa, [n: 7,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\oa, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 22,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 24,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-////////////////////////////////////////////////////////////////////////////
-Synth(\oa, [n: 2,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\oa, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 18,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-Synth(\oa, [n: 7,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\oa, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 21,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 18,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-	/////////////////////////////////////////////////////////////////////
-Synth(\oa, [n: 2,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\oa, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 18,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-Synth(\oa, [n: 7,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\oa, [n: 22,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 21,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\oa, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-	//}
-//)
-})
-);
-(
-Tdef.new(\i,{//loop({
-Synth(\ob, [n: 2,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\ob, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 18,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-Synth(\ob, [n: 7,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\ob, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 22,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-//////////////////////////////////////////////////////////////////////
-Synth(\ob, [n: 2,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\ob, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 18,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-Synth(\ob, [n: 7,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\ob, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 22,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 24,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-////////////////////////////////////////////////////////////////////////////
-Synth(\ob, [n: 2,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\ob, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 18,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-Synth(\ob, [n: 7,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\ob, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 21,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 18,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-	/////////////////////////////////////////////////////////////////////
-Synth(\ob, [n: 2,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\ob, [n: 14,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 18,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-Synth(\ob, [n: 7,decay:4, out: (0..1).rotate(2.rand)]);(1).wait;
-Synth(\ob, [n: 22,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 21,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-Synth(\ob, [n: 19,decay:2, out: (0..1).rotate(2.rand)]);(1/2).wait;
-
-	//}
-//)
-})
-);
-Tdef(\h).stop;
-Tdef(\h).play;
-Tdef(\h).clear;
-////////////////////4th
-Tdef(\i).stop;
-Tdef(\i).play;
-Tdef(\i).clear;
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////sine
-
-)
-
-
-
-(
-Tdef.new(\oo,{
-
-	Tdef(\h).play;(20).wait;
-	Tdef(\k).play;(20).wait;
-}
-)
-)
-s.record(numChannels:4)
-Tdef(\oo).stop;
-Tdef(\oo).play;
-Tdef(\oo).clear;
-
-
 (
 a=Pdef(\1, Pbind(\instrument, \oa,
 	//\dur,1/2,
 	\dur,Pbrown(1/2,1,1/8,inf),
 	//\harm,Prand([6,8,9,12],inf),
 	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
-\n,Prand([2,14,18,19,7,14,19,22,2,14,18,19,7,19,22,24,2,14,18,19,7,14,21,18,2,14,18,19,7,22,21,19],inf),
+\n,Pseq([2,14,18,19,
+		7,14,19,22,
+		2,14,18,19,
+		7,19,22,24,
+		2,14,18,19,
+		7,14,21,18,
+		2,14,18,19,
+		7,22,21,19,
+
+		26,31,33,34,38,31,36,34,33,
+		14,19,22,24,19,22,21,7,10,
+
+		2,14,18,19,
+		7,14,19,22,
+		2,14,18,19,
+		7,19,22,24,
+		2,14,18,19,
+		7,14,21,18,
+		2,14,18,19,
+		7,22,21,19,
+
+		12,14,12,22,19,24,26,33,
+		38,34,31,33,24,22,21,19,
+		14,10,7,9,12,10,9,7,
+		24,22,21,19,12,14,19,18,
+
+		2,14,18,19,
+		7,14,19,22,
+		2,14,18,19,
+		7,19,22,24,
+		2,14,18,19,
+		7,14,21,18,
+		2,14,18,19,
+		7,22,21,19,
+
+		14,10,9,14,18,19,21,26,
+		24,19,21,24,31,34,36,33,
+		19,22,26,12,14,7,10,12,
+		19,21,24,18,21,14,19,10,
+		14,22,21,24,22,21,19,
+
+		2,14,18,19,
+		7,14,19,22,
+		2,14,18,19,
+		7,19,22,24,
+		2,14,18,19,
+		7,14,21,18,
+		2,14,18,19,
+		7,22,21,19,
+
+
+
+	],inf),
 	\cutt,Pbrown(220,220*8,100,inf),
 		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
 	//\out,Pn(Pshuf([0, 1,2,3], 1), inf).clump(4).collect([_]),
@@ -285,4 +212,8 @@ a=Pdef(\1, Pbind(\instrument, \oa,
 	\decay,Pbrown(2,8,2,inf);
 ))
 )
-a.play
+
+a.play;
+a.stop;
+
+s.record(numChannels:4)
