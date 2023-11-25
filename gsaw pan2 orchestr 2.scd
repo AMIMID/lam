@@ -53,10 +53,10 @@ env1=EnvGen.ar(Env.perc(attack,decay,pitch1.reciprocal),trig,doneAction:2);
 			phase:(detune1.theta)),0.1),
 		detune1.real.round(0.0001));
 
-		osc2=Pan2.ar(FreeVerb.ar(SinOsc.ar((freq1*m)*pitch2,
+	/*	osc2=Pan2.ar(FreeVerb.ar(SinOsc.ar((freq1*m)*pitch2,
 			mul:m.reciprocal,
 			phase:(detune1.theta)),0.1),
-		detune1.imag.round(0.0001));
+		detune1.imag.round(0.0001));*/
 
 
 
@@ -75,7 +75,7 @@ x=x+1;
 	//m.postln;
 				angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1*env1)+(osc2*env2)),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1*env1)),cutt));
 		//Out.ar(out, LPF.ar(LeakDC.ar((osc1 )* env*1),cutt));
 		//trig = TDelay.ar(trig, 0.01);
 
@@ -154,7 +154,7 @@ MIDIdef.noteOn(\synhtone, { |val, num, chan, src|
 	if(num < 49) {
 		num = num - 1
 	};
-	Synth(\oa, [n: num - 48, out: [(0..1).rotate(2.rand)]]);
+	Synth(\oa, [n1: num - 48, out: [(0..1).rotate(2.rand)]]);
 
 }, noteNum: (36..96))
 )
@@ -165,7 +165,6 @@ a=Pdef(\1, Pbind(\instrument, \oa,
 	//\dur,1/2,
 	\dur,Pbrown(1/2,1,1/8,inf),
 	//\harm,Prand([6,8,9,12],inf),
-	//\dur,Pseq([1,1/2,2,1,1,1/2,1/4,1/2,1/4,1,1/2,1,1/4,1/2,2,1],2),
 \n1,Pseq([
 		7,14,22,21,19,
 		10,14,19,21,22,
@@ -231,26 +230,8 @@ a=Pdef(\1, Pbind(\instrument, \oa,
 		2,7,9,10,14,
 		7,10,9,7,
 
-
-
 	],inf),
 
-	\n2,Pseq([
-		7,14,22,21,19,
-		10,14,19,21,22,
-
-		9,14,21,19,18,
-		10,14,18,19,21,
-
-		7,14,22,21,19,
-		10,14,19,21,22,
-
-		9,14,21,19,18,
-		10,14,18,19,21,
-
-
-
-	],inf),
 	\cutt,Pbrown(220*2,220*8,100,inf),
 	//\out,Prand([0,1],inf),
 		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
