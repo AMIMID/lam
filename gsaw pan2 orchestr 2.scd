@@ -51,7 +51,7 @@ env1=EnvGen.ar(Env.perc(attack,decay,pitch1.reciprocal),trig,doneAction:2);
 		osc1=Pan2.ar(FreeVerb.ar(SinOsc.ar((freq1*m)*pitch1,
 			mul:m.reciprocal,
 			phase:(detune1.theta)),0.1),
-		detune1.real.round(0.0001));
+		SinOsc.ar(detune1.real.round(0.0001)));
 
 	/*	osc2=Pan2.ar(FreeVerb.ar(SinOsc.ar((freq1*m)*pitch2,
 			mul:m.reciprocal,
@@ -59,24 +59,19 @@ env1=EnvGen.ar(Env.perc(attack,decay,pitch1.reciprocal),trig,doneAction:2);
 		detune1.imag.round(0.0001));*/
 
 
-
-		/*osc1=FreeVerb.ar(SinOsc.ar((freq1*m)*pitch,
-			mul:m.reciprocal,
-			phase:(detune1.theta)),0.1);*/
-
 		/*osc1=Pan4.ar(FreeVerb.ar(SinOsc.ar((freq1*m)*pitch,
 			mul:m.reciprocal,
 			phase:(detune1.theta)+LFNoise1.ar(m)),(m/bank)),
 		detune1.real.round(0.0001),detune1.imag.round(0.0001));
 */
 
-x=x+1;
-	m=x+1;
+//x=x+1;
+	m=m+1;
 	//m.postln;
 				angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 
 		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1*env1)),cutt));
-		//Out.ar(out, LPF.ar(LeakDC.ar((osc1 )* env*1),cutt));
+
 		//trig = TDelay.ar(trig, 0.01);
 
 
@@ -233,7 +228,6 @@ a=Pdef(\1, Pbind(\instrument, \oa,
 	],inf),
 
 	\cutt,Pbrown(220*2,220*8,100,inf),
-	//\out,Prand([0,1],inf),
 		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
 	//\out,Pn(Pshuf([0, 1,2,3], 1), inf).clump(4).collect([_]),
 		//\attack,Pbrown(0.01,0.5,0.1,inf),
