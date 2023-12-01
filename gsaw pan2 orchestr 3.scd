@@ -15,8 +15,8 @@ Buffer.freeAll
 (
 	var angle1=0,detune1;
 
-~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!6);
-~ph=6.collect{
+~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!12);
+~ph=12.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad).theta;
 	};
@@ -91,7 +91,7 @@ env1=EnvGen.ar(Env.perc(attack,decay,pitch1.reciprocal),trig,doneAction:2);
 
 		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1*env1)),cutt));
 
-		//trig = TDelay.ar(trig, 0.01);
+		//trig = TDelay.ar(trig, 0.1);
 
 
 	};
