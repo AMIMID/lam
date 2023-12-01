@@ -3,7 +3,7 @@
 s.options.numWireBufs = 1024*16;
 s.options.numOutputBusChannels=2;
 s.options.numInputBusChannels=0;
-TempoClock.default.tempo_(120/50);
+TempoClock.default.tempo_(120/60);
 s.options.memSize = 8192*8;
 s.waitForBoot
 )
@@ -15,8 +15,8 @@ Buffer.freeAll
 (
 	var angle1=0,detune1;
 
-~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!12);
-~ph=12.collect{
+~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!24);
+~ph=24.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad).theta;
 	};
@@ -89,7 +89,7 @@ env1=EnvGen.ar(Env.perc(attack,decay,pitch1.reciprocal),trig,doneAction:2);
 	//m.postln;
 				angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 
-		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1*env1)),cutt));
+		wrappedOut.value(out, LPF.ar(LeakDC.ar((osc1*env1)*0.3),cutt));
 
 		//trig = TDelay.ar(trig, 0.1);
 
