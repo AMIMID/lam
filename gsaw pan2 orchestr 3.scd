@@ -15,8 +15,8 @@ Buffer.freeAll
 
 (
 	var angle1=0,detune1;
-
 ~amps = [1] ++ ({[0,exprand(0.01,1)].choose}!24);
+
 ~ph=24.collect{
 	angle1=(angle1+(360-(360/1.61803398874989484820458683436563811772030917980576))).wrap(0,360);
 	detune1=exp(Complex(0,1)*angle1.degrad).theta;
@@ -71,7 +71,7 @@ env1=EnvGen.ar(Env.perc(attack,decay,pitch1.reciprocal),trig,doneAction:2);
 		osc1=Pan2.ar(FreeVerb.ar(Shaper.ar(~wt.bufnum, SinOsc.ar((freq1*m)*pitch1,
 						mul:LFNoise1.kr(1,m.reciprocal),
 			phase:detune1.theta))),
-		SinOsc.ar(detune1.real.round(0.0001)));
+detune1.real.round(0.0001));
 
 	/*	osc2=Pan2.ar(FreeVerb.ar(SinOsc.ar((freq1*m)*pitch2,
 			mul:m.reciprocal,
