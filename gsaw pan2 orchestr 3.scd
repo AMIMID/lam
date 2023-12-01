@@ -150,7 +150,7 @@ a=Pdef(\1, Pbind(\instrument, \oa,
 
 	],inf),
 
-	\cutt,Pbrown(220*2,220*8,100,inf),
+	\cutt,Pbrown(220*2,220*16,100,inf),
 		\out,Pn(Pshuf([0, 1], 1), inf).clump(2).collect([_]),
 	//\out,Pn(Pshuf([0, 1,2,3], 1), inf).clump(4).collect([_]),
 		//\attack,Pbrown(0.01,0.5,0.1,inf),
