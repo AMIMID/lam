@@ -68,7 +68,7 @@ env1=EnvGen.ar(Env.perc(attack,decay,pitch1.reciprocal),trig,doneAction:2);
 
 
 		osc1=Pan2.ar(FreeVerb.ar(Shaper.ar(~wt.bufnum, SinOsc.ar((freq1*m)*pitch1,
-						mul:LFNoise1.kr(1),
+						mul:LFNoise1.kr(1,m.reciprocal),
 			phase:detune1.theta))),
 		SinOsc.ar(detune1.real.round(0.0001)));
 
