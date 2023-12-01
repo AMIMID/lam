@@ -7,6 +7,7 @@ TempoClock.default.tempo_(120/60);
 s.options.memSize = 8192*8;
 s.waitForBoot
 )
+s.options.device_("ASIO : ASIO4ALL v2");
 s.reboot
 Server.killAll
 Buffer.freeAll
