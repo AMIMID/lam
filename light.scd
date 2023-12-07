@@ -16,8 +16,8 @@ s.waitForBoot
 )
 
 (
-~e1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/quadraphonic additive synthesis sawtooth-wave based sample.wav",channels:0);
-~e2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/quadraphonic additive synthesis sawtooth-wave based sample.wav",channels:1);
+~e1 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/SC_231204_173840.wav",channels:0);
+~e2 = Buffer.readChannel(s,"/Users/petrostatsiopoulos/Music/SuperCollider Recordings/SC_231204_173840.wav",channels:1);
 )
 
 (
@@ -93,9 +93,9 @@ Pen.translate(400,400);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////points
 2000.do{
 
-		x1=x1+(1*(~a*0.00001));
+		x1=x1+(1*(~a*1));
 		p1= (x1)/1;
-		x2=x2+(1*(~b*0.00001));
+		x2=x2+(1*(~b*1));
 		p2= (x2)/1;
 		//x3=x3+(1*(~c*0.001));
 		//p3= (x3)/1;
@@ -123,13 +123,13 @@ Pen.translate(400,400);
 
 		Color(red:1,green:1,blue:1,alpha:1).set;
 
-		Pen.addOval(Rect.new(Polar.new(200,2pi/y.theta).asPoint.x,Polar.new(200,2pi/y1.theta).asPoint.y,~a*10,~a*10));
+		Pen.addOval(Rect.new(Polar.new(rad1,y.theta).asPoint.x,Polar.new(rad1,y1.theta).asPoint.y,~a*5,~a*5));
 
-		Pen.addOval(Rect.new(Polar.new(200,2pi/y.theta).asPoint.x,Polar.new(200,2pi/y2.theta).asPoint.y,~b*10,~b*10));
+		Pen.addOval(Rect.new(Polar.new(rad2,y.theta).asPoint.x,Polar.new(rad2,y2.theta).asPoint.y,~b*5,~b*5));
 
-		//Pen.addOval(Rect.new(Polar.new(rad5,y.theta).asPoint.x,Polar.new(rad6,y3.theta).asPoint.y,~c*10,~c*10));
-//
-		//Pen.addOval(Rect.new(Polar.new(rad7,y.theta).asPoint.x,Polar.new(rad8,y4.theta).asPoint.y,~d*10,~d*10));
+	Pen.addOval(Rect.new(Polar.new(rad3,y.theta).asPoint.x,Polar.new(rad3,y1.theta).asPoint.y,~a*5,~a*5));
+
+		Pen.addOval(Rect.new(Polar.new(rad4,y.theta).asPoint.x,Polar.new(rad4,y2.theta).asPoint.y,~b*5,~b*5));
 
 
 
@@ -140,7 +140,7 @@ Pen.translate(400,400);
 		//Pen.line(Point.new(Polar.new(rad5,y5.theta).asPoint.x,Polar.new(rad6,y6.theta).asPoint.y));
 		//Pen.line(Point.new(Polar.new(rad7,y7.theta).asPoint.x,Polar.new(rad8,y8.theta).asPoint.y));
 
-		Pen.rotate(2pi);
+		Pen.rotate((3/2)*pi);
 		Pen.stroke;~v.refresh;
 
 
@@ -149,5 +149,5 @@ Pen.translate(400,400);
 			};
 
 };
-{ while { run } {~v.background_(Color.black); ~v.refresh; (1/100).wait } }.fork(AppClock);
+{ while { run } {~v.background_(Color.black); ~v.refresh; (1/1000).wait } }.fork(AppClock);
 )
